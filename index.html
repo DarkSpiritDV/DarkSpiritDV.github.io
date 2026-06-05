@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DarkSpirit — Official | Фотогалерея</title>
+    <title>DarkSpirit — Official | Музыка и фото</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
@@ -80,35 +80,43 @@
         .hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--header-height); position: relative; }
         .hero-bg { position: absolute; inset: 0; background-image: url('club.png'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; opacity: 0.6; pointer-events: none; z-index: 0; }
         .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(139,58,74,0.2) 0%, transparent 70%); pointer-events: none; }
-        .hero-content { position: relative; z-index: 2; text-align: center; }
-        .hero-tag { display: inline-block; padding: 0.3rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 40px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); margin-top: 0.5rem; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5.8rem); font-weight: 900; background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.15em; }
-        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 1rem auto 2rem auto; }
-        .hero-stats { display: flex; gap: 2.2rem; margin-bottom: 2.5rem; flex-wrap: wrap; justify-content: center; }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-tag { display: inline-block; padding: 0.2rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 40px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); margin-bottom: 1rem; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.8rem); font-weight: 900; background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.3em; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem auto; }
+        .hero-stats { display: flex; gap: 2.2rem; margin-bottom: 2.5rem; justify-content: center; flex-wrap: wrap; }
         .stat-number { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; line-height: 1; }
         .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
         .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; text-decoration: none; border: none; }
         .btn-primary { background: var(--accent-burgundy); color: white; box-shadow: 0 8px 20px rgba(139,58,74,0.4); }
         .btn-primary:hover { background: #b34e62; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(139,58,74,0.5); }
-        .btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,0.25); color: var(--text-primary); }
-        .btn-outline:hover { border-color: var(--accent-burgundy); background: rgba(139,58,74,0.1); }
 
         /* плеер */
         .player-wrapper { position: sticky; top: var(--header-height); z-index: 900; background: rgba(14,14,20,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-mid); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .player-inner { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.8rem; max-width: 1280px; margin: 0 auto; }
+        .player-inner { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.8rem; max-width: 1280px; margin: 0 auto; flex-wrap: wrap; }
         .player-cover { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg-elevated); border: 1px solid var(--border-mid); }
-        .player-info { flex: 1; min-width: 0; }
+        .player-info { flex: 1; min-width: 120px; }
         .player-track { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .player-artist { font-size: 0.7rem; color: var(--text-muted); }
-        .player-controls { display: flex; align-items: center; gap: 0.6rem; }
-        .player-btn { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .player-controls { display: flex; align-items: center; gap: 0.4rem; }
+        .player-btn { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
         .player-btn:hover { background: rgba(255,255,255,0.08); color: var(--accent-burgundy); }
         .play-btn { background: var(--accent-burgundy); color: white; box-shadow: 0 4px 12px rgba(139,58,74,0.5); }
-        .progress-container { width: 180px; }
+        .progress-container { width: 200px; }
         .progress-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer; }
         .progress-bar-fill { width: 0%; height: 100%; background: var(--accent-burgundy); border-radius: 4px; }
         .time-display { font-size: 0.7rem; color: var(--text-muted); min-width: 42px; }
-        @media (max-width: 700px) { .progress-container { width: 100px; } .player-inner { gap: 0.6rem; padding: 0.5rem 1rem; } .player-cover { width: 42px; height: 42px; } .player-btn { width: 32px; height: 32px; font-size: 1rem; } }
+        .volume-container { width: 80px; margin-left: 0.5rem; }
+        .volume-slider { width: 100%; cursor: pointer; background: rgba(255,255,255,0.15); height: 3px; border-radius: 3px; -webkit-appearance: none; }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-burgundy); cursor: pointer; }
+        @media (max-width: 700px) {
+            .player-inner { flex-wrap: wrap; justify-content: space-between; }
+            .player-info { order: 1; width: 100%; margin-top: 0.3rem; }
+            .player-controls { order: 2; }
+            .progress-container { order: 3; width: calc(100% - 100px); margin-left: 0; }
+            .time-display { order: 4; }
+            .volume-container { order: 5; width: 100%; margin-top: 0.5rem; margin-left: 0; }
+        }
 
         /* новости */
         .news-scroll-wrapper { overflow-x: auto; scroll-behavior: smooth; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--accent-burgundy) var(--bg-elevated); }
@@ -124,12 +132,12 @@
         .tab-btn { background: none; border: none; color: var(--text-muted); padding: 0.5rem 1.2rem; border-radius: 40px; font-weight: 500; cursor: pointer; transition: 0.2s; }
         .tab-btn.active { background: var(--bg-elevated); color: var(--text-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
         .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; }
-        .albums-grid, .games-grid, .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem; }
+        .albums-grid, .games-grid, .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem; }
         .track-card, .album-card, .game-card, .photo-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1rem; transition: all 0.3s; cursor: pointer; }
         .track-card:hover, .album-card:hover, .game-card:hover, .photo-card:hover { transform: translateY(-5px); border-color: var(--border-mid); box-shadow: var(--shadow-card); }
         .track-cover, .album-cover, .game-cover, .photo-img { width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); object-fit: cover; margin-bottom: 0.7rem; background: var(--bg-elevated); }
         .track-title, .album-title, .game-title, .photo-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
-        .track-meta, .album-meta, .game-meta, .photo-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.7rem; }
+        .track-meta, .album-meta, .game-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.7rem; }
         .track-actions { display: flex; justify-content: space-between; align-items: center; }
         .btn-sm { padding: 0.3rem 0.9rem; font-size: 0.7rem; border-radius: 30px; }
         .like-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #aaa; }
@@ -139,100 +147,84 @@
         .back-button { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--bg-elevated); padding: 0.4rem 1rem; border-radius: 30px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
         .back-button:hover { background: var(--accent-burgundy); }
 
-        /* календарь */
-        .calendar-wrapper { background: var(--bg-card); border-radius: var(--radius-xl); padding: 1.8rem; border: 1px solid var(--border-mid); box-shadow: var(--shadow-card); backdrop-filter: blur(4px); }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
-        .calendar-month { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, #fff, #b3aeb8); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .calendar-legend { display: flex; gap: 1rem; font-size: 0.7rem; }
-        .legend-dot { display: inline-block; width: 12px; height: 12px; background: var(--accent-burgundy); border-radius: 20px; margin-right: 6px; box-shadow: 0 0 6px var(--accent-burgundy); }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.8rem; text-align: center; }
-        .calendar-weekday { font-weight: 600; color: var(--accent-steel); font-size: 0.8rem; text-transform: uppercase; padding-bottom: 0.8rem; letter-spacing: 1px; }
-        .calendar-day { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 500; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-md); transition: all 0.2s ease; position: relative; cursor: default; border: 1px solid transparent; }
-        .calendar-day.empty { background: transparent; cursor: default; opacity: 0.3; }
-        .calendar-day.release-day { background: linear-gradient(145deg, #8b3a4a20, #5f273320); border-color: var(--accent-burgundy); color: #e8a5b3; font-weight: 700; box-shadow: 0 0 8px rgba(139,58,74,0.4); cursor: help; }
-        .calendar-day.release-day:hover { transform: scale(1.05); background: var(--accent-burgundy); color: white; box-shadow: 0 0 14px var(--accent-burgundy); }
-        .calendar-day.release-day::after { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); color: #f0e6e6; padding: 0.3rem 0.8rem; border-radius: 24px; font-size: 0.7rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 10; border: 1px solid var(--accent-burgundy); }
+        /* календарь уменьшен в 3 раза */
+        .calendar-wrapper { background: var(--bg-card); border-radius: var(--radius-md); padding: 0.6rem; border: 1px solid var(--border-mid); max-width: 400px; margin: 0 auto; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem; }
+        .calendar-month { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; }
+        .calendar-legend { display: flex; gap: 0.5rem; font-size: 0.6rem; }
+        .legend-dot { display: inline-block; width: 8px; height: 8px; background: var(--accent-burgundy); border-radius: 10px; margin-right: 3px; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.2rem; text-align: center; }
+        .calendar-weekday { font-weight: 600; color: var(--accent-steel); font-size: 0.6rem; text-transform: uppercase; padding-bottom: 0.3rem; }
+        .calendar-day { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 500; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-sm); transition: all 0.2s; position: relative; border: 1px solid transparent; }
+        .calendar-day.empty { background: transparent; opacity: 0.3; }
+        .calendar-day.release-day { background: linear-gradient(145deg, #8b3a4a20, #5f273320); border-color: var(--accent-burgundy); color: #e8a5b3; font-weight: 700; cursor: help; }
+        .calendar-day.release-day:hover { transform: scale(1.05); background: var(--accent-burgundy); color: white; }
+        .calendar-day.release-day::after { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); color: #f0e6e6; padding: 0.2rem 0.5rem; border-radius: 16px; font-size: 0.6rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 10; }
         .calendar-day.release-day:hover::after { opacity: 1; }
-        .calendar-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px dashed var(--border-mid); font-size: 0.8rem; color: var(--text-secondary); display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .calendar-note { margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-mid); font-size: 0.65rem; color: var(--text-secondary); display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
 
-        /* фото-галерея */
-        .photo-grid { gap: 1.5rem; }
+        /* фото */
+        .photos-grid { gap: 1rem; }
         .photo-card { cursor: pointer; }
-        .photo-img { aspect-ratio: 4/3; object-fit: cover; }
+        .photo-title { font-size: 0.8rem; text-align: center; }
 
-        .bio-block { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; justify-content: center; text-align: center; }
+        .bio-block { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
         .bio-image { width: 160px; height: 160px; border-radius: 50%; background: var(--bg-elevated); border: 2px solid var(--accent-burgundy); object-fit: cover; }
-        .support-block { text-align: center; background: var(--bg-card); padding: 2.5rem; border-radius: var(--radius-xl); }
+        .support-block { text-align: center; background: var(--bg-card); padding: 2rem; border-radius: var(--radius-xl); }
         .footer { border-top: 1px solid var(--border-mid); padding: 2rem 0; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
         .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: var(--bg-card); max-width: 800px; width: 90%; border-radius: 24px; position: relative; padding: 2rem; text-align: center; }
-        .modal-close { position: absolute; top: 12px; right: 20px; font-size: 2rem; cursor: pointer; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); padding: 8px 18px; border-radius: 40px; font-size: 0.8rem; opacity: 0; transition: 0.2s; pointer-events: none; z-index: 1100; }
+        .modal-content { background: var(--bg-card); max-width: 90%; max-height: 90%; border-radius: 24px; overflow: auto; position: relative; padding: 1rem; }
+        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 2rem; cursor: pointer; color: white; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 40px; font-size: 0.75rem; opacity: 0; transition: 0.2s; pointer-events: none; z-index: 1100; }
     </style>
 </head>
 <body>
 <div class="toast" id="toastMsg">🎵 Загрузка трека...</div>
-<header class="header" id="header"><div class="header-inner"><a href="#" class="logo"><img src="logo.png" alt="logo"><span>DarkSpirit</span></a><nav class="nav" id="nav"><a href="#hero">Главная</a><a href="#news">Новости</a><a href="#music">Музыка</a><a href="#schedule">Релизы</a><a href="#photo">Фото</a><a href="#bio">О проекте</a><a href="#support">Поддержка</a></nav><div class="lang-switch"><button class="lang-btn active" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div><button class="mobile-menu-toggle"><span></span><span></span><span></span></button></div></header>
+<header class="header" id="header"><div class="header-inner"><a href="#" class="logo"><img src="logo.png" alt="logo"><span>DarkSpirit</span></a><nav class="nav" id="nav"><a href="#hero">Главная</a><a href="#news">Новости</a><a href="#music">Музыка</a><a href="#schedule">Релизы</a><a href="#photos">Фото</a><a href="#bio">О проекте</a><a href="#support">Поддержка</a></nav><div class="lang-switch"><button class="lang-btn active" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div><button class="mobile-menu-toggle"><span></span><span></span><span></span></button></div></header>
 
-<section class="hero" id="hero"><div class="hero-bg"></div><div class="container hero-content fade-in-up"><h1>DarkSpirit</h1><span class="hero-tag">Группа</span><p>Музыка, которая остаётся в памяти навсегда.</p><div class="hero-stats"><div class="stat-item"><div class="stat-number" id="statPlatforms" data-target="32">0</div><div class="stat-label">Площадок</div></div><div class="stat-item"><div class="stat-number" id="statStreams" data-target="902">0</div><div class="stat-label">Тыс. прослушиваний</div></div><div class="stat-item"><div class="stat-number" id="statTracks" data-target="107">0</div><div class="stat-label">Релизов</div></div></div><a href="#music" class="btn btn-primary">🎧 Слушать свежий релиз</a></div></section>
+<section class="hero" id="hero"><div class="hero-bg"></div><div class="container hero-content fade-in-up"><span class="hero-tag">Группа</span><h1>DarkSpirit</h1><p>Музыка, которая остаётся в памяти навсегда.</p><div class="hero-stats"><div class="stat-item"><div class="stat-number" id="statPlatforms" data-target="32">0</div><div class="stat-label">Площадок</div></div><div class="stat-item"><div class="stat-number" id="statStreams" data-target="921427">0</div><div class="stat-label">Прослушиваний</div></div><div class="stat-item"><div class="stat-number" id="statTracks" data-target="107">0</div><div class="stat-label">Релизов</div></div></div><a href="#music" class="btn btn-primary">🎧 Слушать свежий релиз</a></div></section>
 
-<div class="player-wrapper"><div class="player-inner"><img class="player-cover" id="playerCover" src="data:image/svg+xml,%3Csvg%3E" alt="cover"><div class="player-info"><div class="player-track" id="playerTrack">DarkSpirit</div><div class="player-artist">DarkSpirit</div></div><div class="player-controls"><button class="player-btn" id="playerPrev">⏮</button><button class="player-btn play-btn" id="playerPlay">▶</button><button class="player-btn" id="playerNext">⏭</button><input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.7" style="width:70px"></div><div class="progress-container"><div class="progress-bar-bg" id="progressBarBg"><div class="progress-bar-fill" id="progressBarFill"></div></div></div><span class="time-display" id="timeDisplay">0:00</span></div><audio id="audioElement" preload="metadata"></audio></div>
+<div class="player-wrapper"><div class="player-inner"><img class="player-cover" id="playerCover" src="data:image/svg+xml,%3Csvg%3E" alt="cover"><div class="player-info"><div class="player-track" id="playerTrack">DarkSpirit</div><div class="player-artist">DarkSpirit</div></div><div class="player-controls"><button class="player-btn" id="playerPrev">⏮</button><button class="player-btn play-btn" id="playerPlay">▶</button><button class="player-btn" id="playerNext">⏭</button></div><div class="progress-container"><div class="progress-bar-bg" id="progressBarBg"><div class="progress-bar-fill" id="progressBarFill"></div></div></div><span class="time-display" id="timeDisplay">0:00</span><div class="volume-container"><input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.7"></div></div><audio id="audioElement" preload="metadata"></audio></div>
 
 <section id="news"><div class="container"><h2 class="fade-in-up">Новости</h2><span class="section-subtitle">Последние события</span><div class="news-scroll-wrapper fade-in-up"><div class="news-grid" id="newsGrid"></div></div></div></section>
 
 <section id="music"><div class="container"><h2 class="fade-in-up">Каталог</h2><span class="section-subtitle">Релизы, треки, игры</span><div class="tabs fade-in-up"><button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button><button class="tab-btn" data-tab="thematic">Музыка для СВО</button><button class="tab-btn" data-tab="games">Онлайн игры</button></div><div id="catalogContainer" class="fade-in-up"></div></div></section>
 
-<section id="schedule"><div class="container"><h2 class="fade-in-up">Календарь релизов</h2><span class="section-subtitle">Июнь 2026 — выделенные даты</span><div class="calendar-wrapper fade-in-up" id="calendarRoot"></div></div></section>
+<section id="schedule"><div class="container"><h2 class="fade-in-up">Календарь релизов</h2><span class="section-subtitle">Июнь 2026</span><div class="calendar-wrapper fade-in-up" id="calendarRoot"></div></div></section>
 
-<!-- НОВЫЙ РАЗДЕЛ ФОТО -->
-<section id="photo"><div class="container"><h2 class="fade-in-up">Фотогалерея</h2><span class="section-subtitle">Моменты выступлений и студии</span><div class="photo-grid fade-in-up" id="photoGrid"></div></div></section>
+<section id="photos"><div class="container"><h2 class="fade-in-up">Фото</h2><span class="section-subtitle">Моменты с выступлений и закулисья</span><div class="photos-grid" id="photosGrid"></div></div></section>
 
 <section id="bio"><div class="container"><h2>О проекте</h2><div class="bio-block"><img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS"><div class="bio-text"><p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии.</p><a href="#" class="btn btn-outline">📥 Press Kit</a></div></div></div></section>
 <section id="support"><div class="container"><div class="support-block"><h2>Поддержать</h2><p>Boosty / VK Donut</p><a href="#" class="btn btn-primary">💜 Boosty</a><a href="#" class="btn btn-outline">🎁 VK Donut</a></div></div></section>
 <footer class="footer"><div class="container"><div class="footer-links"><a href="#">VK</a><a href="#">YouTube</a></div><p>© 2026 DarkSpirit</p><div class="visit-counter">👁️ <span id="visitCounter">0</span> посещений</div></div></footer>
-<div class="modal" id="photoModal"><div class="modal-content"><span class="modal-close">&times;</span><img id="modalPhotoImg" src="" style="max-width:100%; max-height:70vh; border-radius:12px;"><div id="modalPhotoCaption" style="margin-top:1rem;"></div></div></div>
+<div class="modal" id="photoModal"><div class="modal-content"><span class="modal-close">&times;</span><img id="modalImage" style="width:100%; border-radius:12px;" src="" alt=""></div></div>
 
 <script>
     (function(){
-        // ---------- ИГРОВЫЕ ТРЕКИ (по 10 на каждую игру) ----------
-        const caliberTracks = [];
-        for (let i = 1; i <= 10; i++) {
-            caliberTracks.push({ id: 100 + i, title: `Калибр - Трек ${i}`, titleEn: `Caliber - Track ${i}`, category: 'game', cover: `cover_caliber_${i}.jpg`, audioSrc: `caliber_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'caliber' });
-        }
-        const arcTracks = [];
-        for (let i = 1; i <= 10; i++) {
-            arcTracks.push({ id: 200 + i, title: `ARC Raiders - Трек ${i}`, titleEn: `ARC Raiders - Track ${i}`, category: 'game', cover: `cover_arc_${i}.jpg`, audioSrc: `arc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'arc' });
-        }
-        const miscTracks = [];
-        for (let i = 1; i <= 10; i++) {
-            miscTracks.push({ id: 300 + i, title: `Сборник - Трек ${i}`, titleEn: `Misc - Track ${i}`, category: 'game', cover: `cover_misc_${i}.jpg`, audioSrc: `misc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'misc' });
-        }
+        // ---------- ИГРОВЫЕ ТРЕКИ ----------
+        const caliberTracks = []; for (let i = 1; i <= 10; i++) { caliberTracks.push({ id: 100 + i, title: `Калибр - Трек ${i}`, titleEn: `Caliber - Track ${i}`, category: 'game', cover: `cover_caliber_${i}.jpg`, audioSrc: `caliber_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'caliber' }); }
+        const arcTracks = []; for (let i = 1; i <= 10; i++) { arcTracks.push({ id: 200 + i, title: `ARC Raiders - Трек ${i}`, titleEn: `ARC Raiders - Track ${i}`, category: 'game', cover: `cover_arc_${i}.jpg`, audioSrc: `arc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'arc' }); }
+        const miscTracks = []; for (let i = 1; i <= 10; i++) { miscTracks.push({ id: 300 + i, title: `Сборник - Трек ${i}`, titleEn: `Misc - Track ${i}`, category: 'game', cover: `cover_misc_${i}.jpg`, audioSrc: `misc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'misc' }); }
 
-        // Основные треки (поп/рок/рэп)
+        // ---------- ОСНОВНЫЕ ТРЕКИ (поп/рок/рэп) ----------
         const mainTracks = [
             { id:1, title:'Запятая у окна', titleEn:'Comma by the Window', category:'pop-rap', cover:'Запятая у окна.png', audioSrc:'zapyataya.mp3', likes:12, userLiked:false, gameId: null },
             { id:2, title:'Soul and Stream', titleEn:'Soul and Stream', category:'pop-rap', cover:'Soul and Stream.jpg', audioSrc:'SoulandStream.mp3', likes:8, userLiked:false, gameId: null },
             { id:3, title:'Пробки заебали', titleEn:'Traffic Jams', category:'pop-rap', cover:'Пробки заебали.png', audioSrc:'Probki.mp3', likes:15, userLiked:false, gameId: null }
         ];
 
-        // Альбомы для "Музыка для СВО"
+        // ---------- АЛЬБОМЫ ДЛЯ "МУЗЫКА ДЛЯ СВО" ----------
         const svoAlbums = [
             { id: 'svo_album1', title: 'Альбом: Честь и отвага', titleEn: 'Album: Honor and Courage', cover: 'svo_album1.jpg', description: 'Сборник патриотических песен' },
             { id: 'svo_album2', title: 'Альбом: За ленточкой', titleEn: 'Album: Behind the Ribbon', cover: 'svo_album2.jpg', description: 'Посвящение героям' },
             { id: 'svo_album3', title: 'Альбом: Возвращение', titleEn: 'Album: Return', cover: 'svo_album3.jpg', description: 'Мирная жизнь после' }
         ];
         const svoTracksByAlbum = {};
-        svoAlbums.forEach((album, idx) => {
-            let tracks = [];
-            for (let i = 1; i <= 10; i++) {
-                tracks.push({ id: 400 + idx*100 + i, title: `${album.title} - Трек ${i}`, titleEn: `${album.titleEn} - Track ${i}`, category: 'thematic_album', cover: `svo_track_${idx+1}_${i}.jpg`, audioSrc: `svo_track_${idx+1}_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, albumId: album.id });
-            }
-            svoTracksByAlbum[album.id] = tracks;
-        });
+        svoAlbums.forEach((album, idx) => { let tracks = []; for (let i = 1; i <= 10; i++) { tracks.push({ id: 400 + idx*100 + i, title: `${album.title} - Трек ${i}`, titleEn: `${album.titleEn} - Track ${i}`, category: 'thematic_album', cover: `svo_track_${idx+1}_${i}.jpg`, audioSrc: `svo_track_${idx+1}_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, albumId: album.id }); } svoTracksByAlbum[album.id] = tracks; });
 
         const allTracks = [...mainTracks, ...caliberTracks, ...arcTracks, ...miscTracks];
-        for (let albumId in svoTracksByAlbum) allTracks.push(...svoTracksByAlbum[albumId]);
+        for (let albumId in svoTracksByAlbum) { allTracks.push(...svoTracksByAlbum[albumId]); }
 
         const gamesData = [
             { id: 'caliber', title: 'Калибр', titleEn: 'Caliber', cover: 'caliber_game.jpg', tracks: caliberTracks },
@@ -246,14 +238,9 @@
             { date:"22.05.2026", titleRu:"Преодолели 900 000 прослушиваний", titleEn:"Over 900k streams", descRu:"Спасибо каждому", descEn:"Thank you all", tagRu:"Новость", tagEn:"News" }
         ];
 
-        // Фотографии (заглушки)
-        const photos = [
-            { src: "photo1.jpg", title: "Концерт в Москве", titleEn: "Concert in Moscow" },
-            { src: "photo2.jpg", title: "За кулисами", titleEn: "Backstage" },
-            { src: "photo3.jpg", title: "Студийная сессия", titleEn: "Studio session" },
-            { src: "photo4.jpg", title: "Фан-встреча", titleEn: "Fan meeting" },
-            { src: "photo5.jpg", title: "Выступление на фестивале", titleEn: "Festival performance" },
-            { src: "photo6.jpg", title: "Портрет", titleEn: "Portrait" }
+        // Фото (заглушки)
+        const photosData = [
+            { src: "photo1.jpg", title: "Концерт в Москве" }, { src: "photo2.jpg", title: "За кулисами" }, { src: "photo3.jpg", title: "Студийная запись" }
         ];
 
         let currentLang = 'ru';
@@ -275,7 +262,8 @@
 
         function showToast(msg) { toastMsg.innerText = msg; toastMsg.style.opacity = '1'; setTimeout(() => toastMsg.style.opacity = '0', 2000); }
         function getTrackById(id) { return allTracks.find(t => t.id === id); }
-        function loadTrackById(id) {
+
+        function loadTrackById(id, autoPlay = false) {
             let t = getTrackById(id);
             if (!t) return;
             audio.src = t.audioSrc;
@@ -284,65 +272,101 @@
             coverImg.src = t.cover || '';
             progressFill.style.width = '0%';
             timeSpan.innerText = '0:00';
-            isPlaying = false;
-            playBtn.innerText = '▶';
+            if (autoPlay) {
+                audio.play().then(() => { isPlaying = true; playBtn.innerText = '⏸'; }).catch(err => showToast(`Ошибка: ${err.message}`));
+            } else {
+                isPlaying = false;
+                playBtn.innerText = '▶';
+            }
             audio.onerror = () => showToast(`❌ Не удалось загрузить: ${t.audioSrc}`);
             currentTrackId = id;
         }
+
         function togglePlay() {
             if (isPlaying) { audio.pause(); isPlaying = false; playBtn.innerText = '▶'; }
-            else { audio.play().then(() => { isPlaying = true; playBtn.innerText = '⏸'; }).catch(err => showToast(`Ошибка воспроизведения: ${err.message}`)); }
+            else { audio.play().then(() => { isPlaying = true; playBtn.innerText = '⏸'; }).catch(err => showToast(`Ошибка: ${err.message}`)); }
         }
-        function nextTrack() { let idx = allTracks.findIndex(t => t.id === currentTrackId); let next = (idx + 1) % allTracks.length; loadTrackById(allTracks[next].id); if (isPlaying) togglePlay(); }
-        function prevTrack() { let idx = allTracks.findIndex(t => t.id === currentTrackId); let prev = (idx - 1 + allTracks.length) % allTracks.length; loadTrackById(allTracks[prev].id); if (isPlaying) togglePlay(); }
-        function updateProgress() { if (audio.duration && !isNaN(audio.duration)) { let percent = (audio.currentTime / audio.duration) * 100; progressFill.style.width = percent + '%'; let mins = Math.floor(audio.currentTime/60), secs = Math.floor(audio.currentTime%60); timeSpan.innerText = mins + ':' + (secs<10?'0':'') + secs; } }
-        function setProgress(e) { let rect = progressBg.getBoundingClientRect(); let perc = (e.clientX - rect.left) / rect.width; if (audio.duration) audio.currentTime = perc * audio.duration; }
-        playBtn.onclick = togglePlay; prevBtn.onclick = prevTrack; nextBtn.onclick = nextTrack; audio.addEventListener('timeupdate', updateProgress); audio.addEventListener('ended', () => { nextTrack(); isPlaying = false; playBtn.innerText = '▶'; }); progressBg.addEventListener('click', setProgress); if (volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
+
+        function nextTrack() {
+            let currentIdx = allTracks.findIndex(t => t.id === currentTrackId);
+            let nextIdx = (currentIdx + 1) % allTracks.length;
+            loadTrackById(allTracks[nextIdx].id, true);
+        }
+        function prevTrack() {
+            let currentIdx = allTracks.findIndex(t => t.id === currentTrackId);
+            let prevIdx = (currentIdx - 1 + allTracks.length) % allTracks.length;
+            loadTrackById(allTracks[prevIdx].id, true);
+        }
+
+        function updateProgress() {
+            if (audio.duration && !isNaN(audio.duration)) {
+                let percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = percent + '%';
+                let mins = Math.floor(audio.currentTime / 60);
+                let secs = Math.floor(audio.currentTime % 60);
+                timeSpan.innerText = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            }
+        }
+        function setProgress(e) {
+            let rect = progressBg.getBoundingClientRect();
+            let perc = (e.clientX - rect.left) / rect.width;
+            if (audio.duration) audio.currentTime = perc * audio.duration;
+        }
+
+        playBtn.onclick = togglePlay;
+        prevBtn.onclick = prevTrack;
+        nextBtn.onclick = nextTrack;
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', () => { nextTrack(); });
+        progressBg.addEventListener('click', setProgress);
+        if (volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
 
         function renderTracks(tracks, container) {
             if (!tracks.length) { container.innerHTML = '<div style="text-align:center;">Нет треков</div>'; return; }
-            let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card"><img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div><div class="track-meta">DarkSpirit</div><div class="track-actions"><button class="btn-sm btn-primary play-track-btn" data-id="${t.id}">▶ ${currentLang === 'ru' ? 'Слушать' : 'Play'}</button><button class="like-btn ${t.userLiked ? 'liked' : ''}" data-id="${t.id}">${t.userLiked ? '❤️' : '♡'}</button><span class="likes-count">${t.likes}</span></div></div>`).join('') + `</div>`;
+            let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card">
+                <img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'">
+                <div class="track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div>
+                <div class="track-meta">DarkSpirit</div>
+                <div class="track-actions">
+                    <button class="btn-sm btn-primary play-track-btn" data-id="${t.id}">▶ ${currentLang === 'ru' ? 'Слушать' : 'Play'}</button>
+                    <button class="like-btn ${t.userLiked ? 'liked' : ''}" data-id="${t.id}">${t.userLiked ? '❤️' : '♡'}</button>
+                    <span class="likes-count">${t.likes}</span>
+                </div>
+            </div>`).join('') + `</div>`;
             container.innerHTML = html;
-            container.querySelectorAll('.play-track-btn').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); let id = parseInt(btn.dataset.id); loadTrackById(id); togglePlay(); }));
-            container.querySelectorAll('.like-btn').forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); let id = parseInt(btn.dataset.id); let t = getTrackById(id); if (t) { t.userLiked = !t.userLiked; t.likes += t.userLiked ? 1 : -1; if (t.likes < 0) t.likes = 0; renderCatalog(); } }));
+            container.querySelectorAll('.play-track-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let id = parseInt(btn.dataset.id);
+                loadTrackById(id, true);
+            }));
+            container.querySelectorAll('.like-btn').forEach(btn => btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let id = parseInt(btn.dataset.id);
+                let t = getTrackById(id);
+                if (t) { t.userLiked = !t.userLiked; t.likes += t.userLiked ? 1 : -1; if (t.likes < 0) t.likes = 0; renderCatalog(); }
+            }));
         }
+
         function renderGamesList() {
             let html = `<div class="games-grid">` + gamesData.map(g => `<div class="game-card" data-id="${g.id}"><img class="game-cover" src="${g.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="game-title">${currentLang === 'ru' ? g.title : g.titleEn}</div><div class="game-meta">${currentLang === 'ru' ? 'Нажмите, чтобы открыть треки' : 'Click to open tracks'}</div></div>`).join('') + `</div>`;
             catalogContainer.innerHTML = html;
-            document.querySelectorAll('.game-card').forEach(card => { card.addEventListener('click', () => { let game = gamesData.find(g => g.id === card.dataset.id); if (game) { catalogContainer.innerHTML = `<div class="back-button" id="backToGames">← ${currentLang === 'ru' ? 'Назад к играм' : 'Back to games'}</div><div id="tracksContainer"></div>`; renderTracks(game.tracks, document.getElementById('tracksContainer')); document.getElementById('backToGames').addEventListener('click', () => { renderCatalog(); }); } }); });
+            document.querySelectorAll('.game-card').forEach(card => { card.addEventListener('click', () => { let gameId = card.dataset.id; let game = gamesData.find(g => g.id === gameId); if (game) { catalogContainer.innerHTML = `<div class="back-button" id="backToGames">← ${currentLang === 'ru' ? 'Назад к играм' : 'Back to games'}</div><div id="tracksContainer"></div>`; renderTracks(game.tracks, document.getElementById('tracksContainer')); document.getElementById('backToGames').addEventListener('click', () => { renderCatalog(); }); } }); });
         }
+
         function renderSvoAlbums() {
             let html = `<div class="albums-grid">` + svoAlbums.map(album => `<div class="album-card" data-id="${album.id}"><img class="album-cover" src="${album.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="album-title">${currentLang === 'ru' ? album.title : album.titleEn}</div><div class="album-meta">${album.description}</div></div>`).join('') + `</div>`;
             catalogContainer.innerHTML = html;
-            document.querySelectorAll('.album-card').forEach(card => { card.addEventListener('click', () => { let tracks = svoTracksByAlbum[card.dataset.id] || []; if (tracks.length) { catalogContainer.innerHTML = `<div class="back-button" id="backToAlbums">← ${currentLang === 'ru' ? 'Назад к альбомам' : 'Back to albums'}</div><div id="tracksContainer"></div>`; renderTracks(tracks, document.getElementById('tracksContainer')); document.getElementById('backToAlbums').addEventListener('click', () => { renderCatalog(); }); } else { showToast('Треков пока нет'); } }); });
+            document.querySelectorAll('.album-card').forEach(card => { card.addEventListener('click', () => { let albumId = card.dataset.id; let tracks = svoTracksByAlbum[albumId] || []; if (tracks.length) { catalogContainer.innerHTML = `<div class="back-button" id="backToAlbums">← ${currentLang === 'ru' ? 'Назад к альбомам' : 'Back to albums'}</div><div id="tracksContainer"></div>`; renderTracks(tracks, document.getElementById('tracksContainer')); document.getElementById('backToAlbums').addEventListener('click', () => { renderCatalog(); }); } else { showToast('Треков пока нет'); } }); });
         }
+
         function renderCatalog() {
             if (currentCategory === 'games') { renderGamesList(); return; }
             if (currentCategory === 'thematic') { renderSvoAlbums(); return; }
             let filtered = allTracks.filter(t => t.category === 'pop-rap' && !t.gameId && !t.albumId);
             renderTracks(filtered, catalogContainer);
         }
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => { currentCategory = btn.dataset.tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCatalog(); }));
 
-        // Фотогалерея
-        function renderPhotoGallery() {
-            let grid = document.getElementById('photoGrid');
-            if (!grid) return;
-            let html = `<div class="photo-grid">` + photos.map(photo => `<div class="photo-card" data-src="${photo.src}" data-title="${currentLang === 'ru' ? photo.title : photo.titleEn}"><img class="photo-img" src="${photo.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="photo-title">${currentLang === 'ru' ? photo.title : photo.titleEn}</div><div class="photo-meta">${currentLang === 'ru' ? 'Нажмите для увеличения' : 'Click to enlarge'}</div></div>`).join('') + `</div>`;
-            grid.innerHTML = html;
-            document.querySelectorAll('.photo-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    let src = card.dataset.src;
-                    let title = card.dataset.title;
-                    let modal = document.getElementById('photoModal');
-                    let img = document.getElementById('modalPhotoImg');
-                    let caption = document.getElementById('modalPhotoCaption');
-                    img.src = src;
-                    caption.innerText = title;
-                    modal.style.display = 'flex';
-                });
-            });
-        }
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => { currentCategory = btn.dataset.tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCatalog(); }));
 
         function buildCalendar() {
             const year = 2026, month = 5;
@@ -357,15 +381,19 @@
             const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
             let calendarHtml = `<div class="calendar-header"><div class="calendar-month">Июнь 2026</div><div class="calendar-legend"><span><span class="legend-dot"></span> Релиз</span></div></div><div class="calendar-grid">${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}`;
             weeks.forEach(week => { week.forEach(day => { if (day === null) calendarHtml += `<div class="calendar-day empty"></div>`; else { let isRelease = releaseMap[day]; let tooltip = isRelease ? (currentLang === 'ru' ? isRelease.ru : isRelease.en) : ''; calendarHtml += `<div class="calendar-day ${isRelease ? 'release-day' : ''}" data-tooltip="${tooltip}">${day}</div>`; } }); });
-            calendarHtml += `</div><div class="calendar-note"><div class="note-item">⭐ 4, 5, 12 июня — премьеры синглов</div><div class="note-item">🎸 Июль 2026 — EP "Северный ветер"</div></div>`;
+            calendarHtml += `</div><div class="calendar-note"><span>⭐ 4,5,12 июня — премьеры</span><span>🎸 Июль — EP "Северный ветер"</span></div>`;
             document.getElementById('calendarRoot').innerHTML = calendarHtml;
         }
 
         function renderNews() { let grid = document.getElementById('newsGrid'); if (grid) grid.innerHTML = newsData.map(n => `<div class="news-card"><div class="news-date">${n.date}</div><h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4><p>${currentLang === 'ru' ? n.descRu : n.descEn}</p><span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span></div>`).join(''); }
-        function setLanguage(lang) { currentLang = lang; buildCalendar(); renderCatalog(); renderNews(); renderPhotoGallery(); let current = getTrackById(currentTrackId); if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn; }
+        function renderPhotos() { let grid = document.getElementById('photosGrid'); if (grid) grid.innerHTML = photosData.map(p => `<div class="photo-card" data-src="${p.src}"><img class="photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="photo-title">${p.title}</div></div>`).join(''); document.querySelectorAll('.photo-card').forEach(card => card.addEventListener('click', () => { let src = card.dataset.src; document.getElementById('modalImage').src = src; document.getElementById('photoModal').style.display = 'flex'; })); }
+        function setLanguage(lang) { currentLang = lang; buildCalendar(); renderCatalog(); renderNews(); renderPhotos(); let current = getTrackById(currentTrackId); if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn; }
         document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => { setLanguage(btn.dataset.lang); document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }));
 
-        function startCounters() { let counters = [{ el: document.getElementById('statPlatforms'), target: 32 },{ el: document.getElementById('statStreams'), target: 902 },{ el: document.getElementById('statTracks'), target: 107 }]; counters.forEach(c => { if (c.el) { let cur = 0, step = Math.ceil(c.target / 30); let timer = setInterval(() => { cur += step; if (cur >= c.target) { c.el.innerText = c.target; clearInterval(timer); } else c.el.innerText = cur; }, 25); } }); }
+        function startCounters() {
+            let counters = [{ el: document.getElementById('statPlatforms'), target: 32 },{ el: document.getElementById('statStreams'), target: 921427 },{ el: document.getElementById('statTracks'), target: 107 }];
+            counters.forEach(c => { if (c.el) { let cur = 0, step = Math.ceil(c.target / 30); let timer = setInterval(() => { cur += step; if (cur >= c.target) { c.el.innerText = c.target.toLocaleString(); clearInterval(timer); } else c.el.innerText = Math.floor(cur).toLocaleString(); }, 25); } });
+        }
         new IntersectionObserver((entries, obs) => { entries.forEach(e => { if (e.isIntersecting) { startCounters(); obs.disconnect(); } }); }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
 
         document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) { e.preventDefault(); let target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); document.getElementById('nav').classList.remove('open'); } }));
@@ -381,9 +409,9 @@
         localStorage.setItem('siteVisits', visits);
         document.getElementById('visitCounter').innerText = visits;
 
-        loadTrackById(1);
+        loadTrackById(1, false);
         renderNews();
-        renderPhotoGallery();
+        renderPhotos();
         buildCalendar();
         renderCatalog();
         setLanguage('ru');
