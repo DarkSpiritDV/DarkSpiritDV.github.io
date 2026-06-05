@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DarkSpirit — Official | Релизы и календарь</title>
+    <title>DarkSpirit — Official Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
@@ -254,11 +254,24 @@
             padding-top: var(--header-height);
             position: relative;
         }
-.hero-bg {
-    background-image: url('club.png');
-    background-size: cover;
-    background-position: center;
-}
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('club.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(139,58,74,0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
         .hero-content {
             position: relative;
             z-index: 2;
@@ -555,7 +568,7 @@
             pointer-events: none;
         }
 
-        /* КАЛЕНДАРЬ - ОРИГИНАЛЬНЫЙ ДИЗАЙН */
+        /* КАЛЕНДАРЬ */
         .calendar-wrapper {
             background: var(--bg-card);
             border-radius: var(--radius-xl);
@@ -724,7 +737,7 @@
 </head>
 <body>
 <div class="toast" id="toastMsg">🎵 Загрузка трека...</div>
-<header class="header" id="header"><div class="header-inner"><a href="#" class="logo"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%238b3a4a'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='48'%3EDS%3C/text%3E%3C/svg%3E" alt="logo"><span>DarkSpirit</span></a><nav class="nav" id="nav"><a href="#hero">Главная</a><a href="#news">Новости</a><a href="#music">Музыка</a><a href="#schedule">Релизы</a><a href="#video">Видео</a><a href="#bio">О проекте</a><a href="#support">Поддержка</a></nav><div class="lang-switch"><button class="lang-btn active" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div><button class="mobile-menu-toggle"><span></span><span></span><span></span></button></div></header>
+<header class="header" id="header"><div class="header-inner"><a href="#" class="logo"><img src="logo.png" alt="logo"><span>DarkSpirit</span></a><nav class="nav" id="nav"><a href="#hero">Главная</a><a href="#news">Новости</a><a href="#music">Музыка</a><a href="#schedule">Релизы</a><a href="#video">Видео</a><a href="#bio">О проекте</a><a href="#support">Поддержка</a></nav><div class="lang-switch"><button class="lang-btn active" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div><button class="mobile-menu-toggle"><span></span><span></span><span></span></button></div></header>
 
 <section class="hero" id="hero"><div class="hero-bg"></div><div class="container hero-content fade-in-up"><span class="hero-tag">Группа</span><h1>DarkSpirit</h1><p>Музыка, которая остаётся в памяти навсегда.</p><div class="hero-stats"><div class="stat-item"><div class="stat-number" id="statPlatforms" data-target="32">0</div><div class="stat-label">Площадок</div></div><div class="stat-item"><div class="stat-number" id="statStreams" data-target="902">0</div><div class="stat-label">Тыс. прослушиваний</div></div><div class="stat-item"><div class="stat-number" id="statTracks" data-target="107">0</div><div class="stat-label">Релизов</div></div></div><a href="#music" class="btn btn-primary">🎧 Слушать свежий релиз</a></div></section>
 
@@ -734,14 +747,7 @@
 
 <section id="music"><div class="container"><h2 class="fade-in-up">Каталог</h2><span class="section-subtitle">Релизы, треки</span><div class="tabs fade-in-up"><button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button><button class="tab-btn" data-tab="thematic">Музыка для СВО</button><button class="tab-btn" data-tab="all">Все релизы</button></div><div id="catalogContainer" class="fade-in-up"></div></div></section>
 
-<!-- КАЛЕНДАРЬ РЕЛИЗОВ (сетка, тултипы) -->
-<section id="schedule">
-    <div class="container">
-        <h2 class="fade-in-up">Календарь релизов</h2>
-        <span class="section-subtitle">Июнь 2026 — выделенные даты</span>
-        <div class="calendar-wrapper fade-in-up" id="calendarRoot"></div>
-    </div>
-</section>
+<section id="schedule"><div class="container"><h2 class="fade-in-up">Календарь релизов</h2><span class="section-subtitle">Июнь 2026 — выделенные даты</span><div class="calendar-wrapper fade-in-up" id="calendarRoot"></div></div></section>
 
 <section id="video"><div class="container"><h2>Видео</h2><div class="video-grid" id="videoGrid"></div></div></section>
 <section id="bio"><div class="container"><h2>О проекте</h2><div class="bio-block"><img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS"><div class="bio-text"><p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии.</p><a href="#" class="btn btn-outline">📥 Press Kit</a></div></div></div></section>
@@ -751,7 +757,7 @@
 
 <script>
     (function(){
-        // ---------- РЕАЛЬНЫЕ АУДИОФАЙЛЫ (укажите правильные пути) ----------
+        // ---------- РЕАЛЬНЫЕ АУДИОФАЙЛЫ И ОБЛОЖКИ ----------
         const tracksData = [
             { id:1, title:'Запятая у окна', titleEn:'Comma by the Window', category:'pop-rap', cover:'Запятая у окна.png', audioSrc:'zapyataya.mp3', likes:12, userLiked:false },
             { id:2, title:'Soul and Stream', titleEn:'Soul and Stream', category:'pop-rap', cover:'Soul and Stream.jpg', audioSrc:'SoulandStream.mp3', likes:8, userLiked:false },
@@ -799,7 +805,6 @@
             timeSpan.innerText = '0:00';
             isPlaying = false;
             playBtn.innerText = '▶';
-            // При ошибке загрузки файла
             audio.onerror = () => showToast(`❌ Не удалось загрузить: ${t.audioSrc}`);
         }
 
@@ -812,9 +817,7 @@
                 audio.play().then(() => {
                     isPlaying = true;
                     playBtn.innerText = '⏸';
-                }).catch(err => {
-                    showToast(`Ошибка воспроизведения: ${err.message}`);
-                });
+                }).catch(err => showToast(`Ошибка воспроизведения: ${err.message}`));
             }
         }
 
@@ -845,7 +848,6 @@
         progressBg.addEventListener('click', setProgress);
         if (volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
 
-        // Отрисовка каталога
         function renderTracks(tracks, container) {
             let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card ${t.category === 'thematic' ? 'camouflage' : ''}">
                 <img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'">
@@ -884,9 +886,8 @@
             renderCatalog();
         }));
 
-        // Календарь
         function buildCalendar() {
-            const year = 2026, month = 5; // июнь
+            const year = 2026, month = 5;
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month+1, 0).getDate();
             const releaseMap = {
@@ -894,14 +895,10 @@
                 5: { ru: "Soul and Stream", en: "Soul and Stream" },
                 12: { ru: "Пробки заебали", en: "Traffic Jams" }
             };
-            let weeks = [];
-            let week = [];
+            let weeks = [], week = [];
             let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
             for (let i = 0; i < startOffset; i++) week.push(null);
-            for (let d = 1; d <= daysInMonth; d++) {
-                week.push(d);
-                if (week.length === 7) { weeks.push(week); week = []; }
-            }
+            for (let d = 1; d <= daysInMonth; d++) { week.push(d); if (week.length === 7) { weeks.push(week); week = []; } }
             if (week.length) { while(week.length < 7) week.push(null); weeks.push(week); }
             const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
             let calendarHtml = `<div class="calendar-header"><div class="calendar-month">Июнь 2026</div><div class="calendar-legend"><span><span class="legend-dot"></span> Релиз</span></div></div><div class="calendar-grid">${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}`;
@@ -921,9 +918,7 @@
 
         function renderNews() {
             let grid = document.getElementById('newsGrid');
-            if (grid) {
-                grid.innerHTML = newsData.map(n => `<div class="news-card"><div class="news-date">${n.date}</div><h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4><p>${currentLang === 'ru' ? n.descRu : n.descEn}</p><span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span></div>`).join('');
-            }
+            if (grid) grid.innerHTML = newsData.map(n => `<div class="news-card"><div class="news-date">${n.date}</div><h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4><p>${currentLang === 'ru' ? n.descRu : n.descEn}</p><span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span></div>`).join('');
         }
 
         function renderVideoPlaceholder() {
@@ -946,7 +941,6 @@
             btn.classList.add('active');
         }));
 
-        // Счётчики
         function startCounters() {
             let counters = [
                 { el: document.getElementById('statPlatforms'), target: 32 },
@@ -968,7 +962,6 @@
             entries.forEach(e => { if (e.isIntersecting) { startCounters(); obs.disconnect(); } });
         }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
 
-        // Мобильное меню и плавный скролл
         document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) {
             e.preventDefault();
             let target = document.querySelector(this.getAttribute('href'));
@@ -978,17 +971,14 @@
         window.addEventListener('scroll', () => document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50));
         document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
 
-        // Модальное окно видео
         const modal = document.getElementById('videoModal');
         modal.querySelector('.modal-close')?.addEventListener('click', () => modal.style.display = 'none');
         modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-        // Счётчик посещений
         let visits = localStorage.getItem('siteVisits') ? parseInt(localStorage.getItem('siteVisits')) + 1 : 1;
         localStorage.setItem('siteVisits', visits);
         document.getElementById('visitCounter').innerText = visits;
 
-        // Инициализация
         loadTrack(0);
         renderNews();
         renderVideoPlaceholder();
