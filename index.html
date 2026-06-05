@@ -402,7 +402,7 @@
             background: rgba(139, 58, 74, 0.1);
         }
 
-        /* плеер — центрирование */
+        /* плеер — ползунок громкости под прогрессом */
         .player-wrapper {
             position: sticky;
             top: var(--header-height);
@@ -415,18 +415,18 @@
 
         .player-inner {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.2rem;
-            padding: 0.7rem 1rem;
-            max-width: 680px;
-            margin: 0 auto;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            padding: 0.7rem 1rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .player-cover {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             border-radius: 8px;
             object-fit: cover;
             background: var(--bg-elevated);
@@ -435,27 +435,28 @@
         }
 
         .player-info {
-            text-align: left;
-            min-width: 140px;
+            flex: 2;
+            min-width: 120px;
         }
 
         .player-track {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .player-artist {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
         }
 
         .player-controls {
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
+            flex-shrink: 0;
         }
 
         .player-btn {
@@ -484,8 +485,17 @@
             box-shadow: 0 4px 12px rgba(139, 58, 74, 0.5);
         }
 
+        .player-timeline {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
         .progress-container {
-            width: 180px;
+            flex: 1;
+            height: 4px;
         }
 
         .progress-bar-bg {
@@ -506,12 +516,13 @@
         .time-display {
             font-size: 0.7rem;
             color: var(--text-muted);
-            min-width: 42px;
+            min-width: 40px;
             text-align: center;
         }
 
         .volume-container {
-            width: 80px;
+            width: 100%;
+            margin-top: 0.3rem;
         }
 
         .volume-slider {
@@ -525,41 +536,28 @@
 
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--accent-burgundy);
             cursor: pointer;
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 600px) {
             .player-inner {
-                gap: 0.8rem;
-                padding: 0.6rem 1rem;
+                padding: 0.5rem 0.8rem;
             }
-
             .player-cover {
-                width: 42px;
-                height: 42px;
+                width: 40px;
+                height: 40px;
             }
-
             .player-controls {
-                order: 2;
+                gap: 0;
             }
-
-            .progress-container {
-                order: 3;
-                width: calc(100% - 100px);
-            }
-
-            .time-display {
-                order: 4;
-            }
-
-            .volume-container {
-                order: 5;
-                width: 100%;
-                margin-top: 0.4rem;
+            .player-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
             }
         }
 
@@ -767,7 +765,7 @@
             background: var(--accent-burgundy);
         }
 
-        /* календарь уменьшен в 3 раза */
+        /* календарь уменьшен */
         .calendar-wrapper {
             background: var(--bg-card);
             border-radius: var(--radius-md);
@@ -904,20 +902,16 @@
             text-align: center;
         }
 
-        .bio-block {
+        /* о проекте — новые кнопки */
+        .bio-links {
             display: flex;
-            gap: 2rem;
-            align-items: center;
             flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
         }
-
-        .bio-image {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: var(--bg-elevated);
-            border: 2px solid var(--accent-burgundy);
-            object-fit: cover;
+        .bio-links .btn-outline {
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
         }
 
         .support-block {
@@ -1006,20 +1000,12 @@
             .game-title {
                 font-size: 0.75rem;
             }
-            .track-cover,
-            .album-cover,
-            .game-cover {
-                margin-bottom: 0.4rem;
-            }
             .btn-sm {
                 padding: 0.2rem 0.6rem;
                 font-size: 0.65rem;
             }
             .like-btn {
                 font-size: 0.9rem;
-            }
-            .likes-count {
-                font-size: 0.65rem;
             }
         }
     </style>
@@ -1089,12 +1075,14 @@
             <button class="player-btn play-btn" id="playerPlay">▶</button>
             <button class="player-btn" id="playerNext">⏭</button>
         </div>
-        <div class="progress-container">
-            <div class="progress-bar-bg" id="progressBarBg">
-                <div class="progress-bar-fill" id="progressBarFill"></div>
+        <div class="player-timeline">
+            <div class="progress-container">
+                <div class="progress-bar-bg" id="progressBarBg">
+                    <div class="progress-bar-fill" id="progressBarFill"></div>
+                </div>
             </div>
+            <span class="time-display" id="timeDisplay">0:00</span>
         </div>
-        <span class="time-display" id="timeDisplay">0:00</span>
         <div class="volume-container">
             <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.7">
         </div>
@@ -1147,8 +1135,16 @@
         <div class="bio-block">
             <img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS">
             <div class="bio-text">
-                <p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии.</p>
-                <a href="#" class="btn btn-outline">📥 Press Kit</a>
+                <p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии. Более 100 релизов, атмосфера и глубина.</p>
+                <div class="bio-links">
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Яндекс Музыка">🎵 Яндекс Музыка</a>
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="VK Музыка">🎧 VK Музыка</a>
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Zvuk">🔊 Zvuk</a>
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Spotify">🎶 Spotify</a>
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Apple Music">🍎 Apple Music</a>
+                    <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Группа ВК">📱 Группа VK</a>
+                </div>
+                <a href="#" class="btn btn-outline" style="margin-top: 0.8rem;">📥 Press Kit</a>
             </div>
         </div>
     </div>
@@ -1649,6 +1645,11 @@
             renderPhotos();
             let current = getTrackById(currentTrackId);
             if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn;
+            // обновить тексты кнопок в био (можно добавить мультиязычность)
+            document.querySelectorAll('.bio-links .btn-outline').forEach(btn => {
+                const placeholder = btn.getAttribute('data-placeholder');
+                if (placeholder) btn.innerText = placeholder;
+            });
         }
 
         document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => {
