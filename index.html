@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DarkSpirit — Official Portfolio</title>
+    <title>DarkSpirit — Official | Игровые саундтреки</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg-primary: #08080c;
@@ -25,17 +21,14 @@
             --text-secondary: #9d9ba3;
             --text-muted: #6b6972;
             --accent-burgundy: #8b3a4a;
-            --accent-burgundy-glow: #b34e62;
             --accent-steel: #9ca3af;
             --radius-sm: 6px;
             --radius-md: 12px;
             --radius-lg: 20px;
             --radius-xl: 28px;
             --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.02) inset;
-            --shadow-glow: 0 0 60px rgba(139, 58, 74, 0.2);
-            --transition-smooth: 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             --font-display: 'Playfair Display', 'Georgia', serif;
-            --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-body: 'Inter', system-ui, sans-serif;
             --header-height: 70px;
             --player-height: 80px;
         }
@@ -46,683 +39,124 @@
             font-family: var(--font-body);
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(ellipse at 20% 15%, rgba(139, 58, 74, 0.07) 0%, transparent 55%),
-                radial-gradient(ellipse at 75% 60%, rgba(45, 74, 107, 0.05) 0%, transparent 55%);
+            background-image: radial-gradient(ellipse at 20% 15%, rgba(139, 58, 74, 0.07) 0%, transparent 55%),
+                              radial-gradient(ellipse at 75% 60%, rgba(45, 74, 107, 0.05) 0%, transparent 55%);
         }
 
-        h1, h2, h3, .font-display {
-            font-family: var(--font-display);
-            font-weight: 700;
-            letter-spacing: -0.01em;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            margin-bottom: 0.35em;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-burgundy), transparent);
-            border-radius: 4px;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            display: block;
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.8rem;
-        }
-
-        section {
-            padding: 5rem 0;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            section { padding: 3.5rem 0; }
-            .container { padding: 0 1.2rem; }
-        }
-
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
+        h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+        h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.35em; position: relative; display: inline-block; }
+        h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60%; height: 2px; background: linear-gradient(90deg, var(--accent-burgundy), transparent); border-radius: 4px; }
+        .section-subtitle { color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; display: block; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.8rem; }
+        section { padding: 5rem 0; position: relative; }
+        @media (max-width: 768px) { section { padding: 3.5rem 0; } .container { padding: 0 1.2rem; } }
+        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
         .fade-in-up.visible { opacity: 1; transform: translateY(0); }
 
         /* header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            height: var(--header-height);
-            background: rgba(8, 8, 12, 0.75);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border-mid);
-            transition: all 0.3s ease;
-        }
-        .header.scrolled {
-            background: rgba(8, 8, 12, 0.92);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-        }
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.8rem;
-            height: 100%;
-        }
-        .logo {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: 1.6rem;
-            letter-spacing: 0.02em;
-            color: var(--text-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .logo img {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: var(--accent-burgundy);
-            object-fit: cover;
-        }
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-        .nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-            position: relative;
-            padding: 0.4rem 0;
-        }
-        .nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-burgundy);
-            transition: width 0.3s;
-            border-radius: 2px;
-        }
-        .nav a:hover, .nav a.active {
-            color: var(--text-primary);
-        }
-        .nav a:hover::after, .nav a.active::after {
-            width: 100%;
-        }
-        .lang-switch {
-            display: flex;
-            gap: 0.3rem;
-            background: var(--bg-elevated);
-            border-radius: 40px;
-            padding: 3px;
-            border: 1px solid var(--border-mid);
-        }
-        .lang-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 0.4rem 0.9rem;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.75rem;
-            transition: 0.2s;
-        }
-        .lang-btn.active {
-            background: var(--accent-burgundy);
-            color: white;
-            box-shadow: 0 2px 8px rgba(139,58,74,0.4);
-        }
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        .mobile-menu-toggle span {
-            width: 26px;
-            height: 2px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            transition: 0.2s;
-        }
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--header-height); background: rgba(8, 8, 12, 0.75); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border-mid); transition: all 0.3s ease; }
+        .header.scrolled { background: rgba(8, 8, 12, 0.92); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 1.8rem; height: 100%; }
+        .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; color: var(--text-primary); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
+        .logo img { width: 36px; height: 36px; border-radius: 8px; background: var(--accent-burgundy); object-fit: cover; }
+        .nav { display: flex; align-items: center; gap: 2rem; list-style: none; }
+        .nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; padding: 0.4rem 0; }
+        .nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent-burgundy); transition: width 0.3s; border-radius: 2px; }
+        .nav a:hover, .nav a.active { color: var(--text-primary); }
+        .nav a:hover::after, .nav a.active::after { width: 100%; }
+        .lang-switch { display: flex; gap: 0.3rem; background: var(--bg-elevated); border-radius: 40px; padding: 3px; border: 1px solid var(--border-mid); }
+        .lang-btn { background: transparent; border: none; color: var(--text-muted); padding: 0.4rem 0.9rem; border-radius: 40px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: 0.2s; }
+        .lang-btn.active { background: var(--accent-burgundy); color: white; box-shadow: 0 2px 8px rgba(139,58,74,0.4); }
+        .mobile-menu-toggle { display: none; background: none; border: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; }
+        .mobile-menu-toggle span { width: 26px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: 0.2s; }
         @media (max-width: 900px) {
-            .nav {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 280px;
-                height: 100vh;
-                background: rgba(10, 10, 15, 0.96);
-                backdrop-filter: blur(28px);
-                flex-direction: column;
-                padding: 6rem 2rem;
-                gap: 1.8rem;
-                transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-                border-left: 1px solid var(--border-mid);
-                z-index: 999;
-            }
+            .nav { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.96); backdrop-filter: blur(28px); flex-direction: column; padding: 6rem 2rem; gap: 1.8rem; transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); border-left: 1px solid var(--border-mid); z-index: 999; }
             .nav.open { right: 0; }
             .mobile-menu-toggle { display: flex; }
             .lang-switch { margin-left: auto; margin-right: 1rem; }
         }
 
         /* hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: var(--header-height);
-            position: relative;
-        }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background-image: url('club.png');
-            background-size: cover;
-            background-position: center 30%;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 40%, rgba(139,58,74,0.2) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        .hero-tag {
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 40px;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(4px);
-            margin-bottom: 1rem;
-        }
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 5.8rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.3em;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 520px;
-            margin-bottom: 2rem;
-        }
-        .hero-stats {
-            display: flex;
-            gap: 2.2rem;
-            margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-        .stat-number {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            font-weight: 800;
-            line-height: 1;
-        }
-        .stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-muted);
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            padding: 0.8rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            border: none;
-        }
-        .btn-primary {
-            background: var(--accent-burgundy);
-            color: white;
-            box-shadow: 0 8px 20px rgba(139,58,74,0.4);
-        }
-        .btn-primary:hover {
-            background: #b34e62;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(139,58,74,0.5);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid rgba(255,255,255,0.25);
-            color: var(--text-primary);
-        }
-        .btn-outline:hover {
-            border-color: var(--accent-burgundy);
-            background: rgba(139,58,74,0.1);
-        }
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--header-height); position: relative; }
+        .hero-bg { position: absolute; inset: 0; background-image: url('club.png'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; opacity: 0.6; pointer-events: none; z-index: 0; }
+        .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(139,58,74,0.2) 0%, transparent 70%); pointer-events: none; }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-tag { display: inline-block; padding: 0.3rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 40px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); margin-bottom: 1rem; }
+        .hero h1 { font-size: clamp(3rem, 8vw, 5.8rem); font-weight: 900; background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.3em; }
+        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 520px; margin-bottom: 2rem; }
+        .hero-stats { display: flex; gap: 2.2rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .stat-number { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; line-height: 1; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+        .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; text-decoration: none; border: none; }
+        .btn-primary { background: var(--accent-burgundy); color: white; box-shadow: 0 8px 20px rgba(139,58,74,0.4); }
+        .btn-primary:hover { background: #b34e62; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(139,58,74,0.5); }
+        .btn-outline { background: transparent; border: 1.5px solid rgba(255,255,255,0.25); color: var(--text-primary); }
+        .btn-outline:hover { border-color: var(--accent-burgundy); background: rgba(139,58,74,0.1); }
 
         /* плеер */
-        .player-wrapper {
-            position: sticky;
-            top: var(--header-height);
-            z-index: 900;
-            background: rgba(14,14,20,0.88);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-mid);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-        .player-inner {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.7rem 1.8rem;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-        .player-cover {
-            width: 52px;
-            height: 52px;
-            border-radius: 8px;
-            object-fit: cover;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-mid);
-        }
-        .player-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .player-track {
-            font-weight: 600;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .player-artist {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .player-btn {
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .player-btn:hover {
-            background: rgba(255,255,255,0.08);
-            color: var(--accent-burgundy);
-        }
-        .play-btn {
-            background: var(--accent-burgundy);
-            color: white;
-            box-shadow: 0 4px 12px rgba(139,58,74,0.5);
-        }
-        .progress-container {
-            width: 180px;
-        }
-        .progress-bar-bg {
-            width: 100%;
-            height: 4px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .progress-bar-fill {
-            width: 0%;
-            height: 100%;
-            background: var(--accent-burgundy);
-            border-radius: 4px;
-        }
-        .time-display {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            min-width: 42px;
-        }
-        @media (max-width: 700px) {
-            .progress-container { width: 100px; }
-            .player-inner { gap: 0.6rem; padding: 0.5rem 1rem; }
-            .player-cover { width: 42px; height: 42px; }
-            .player-btn { width: 32px; height: 32px; font-size: 1rem; }
-        }
+        .player-wrapper { position: sticky; top: var(--header-height); z-index: 900; background: rgba(14,14,20,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-mid); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .player-inner { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.8rem; max-width: 1280px; margin: 0 auto; }
+        .player-cover { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg-elevated); border: 1px solid var(--border-mid); }
+        .player-info { flex: 1; min-width: 0; }
+        .player-track { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-artist { font-size: 0.7rem; color: var(--text-muted); }
+        .player-controls { display: flex; align-items: center; gap: 0.6rem; }
+        .player-btn { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .player-btn:hover { background: rgba(255,255,255,0.08); color: var(--accent-burgundy); }
+        .play-btn { background: var(--accent-burgundy); color: white; box-shadow: 0 4px 12px rgba(139,58,74,0.5); }
+        .progress-container { width: 180px; }
+        .progress-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer; }
+        .progress-bar-fill { width: 0%; height: 100%; background: var(--accent-burgundy); border-radius: 4px; }
+        .time-display { font-size: 0.7rem; color: var(--text-muted); min-width: 42px; }
+        @media (max-width: 700px) { .progress-container { width: 100px; } .player-inner { gap: 0.6rem; padding: 0.5rem 1rem; } .player-cover { width: 42px; height: 42px; } .player-btn { width: 32px; height: 32px; font-size: 1rem; } }
 
         /* новости */
-        .news-scroll-wrapper {
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            cursor: grab;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-burgundy) var(--bg-elevated);
-        }
-        .news-grid {
-            display: flex;
-            gap: 1.5rem;
-            width: max-content;
-            padding: 0.5rem 0 1rem;
-        }
-        .news-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            width: 310px;
-            flex-shrink: 0;
-            transition: all 0.3s;
-        }
-        .news-card:hover {
-            border-color: var(--border-mid);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-card);
-        }
+        .news-scroll-wrapper { overflow-x: auto; scroll-behavior: smooth; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--accent-burgundy) var(--bg-elevated); }
+        .news-grid { display: flex; gap: 1.5rem; width: max-content; padding: 0.5rem 0 1rem; }
+        .news-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; width: 310px; flex-shrink: 0; transition: all 0.3s; }
+        .news-card:hover { border-color: var(--border-mid); transform: translateY(-4px); box-shadow: var(--shadow-card); }
         .news-date { font-size: 0.7rem; color: var(--accent-steel); margin-bottom: 0.6rem; }
         .news-card h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
         .news-tag { display: inline-block; margin-top: 0.8rem; font-size: 0.7rem; background: rgba(139,58,74,0.2); padding: 0.2rem 0.7rem; border-radius: 40px; color: #c98b99; }
 
-        /* каталог */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-mid);
-            padding-bottom: 0.5rem;
-        }
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .tab-btn.active {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        }
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-            gap: 1.5rem;
-        }
-        .track-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 1rem;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .track-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--border-mid);
-            box-shadow: var(--shadow-card);
-        }
-        .track-cover {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: var(--radius-md);
-            object-fit: cover;
-            margin-bottom: 0.7rem;
-            background: var(--bg-elevated);
-        }
-        .track-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
-        .track-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.7rem; }
-        .track-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .btn-sm {
-            padding: 0.3rem 0.9rem;
-            font-size: 0.7rem;
-            border-radius: 30px;
-        }
-        .like-btn {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            color: #aaa;
-        }
+        /* каталог и игры */
+        .tabs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-mid); padding-bottom: 0.5rem; }
+        .tab-btn { background: none; border: none; color: var(--text-muted); padding: 0.5rem 1.2rem; border-radius: 40px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: var(--bg-elevated); color: var(--text-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; }
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem; }
+        .track-card, .game-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1rem; transition: all 0.3s; cursor: pointer; }
+        .track-card:hover, .game-card:hover { transform: translateY(-5px); border-color: var(--border-mid); box-shadow: var(--shadow-card); }
+        .track-cover, .game-cover { width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); object-fit: cover; margin-bottom: 0.7rem; background: var(--bg-elevated); }
+        .track-title, .game-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+        .track-meta, .game-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.7rem; }
+        .track-actions { display: flex; justify-content: space-between; align-items: center; }
+        .btn-sm { padding: 0.3rem 0.9rem; font-size: 0.7rem; border-radius: 30px; }
+        .like-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #aaa; }
         .like-btn.liked { color: #e85d75; }
         .likes-count { font-size: 0.75rem; color: var(--text-muted); margin-left: 0.2rem; min-width: 28px; display: inline-block; }
-        .camouflage {
-            background: repeating-linear-gradient(45deg, #4e5a2b, #4e5a2b 30px, #2b3318 30px, #2b3318 60px);
-            border-color: #8bb56a;
-        }
-        .progress-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: calc(100% + 8px);
-            height: calc(100% + 8px);
-            pointer-events: none;
-        }
+        .camouflage { background: repeating-linear-gradient(45deg, #4e5a2b, #4e5a2b 30px, #2b3318 30px, #2b3318 60px); border-color: #8bb56a; }
+        .back-button { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--bg-elevated); padding: 0.4rem 1rem; border-radius: 30px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
+        .back-button:hover { background: var(--accent-burgundy); }
 
-        /* КАЛЕНДАРЬ */
-        .calendar-wrapper {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            padding: 1.8rem;
-            border: 1px solid var(--border-mid);
-            box-shadow: var(--shadow-card);
-            backdrop-filter: blur(4px);
-        }
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .calendar-month {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff, #b3aeb8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .calendar-legend {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.7rem;
-        }
-        .legend-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-burgundy);
-            border-radius: 20px;
-            margin-right: 6px;
-            box-shadow: 0 0 6px var(--accent-burgundy);
-        }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.8rem;
-            text-align: center;
-        }
-        .calendar-weekday {
-            font-weight: 600;
-            color: var(--accent-steel);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            padding-bottom: 0.8rem;
-            letter-spacing: 1px;
-        }
-        .calendar-day {
-            aspect-ratio: 1 / 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: var(--radius-md);
-            transition: all 0.2s ease;
-            position: relative;
-            cursor: default;
-            border: 1px solid transparent;
-        }
-        .calendar-day.empty {
-            background: transparent;
-            cursor: default;
-            opacity: 0.3;
-        }
-        .calendar-day.release-day {
-            background: linear-gradient(145deg, #8b3a4a20, #5f273320);
-            border-color: var(--accent-burgundy);
-            color: #e8a5b3;
-            font-weight: 700;
-            box-shadow: 0 0 8px rgba(139,58,74,0.4);
-            cursor: help;
-        }
-        .calendar-day.release-day:hover {
-            transform: scale(1.05);
-            background: var(--accent-burgundy);
-            color: white;
-            box-shadow: 0 0 14px var(--accent-burgundy);
-        }
-        .calendar-day.release-day::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(8px);
-            color: #f0e6e6;
-            padding: 0.3rem 0.8rem;
-            border-radius: 24px;
-            font-size: 0.7rem;
-            white-space: nowrap;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s;
-            z-index: 10;
-            font-weight: normal;
-            letter-spacing: normal;
-            border: 1px solid var(--accent-burgundy);
-        }
-        .calendar-day.release-day:hover::after {
-            opacity: 1;
-        }
-        .calendar-day:not(.empty):not(.release-day):hover {
-            background: rgba(255,255,255,0.05);
-            transform: scale(1.02);
-        }
-        .calendar-note {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border-mid);
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .note-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        @media (max-width: 640px) {
-            .calendar-grid { gap: 0.4rem; }
-            .calendar-day { font-size: 0.8rem; }
-            .calendar-month { font-size: 1.4rem; }
-        }
-
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        .video-card {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            cursor: pointer;
-        }
-        .video-thumb {
-            aspect-ratio: 16/9;
-            background: var(--bg-elevated);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* календарь */
+        .calendar-wrapper { background: var(--bg-card); border-radius: var(--radius-xl); padding: 1.8rem; border: 1px solid var(--border-mid); box-shadow: var(--shadow-card); backdrop-filter: blur(4px); }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .calendar-month { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, #fff, #b3aeb8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .calendar-legend { display: flex; gap: 1rem; font-size: 0.7rem; }
+        .legend-dot { display: inline-block; width: 12px; height: 12px; background: var(--accent-burgundy); border-radius: 20px; margin-right: 6px; box-shadow: 0 0 6px var(--accent-burgundy); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.8rem; text-align: center; }
+        .calendar-weekday { font-weight: 600; color: var(--accent-steel); font-size: 0.8rem; text-transform: uppercase; padding-bottom: 0.8rem; letter-spacing: 1px; }
+        .calendar-day { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 500; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-md); transition: all 0.2s ease; position: relative; cursor: default; border: 1px solid transparent; }
+        .calendar-day.empty { background: transparent; cursor: default; opacity: 0.3; }
+        .calendar-day.release-day { background: linear-gradient(145deg, #8b3a4a20, #5f273320); border-color: var(--accent-burgundy); color: #e8a5b3; font-weight: 700; box-shadow: 0 0 8px rgba(139,58,74,0.4); cursor: help; }
+        .calendar-day.release-day:hover { transform: scale(1.05); background: var(--accent-burgundy); color: white; box-shadow: 0 0 14px var(--accent-burgundy); }
+        .calendar-day.release-day::after { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); color: #f0e6e6; padding: 0.3rem 0.8rem; border-radius: 24px; font-size: 0.7rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 10; border: 1px solid var(--accent-burgundy); }
+        .calendar-day.release-day:hover::after { opacity: 1; }
+        .calendar-note { margin-top: 2rem; padding-top: 1rem; border-top: 1px dashed var(--border-mid); font-size: 0.8rem; color: var(--text-secondary); display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .video-card { background: var(--bg-card); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; }
+        .video-thumb { aspect-ratio: 16/9; background: var(--bg-elevated); display: flex; align-items: center; justify-content: center; }
         .play-icon { font-size: 2.8rem; color: rgba(255,255,255,0.7); }
         .bio-block { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
         .bio-image { width: 160px; height: 160px; border-radius: 50%; background: var(--bg-elevated); border: 2px solid var(--accent-burgundy); object-fit: cover; }
@@ -745,7 +179,7 @@
 
 <section id="news"><div class="container"><h2 class="fade-in-up">Новости</h2><span class="section-subtitle">Последние события</span><div class="news-scroll-wrapper fade-in-up"><div class="news-grid" id="newsGrid"></div></div></div></section>
 
-<section id="music"><div class="container"><h2 class="fade-in-up">Каталог</h2><span class="section-subtitle">Релизы, треки</span><div class="tabs fade-in-up"><button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button><button class="tab-btn" data-tab="thematic">Музыка для СВО</button><button class="tab-btn" data-tab="all">Все релизы</button></div><div id="catalogContainer" class="fade-in-up"></div></div></section>
+<section id="music"><div class="container"><h2 class="fade-in-up">Каталог</h2><span class="section-subtitle">Релизы, треки, игры</span><div class="tabs fade-in-up"><button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button><button class="tab-btn" data-tab="thematic">Музыка для СВО</button><button class="tab-btn" data-tab="games">Онлайн игры</button><button class="tab-btn" data-tab="all">Все релизы</button></div><div id="catalogContainer" class="fade-in-up"></div></div></section>
 
 <section id="schedule"><div class="container"><h2 class="fade-in-up">Календарь релизов</h2><span class="section-subtitle">Июнь 2026 — выделенные даты</span><div class="calendar-wrapper fade-in-up" id="calendarRoot"></div></div></section>
 
@@ -757,17 +191,53 @@
 
 <script>
     (function(){
-        // ---------- РЕАЛЬНЫЕ АУДИОФАЙЛЫ И ОБЛОЖКИ ----------
-        const tracksData = [
-            { id:1, title:'Запятая у окна', titleEn:'Comma by the Window', category:'pop-rap', cover:'Запятая у окна.png', audioSrc:'zapyataya.mp3', likes:12, userLiked:false },
-            { id:2, title:'Soul and Stream', titleEn:'Soul and Stream', category:'pop-rap', cover:'Soul and Stream.jpg', audioSrc:'SoulandStream.mp3', likes:8, userLiked:false },
-            { id:3, title:'Пробки заебали', titleEn:'Traffic Jams', category:'pop-rap', cover:'Пробки заебали.png', audioSrc:'Probki.mp3', likes:15, userLiked:false },
-            { id:4, title:'Путь офицера', titleEn:'Officer’s Path', category:'thematic', cover:'малой.jpg', audioSrc:'Putoficera.mp3', likes:7, userLiked:false },
-            { id:5, title:'Медики под огнём', titleEn:'Medics Under Fire', category:'thematic', cover:'медики под огнём.jpg', audioSrc:'Medikipodognem.mp3', likes:9, userLiked:false },
-            { id:6, title:'Мать земля', titleEn:'Mother Earth', category:'thematic', cover:'мать земля.jpg', audioSrc:'matzemlia.mp3', likes:6, userLiked:false },
-            { id:7, title:'Калибр (тема)', titleEn:'Caliber (theme)', category:'pop-rap', cover:'caliber.jpg', audioSrc:'caliber.mp3', likes:5, userLiked:false },
-            { id:8, title:'Arc Raiders', titleEn:'Arc Raiders', category:'pop-rap', cover:'arcraiders.jpg', audioSrc:'arcraiders.mp3', likes:4, userLiked:false },
-            { id:9, title:'Разное (сборник)', titleEn:'Miscellaneous', category:'pop-rap', cover:'raznoe.jpg', audioSrc:'raznoe.mp3', likes:3, userLiked:false }
+        // ---------- ИГРОВЫЕ ТРЕКИ (по 10 на каждую игру) ----------
+        // Генерация 10 треков для Калибр
+        const caliberTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            caliberTracks.push({
+                id: 100 + i, title: `Калибр - Трек ${i}`, titleEn: `Caliber - Track ${i}`,
+                category: 'game', cover: `cover_caliber_${i}.jpg`, audioSrc: `caliber_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'caliber'
+            });
+        }
+        // ARC Raiders
+        const arcTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            arcTracks.push({
+                id: 200 + i, title: `ARC Raiders - Трек ${i}`, titleEn: `ARC Raiders - Track ${i}`,
+                category: 'game', cover: `cover_arc_${i}.jpg`, audioSrc: `arc_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'arc'
+            });
+        }
+        // Разное (сборник)
+        const miscTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            miscTracks.push({
+                id: 300 + i, title: `Сборник - Трек ${i}`, titleEn: `Misc - Track ${i}`,
+                category: 'game', cover: `cover_misc_${i}.jpg`, audioSrc: `misc_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'misc'
+            });
+        }
+
+        // Основные треки (не игровые) – те, что были в pop-rap и thematic
+        const mainTracks = [
+            { id:1, title:'Запятая у окна', titleEn:'Comma by the Window', category:'pop-rap', cover:'Запятая у окна.png', audioSrc:'zapyataya.mp3', likes:12, userLiked:false, gameId: null },
+            { id:2, title:'Soul and Stream', titleEn:'Soul and Stream', category:'pop-rap', cover:'Soul and Stream.jpg', audioSrc:'SoulandStream.mp3', likes:8, userLiked:false, gameId: null },
+            { id:3, title:'Пробки заебали', titleEn:'Traffic Jams', category:'pop-rap', cover:'Пробки заебали.png', audioSrc:'Probki.mp3', likes:15, userLiked:false, gameId: null },
+            { id:4, title:'Путь офицера', titleEn:'Officer’s Path', category:'thematic', cover:'малой.jpg', audioSrc:'Putoficera.mp3', likes:7, userLiked:false, gameId: null },
+            { id:5, title:'Медики под огнём', titleEn:'Medics Under Fire', category:'thematic', cover:'медики под огнём.jpg', audioSrc:'Medikipodognem.mp3', likes:9, userLiked:false, gameId: null },
+            { id:6, title:'Мать земля', titleEn:'Mother Earth', category:'thematic', cover:'мать земля.jpg', audioSrc:'matzemlia.mp3', likes:6, userLiked:false, gameId: null }
+        ];
+
+        // Объединяем все треки для глобального доступа (но при фильтрации будем учитывать gameId)
+        const allTracks = [...mainTracks, ...caliberTracks, ...arcTracks, ...miscTracks];
+
+        // Данные об играх
+        const gamesData = [
+            { id: 'caliber', title: 'Калибр', titleEn: 'Caliber', cover: 'caliber_game.jpg', tracks: caliberTracks },
+            { id: 'arc', title: 'ARC Raiders', titleEn: 'ARC Raiders', cover: 'arc_game.jpg', tracks: arcTracks },
+            { id: 'misc', title: 'Разное (сборник)', titleEn: 'Miscellaneous', cover: 'misc_game.jpg', tracks: miscTracks }
         ];
 
         const newsData = [
@@ -789,13 +259,16 @@
         let coverImg = document.getElementById('playerCover');
         let volumeSlider = document.getElementById('volumeSlider');
         let catalogContainer = document.getElementById('catalogContainer');
-        let currentIndex = 0, isPlaying = false;
+        let currentTrackId = 1; // текущий id трека
+        let isPlaying = false;
         let toastMsg = document.getElementById('toastMsg');
 
         function showToast(msg) { toastMsg.innerText = msg; toastMsg.style.opacity = '1'; setTimeout(() => toastMsg.style.opacity = '0', 2000); }
 
-        function loadTrack(idx) {
-            let t = tracksData[idx];
+        function getTrackById(id) { return allTracks.find(t => t.id === id); }
+
+        function loadTrackById(id) {
+            let t = getTrackById(id);
             if (!t) return;
             audio.src = t.audioSrc;
             audio.load();
@@ -806,6 +279,7 @@
             isPlaying = false;
             playBtn.innerText = '▶';
             audio.onerror = () => showToast(`❌ Не удалось загрузить: ${t.audioSrc}`);
+            currentTrackId = id;
         }
 
         function togglePlay() {
@@ -821,8 +295,18 @@
             }
         }
 
-        function next() { currentIndex = (currentIndex+1) % tracksData.length; loadTrack(currentIndex); if (isPlaying) togglePlay(); }
-        function prev() { currentIndex = (currentIndex-1+tracksData.length) % tracksData.length; loadTrack(currentIndex); if (isPlaying) togglePlay(); }
+        function nextTrack() {
+            let currentIdx = allTracks.findIndex(t => t.id === currentTrackId);
+            let nextIdx = (currentIdx + 1) % allTracks.length;
+            loadTrackById(allTracks[nextIdx].id);
+            if (isPlaying) togglePlay();
+        }
+        function prevTrack() {
+            let currentIdx = allTracks.findIndex(t => t.id === currentTrackId);
+            let prevIdx = (currentIdx - 1 + allTracks.length) % allTracks.length;
+            loadTrackById(allTracks[prevIdx].id);
+            if (isPlaying) togglePlay();
+        }
 
         function updateProgress() {
             if (audio.duration && !isNaN(audio.duration)) {
@@ -833,7 +317,6 @@
                 timeSpan.innerText = mins + ':' + (secs < 10 ? '0' : '') + secs;
             }
         }
-
         function setProgress(e) {
             let rect = progressBg.getBoundingClientRect();
             let perc = (e.clientX - rect.left) / rect.width;
@@ -841,15 +324,17 @@
         }
 
         playBtn.onclick = togglePlay;
-        prevBtn.onclick = prev;
-        nextBtn.onclick = next;
+        prevBtn.onclick = prevTrack;
+        nextBtn.onclick = nextTrack;
         audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('ended', () => { next(); isPlaying = false; playBtn.innerText = '▶'; });
+        audio.addEventListener('ended', () => { nextTrack(); isPlaying = false; playBtn.innerText = '▶'; });
         progressBg.addEventListener('click', setProgress);
         if (volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
 
+        // Отрисовка треков (общая)
         function renderTracks(tracks, container) {
-            let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card ${t.category === 'thematic' ? 'camouflage' : ''}">
+            if (!tracks.length) { container.innerHTML = '<div style="text-align:center;">Нет треков</div>'; return; }
+            let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card">
                 <img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'">
                 <div class="track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div>
                 <div class="track-meta">DarkSpirit</div>
@@ -863,19 +348,51 @@
             container.querySelectorAll('.play-track-btn').forEach(btn => btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 let id = parseInt(btn.dataset.id);
-                let idx = tracksData.findIndex(t => t.id === id);
-                if (idx !== -1) { currentIndex = idx; loadTrack(currentIndex); togglePlay(); }
+                loadTrackById(id);
+                togglePlay();
             }));
             container.querySelectorAll('.like-btn').forEach(btn => btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 let id = parseInt(btn.dataset.id);
-                let t = tracksData.find(t => t.id === id);
+                let t = getTrackById(id);
                 if (t) { t.userLiked = !t.userLiked; t.likes += t.userLiked ? 1 : -1; if (t.likes < 0) t.likes = 0; renderCatalog(); }
             }));
         }
 
+        // Отрисовка списка игр
+        function renderGamesList() {
+            let html = `<div class="games-grid">` + gamesData.map(g => `<div class="game-card" data-id="${g.id}">
+                <img class="game-cover" src="${g.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'">
+                <div class="game-title">${currentLang === 'ru' ? g.title : g.titleEn}</div>
+                <div class="game-meta">${currentLang === 'ru' ? 'Нажмите, чтобы открыть треки' : 'Click to open tracks'}</div>
+            </div>`).join('') + `</div>`;
+            catalogContainer.innerHTML = html;
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    let gameId = card.dataset.id;
+                    let game = gamesData.find(g => g.id === gameId);
+                    if (game) {
+                        catalogContainer.innerHTML = `<div class="back-button" id="backToGames">← ${currentLang === 'ru' ? 'Назад к играм' : 'Back to games'}</div><div id="tracksContainer"></div>`;
+                        renderTracks(game.tracks, document.getElementById('tracksContainer'));
+                        document.getElementById('backToGames').addEventListener('click', () => { renderCatalog(); });
+                    }
+                });
+            });
+        }
+
         function renderCatalog() {
-            let filtered = currentCategory === 'all' ? [...tracksData] : tracksData.filter(t => t.category === currentCategory);
+            if (currentCategory === 'games') {
+                renderGamesList();
+                return;
+            }
+            let filtered = [];
+            if (currentCategory === 'pop-rap') {
+                filtered = allTracks.filter(t => t.category === 'pop-rap' && !t.gameId);
+            } else if (currentCategory === 'thematic') {
+                filtered = allTracks.filter(t => t.category === 'thematic' && !t.gameId);
+            } else if (currentCategory === 'all') {
+                filtered = allTracks.filter(t => !t.gameId); // все не игровые
+            }
             renderTracks(filtered, catalogContainer);
         }
 
@@ -886,15 +403,12 @@
             renderCatalog();
         }));
 
+        // Календарь
         function buildCalendar() {
             const year = 2026, month = 5;
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month+1, 0).getDate();
-            const releaseMap = {
-                4: { ru: "Запятая у окна", en: "Comma by the Window" },
-                5: { ru: "Soul and Stream", en: "Soul and Stream" },
-                12: { ru: "Пробки заебали", en: "Traffic Jams" }
-            };
+            const releaseMap = { 4: { ru: "Запятая у окна", en: "Comma by the Window" }, 5: { ru: "Soul and Stream", en: "Soul and Stream" }, 12: { ru: "Пробки заебали", en: "Traffic Jams" } };
             let weeks = [], week = [];
             let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
             for (let i = 0; i < startOffset; i++) week.push(null);
@@ -932,7 +446,8 @@
             buildCalendar();
             renderCatalog();
             renderNews();
-            if (tracksData[currentIndex]) trackNameSpan.innerText = lang === 'ru' ? tracksData[currentIndex].title : tracksData[currentIndex].titleEn;
+            let current = getTrackById(currentTrackId);
+            if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn;
         }
 
         document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => {
@@ -942,31 +457,12 @@
         }));
 
         function startCounters() {
-            let counters = [
-                { el: document.getElementById('statPlatforms'), target: 32 },
-                { el: document.getElementById('statStreams'), target: 902 },
-                { el: document.getElementById('statTracks'), target: 107 }
-            ];
-            counters.forEach(c => {
-                if (c.el) {
-                    let cur = 0, step = Math.ceil(c.target / 30);
-                    let timer = setInterval(() => {
-                        cur += step;
-                        if (cur >= c.target) { c.el.innerText = c.target; clearInterval(timer); }
-                        else c.el.innerText = cur;
-                    }, 25);
-                }
-            });
+            let counters = [{ el: document.getElementById('statPlatforms'), target: 32 },{ el: document.getElementById('statStreams'), target: 902 },{ el: document.getElementById('statTracks'), target: 107 }];
+            counters.forEach(c => { if (c.el) { let cur = 0, step = Math.ceil(c.target / 30); let timer = setInterval(() => { cur += step; if (cur >= c.target) { c.el.innerText = c.target; clearInterval(timer); } else c.el.innerText = cur; }, 25); } });
         }
-        new IntersectionObserver((entries, obs) => {
-            entries.forEach(e => { if (e.isIntersecting) { startCounters(); obs.disconnect(); } });
-        }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
+        new IntersectionObserver((entries, obs) => { entries.forEach(e => { if (e.isIntersecting) { startCounters(); obs.disconnect(); } }); }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
 
-        document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) {
-            e.preventDefault();
-            let target = document.querySelector(this.getAttribute('href'));
-            if (target) { window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); document.getElementById('nav').classList.remove('open'); }
-        }));
+        document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) { e.preventDefault(); let target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); document.getElementById('nav').classList.remove('open'); } }));
         document.querySelector('.mobile-menu-toggle')?.addEventListener('click', () => document.getElementById('nav').classList.toggle('open'));
         window.addEventListener('scroll', () => document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50));
         document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
@@ -979,7 +475,7 @@
         localStorage.setItem('siteVisits', visits);
         document.getElementById('visitCounter').innerText = visits;
 
-        loadTrack(0);
+        loadTrackById(1);
         renderNews();
         renderVideoPlaceholder();
         buildCalendar();
