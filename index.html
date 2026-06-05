@@ -2,13 +2,17 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DarkSpirit — Official | Музыка и фото</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>DarkSpirit — Официальный сайт</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --bg-primary: #08080c;
@@ -43,204 +47,1337 @@
                               radial-gradient(ellipse at 75% 60%, rgba(45, 74, 107, 0.05) 0%, transparent 55%);
         }
 
-        h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
-        h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 0.35em; position: relative; display: inline-block; }
-        h2::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 60%; height: 2px; background: linear-gradient(90deg, var(--accent-burgundy), transparent); border-radius: 4px; }
-        .section-subtitle { color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2rem; display: block; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 1.8rem; }
-        section { padding: 5rem 0; position: relative; }
-        @media (max-width: 768px) { section { padding: 3.5rem 0; } .container { padding: 0 1.2rem; } }
-        .fade-in-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1); }
-        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+        h1, h2, h3, .font-display {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 0.35em;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-burgundy), transparent);
+            border-radius: 4px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+        }
+
+        section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 2.5rem 0;
+            }
+
+            .container {
+                padding: 0 1.2rem;
+            }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* header */
-        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: var(--header-height); background: rgba(8, 8, 12, 0.75); backdrop-filter: blur(18px); border-bottom: 1px solid var(--border-mid); transition: all 0.3s ease; }
-        .header.scrolled { background: rgba(8, 8, 12, 0.92); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
-        .header-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 1.8rem; height: 100%; }
-        .logo { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; color: var(--text-primary); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
-        .logo img { width: 36px; height: 36px; border-radius: 8px; background: var(--accent-burgundy); object-fit: cover; }
-        .nav { display: flex; align-items: center; gap: 2rem; list-style: none; }
-        .nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; padding: 0.4rem 0; }
-        .nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent-burgundy); transition: width 0.3s; border-radius: 2px; }
-        .nav a:hover, .nav a.active { color: var(--text-primary); }
-        .nav a:hover::after, .nav a.active::after { width: 100%; }
-        .lang-switch { display: flex; gap: 0.3rem; background: var(--bg-elevated); border-radius: 40px; padding: 3px; border: 1px solid var(--border-mid); }
-        .lang-btn { background: transparent; border: none; color: var(--text-muted); padding: 0.4rem 0.9rem; border-radius: 40px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: 0.2s; }
-        .lang-btn.active { background: var(--accent-burgundy); color: white; box-shadow: 0 2px 8px rgba(139,58,74,0.4); }
-        .mobile-menu-toggle { display: none; background: none; border: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; }
-        .mobile-menu-toggle span { width: 26px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: 0.2s; }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: rgba(8, 8, 12, 0.75);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border-mid);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(8, 8, 12, 0.92);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+            height: 100%;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--accent-burgundy);
+            object-fit: cover;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.4rem 0;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-burgundy);
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav a:hover,
+        .nav a.active {
+            color: var(--text-primary);
+        }
+
+        .nav a:hover::after,
+        .nav a.active::after {
+            width: 100%;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.3rem;
+            background: var(--bg-elevated);
+            border-radius: 40px;
+            padding: 3px;
+            border: 1px solid var(--border-mid);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.4rem 0.9rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-burgundy);
+            color: white;
+            box-shadow: 0 2px 8px rgba(139, 58, 74, 0.4);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: 0.2s;
+        }
+
         @media (max-width: 900px) {
-            .nav { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(10, 10, 15, 0.96); backdrop-filter: blur(28px); flex-direction: column; padding: 6rem 2rem; gap: 1.8rem; transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); border-left: 1px solid var(--border-mid); z-index: 999; }
-            .nav.open { right: 0; }
-            .mobile-menu-toggle { display: flex; }
-            .lang-switch { margin-left: auto; margin-right: 1rem; }
+            .nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 15, 0.96);
+                backdrop-filter: blur(28px);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                gap: 1.8rem;
+                transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                border-left: 1px solid var(--border-mid);
+                z-index: 999;
+            }
+
+            .nav.open {
+                right: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .lang-switch {
+                margin-left: auto;
+                margin-right: 1rem;
+            }
         }
 
         /* hero */
-        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: var(--header-height); position: relative; }
-        .hero-bg { position: absolute; inset: 0; background-image: url('club.png'); background-size: cover; background-position: center 30%; background-repeat: no-repeat; opacity: 0.6; pointer-events: none; z-index: 0; }
-        .hero-bg::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(139,58,74,0.2) 0%, transparent 70%); pointer-events: none; }
-        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; margin: 0 auto; }
-        .hero-tag { display: inline-block; padding: 0.2rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 40px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); margin-bottom: 1rem; }
-        .hero h1 { font-size: clamp(3rem, 8vw, 5.8rem); font-weight: 900; background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 0.3em; }
-        .hero p { font-size: 1.2rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 2rem auto; }
-        .hero-stats { display: flex; gap: 2.2rem; margin-bottom: 2.5rem; justify-content: center; flex-wrap: wrap; }
-        .stat-number { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; line-height: 1; }
-        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
-        .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1.8rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; text-decoration: none; border: none; }
-        .btn-primary { background: var(--accent-burgundy); color: white; box-shadow: 0 8px 20px rgba(139,58,74,0.4); }
-        .btn-primary:hover { background: #b34e62; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(139,58,74,0.5); }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: var(--header-height);
+            position: relative;
+        }
 
-        /* плеер */
-        .player-wrapper { position: sticky; top: var(--header-height); z-index: 900; background: rgba(14,14,20,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-mid); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .player-inner { display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.8rem; max-width: 1280px; margin: 0 auto; flex-wrap: wrap; }
-        .player-cover { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; background: var(--bg-elevated); border: 1px solid var(--border-mid); }
-        .player-info { flex: 1; min-width: 120px; }
-        .player-track { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .player-artist { font-size: 0.7rem; color: var(--text-muted); }
-        .player-controls { display: flex; align-items: center; gap: 0.4rem; }
-        .player-btn { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .player-btn:hover { background: rgba(255,255,255,0.08); color: var(--accent-burgundy); }
-        .play-btn { background: var(--accent-burgundy); color: white; box-shadow: 0 4px 12px rgba(139,58,74,0.5); }
-        .progress-container { width: 200px; }
-        .progress-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.15); border-radius: 4px; cursor: pointer; }
-        .progress-bar-fill { width: 0%; height: 100%; background: var(--accent-burgundy); border-radius: 4px; }
-        .time-display { font-size: 0.7rem; color: var(--text-muted); min-width: 42px; }
-        .volume-container { width: 80px; margin-left: 0.5rem; }
-        .volume-slider { width: 100%; cursor: pointer; background: rgba(255,255,255,0.15); height: 3px; border-radius: 3px; -webkit-appearance: none; }
-        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent-burgundy); cursor: pointer; }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('club.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(139, 58, 74, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2em;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-burgundy);
+            color: white;
+            box-shadow: 0 8px 20px rgba(139, 58, 74, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #b34e62;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(139, 58, 74, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-burgundy);
+            background: rgba(139, 58, 74, 0.1);
+        }
+
+        /* плеер — центрирование */
+        .player-wrapper {
+            position: sticky;
+            top: var(--header-height);
+            z-index: 900;
+            background: rgba(14, 14, 20, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-mid);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .player-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            padding: 0.7rem 1rem;
+            max-width: 680px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .player-cover {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-mid);
+            flex-shrink: 0;
+        }
+
+        .player-info {
+            text-align: left;
+            min-width: 140px;
+        }
+
+        .player-track {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-artist {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .player-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .player-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--accent-burgundy);
+        }
+
+        .play-btn {
+            background: var(--accent-burgundy);
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 58, 74, 0.5);
+        }
+
+        .progress-container {
+            width: 180px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent-burgundy);
+            border-radius: 4px;
+        }
+
+        .time-display {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            min-width: 42px;
+            text-align: center;
+        }
+
+        .volume-container {
+            width: 80px;
+        }
+
+        .volume-slider {
+            width: 100%;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            height: 3px;
+            border-radius: 3px;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-burgundy);
+            cursor: pointer;
+        }
+
         @media (max-width: 700px) {
-            .player-inner { flex-wrap: wrap; justify-content: space-between; }
-            .player-info { order: 1; width: 100%; margin-top: 0.3rem; }
-            .player-controls { order: 2; }
-            .progress-container { order: 3; width: calc(100% - 100px); margin-left: 0; }
-            .time-display { order: 4; }
-            .volume-container { order: 5; width: 100%; margin-top: 0.5rem; margin-left: 0; }
+            .player-inner {
+                gap: 0.8rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .player-cover {
+                width: 42px;
+                height: 42px;
+            }
+
+            .player-controls {
+                order: 2;
+            }
+
+            .progress-container {
+                order: 3;
+                width: calc(100% - 100px);
+            }
+
+            .time-display {
+                order: 4;
+            }
+
+            .volume-container {
+                order: 5;
+                width: 100%;
+                margin-top: 0.4rem;
+            }
         }
 
         /* новости */
-        .news-scroll-wrapper { overflow-x: auto; scroll-behavior: smooth; cursor: grab; scrollbar-width: thin; scrollbar-color: var(--accent-burgundy) var(--bg-elevated); }
-        .news-grid { display: flex; gap: 1.5rem; width: max-content; padding: 0.5rem 0 1rem; }
-        .news-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; width: 310px; flex-shrink: 0; transition: all 0.3s; }
-        .news-card:hover { border-color: var(--border-mid); transform: translateY(-4px); box-shadow: var(--shadow-card); }
-        .news-date { font-size: 0.7rem; color: var(--accent-steel); margin-bottom: 0.6rem; }
-        .news-card h4 { font-size: 1.1rem; margin-bottom: 0.4rem; }
-        .news-tag { display: inline-block; margin-top: 0.8rem; font-size: 0.7rem; background: rgba(139,58,74,0.2); padding: 0.2rem 0.7rem; border-radius: 40px; color: #c98b99; }
+        .news-scroll-wrapper {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            cursor: grab;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-burgundy) var(--bg-elevated);
+        }
+
+        .news-grid {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            padding: 0.5rem 0 1rem;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.2rem;
+            width: 280px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .news-card:hover {
+            border-color: var(--border-mid);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .news-date {
+            font-size: 0.7rem;
+            color: var(--accent-steel);
+            margin-bottom: 0.5rem;
+        }
+
+        .news-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .news-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .news-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.65rem;
+            background: rgba(139, 58, 74, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            color: #c98b99;
+        }
 
         /* каталог */
-        .tabs { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-mid); padding-bottom: 0.5rem; }
-        .tab-btn { background: none; border: none; color: var(--text-muted); padding: 0.5rem 1.2rem; border-radius: 40px; font-weight: 500; cursor: pointer; transition: 0.2s; }
-        .tab-btn.active { background: var(--bg-elevated); color: var(--text-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
-        .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.5rem; }
-        .albums-grid, .games-grid, .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.8rem; }
-        .track-card, .album-card, .game-card, .photo-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1rem; transition: all 0.3s; cursor: pointer; }
-        .track-card:hover, .album-card:hover, .game-card:hover, .photo-card:hover { transform: translateY(-5px); border-color: var(--border-mid); box-shadow: var(--shadow-card); }
-        .track-cover, .album-cover, .game-cover, .photo-img { width: 100%; aspect-ratio: 1; border-radius: var(--radius-md); object-fit: cover; margin-bottom: 0.7rem; background: var(--bg-elevated); }
-        .track-title, .album-title, .game-title, .photo-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
-        .track-meta, .album-meta, .game-meta { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.7rem; }
-        .track-actions { display: flex; justify-content: space-between; align-items: center; }
-        .btn-sm { padding: 0.3rem 0.9rem; font-size: 0.7rem; border-radius: 30px; }
-        .like-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #aaa; }
-        .like-btn.liked { color: #e85d75; }
-        .likes-count { font-size: 0.75rem; color: var(--text-muted); margin-left: 0.2rem; min-width: 28px; display: inline-block; }
-        .camouflage { background: repeating-linear-gradient(45deg, #4e5a2b, #4e5a2b 30px, #2b3318 30px, #2b3318 60px); border-color: #8bb56a; }
-        .back-button { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; background: var(--bg-elevated); padding: 0.4rem 1rem; border-radius: 30px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
-        .back-button:hover { background: var(--accent-burgundy); }
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-mid);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .albums-grid,
+        .games-grid,
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .track-card,
+        .album-card,
+        .game-card,
+        .photo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track-card:hover,
+        .album-card:hover,
+        .game-card:hover,
+        .photo-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-mid);
+            box-shadow: var(--shadow-card);
+        }
+
+        .track-cover,
+        .album-cover,
+        .game-cover,
+        .photo-img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+            margin-bottom: 0.7rem;
+            background: var(--bg-elevated);
+        }
+
+        .track-title,
+        .album-title,
+        .game-title,
+        .photo-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .track-meta,
+        .album-meta,
+        .game-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .track-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-sm {
+            padding: 0.25rem 0.8rem;
+            font-size: 0.7rem;
+            border-radius: 30px;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .like-btn.liked {
+            color: #e85d75;
+        }
+
+        .likes-count {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-left: 0.2rem;
+            min-width: 24px;
+            display: inline-block;
+        }
+
+        .camouflage {
+            background: repeating-linear-gradient(45deg, #4e5a2b, #4e5a2b 30px, #2b3318 30px, #2b3318 60px);
+            border-color: #8bb56a;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--bg-elevated);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: var(--accent-burgundy);
+        }
 
         /* календарь уменьшен в 3 раза */
-        .calendar-wrapper { background: var(--bg-card); border-radius: var(--radius-md); padding: 0.6rem; border: 1px solid var(--border-mid); max-width: 400px; margin: 0 auto; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.5rem; }
-        .calendar-month { font-family: var(--font-display); font-size: 0.9rem; font-weight: 700; }
-        .calendar-legend { display: flex; gap: 0.5rem; font-size: 0.6rem; }
-        .legend-dot { display: inline-block; width: 8px; height: 8px; background: var(--accent-burgundy); border-radius: 10px; margin-right: 3px; }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.2rem; text-align: center; }
-        .calendar-weekday { font-weight: 600; color: var(--accent-steel); font-size: 0.6rem; text-transform: uppercase; padding-bottom: 0.3rem; }
-        .calendar-day { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 500; background: rgba(255, 255, 255, 0.02); border-radius: var(--radius-sm); transition: all 0.2s; position: relative; border: 1px solid transparent; }
-        .calendar-day.empty { background: transparent; opacity: 0.3; }
-        .calendar-day.release-day { background: linear-gradient(145deg, #8b3a4a20, #5f273320); border-color: var(--accent-burgundy); color: #e8a5b3; font-weight: 700; cursor: help; }
-        .calendar-day.release-day:hover { transform: scale(1.05); background: var(--accent-burgundy); color: white; }
-        .calendar-day.release-day::after { content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); color: #f0e6e6; padding: 0.2rem 0.5rem; border-radius: 16px; font-size: 0.6rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 10; }
-        .calendar-day.release-day:hover::after { opacity: 1; }
-        .calendar-note { margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-mid); font-size: 0.65rem; color: var(--text-secondary); display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+        .calendar-wrapper {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 0.6rem;
+            border: 1px solid var(--border-mid);
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .calendar-month {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.6rem;
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-burgundy);
+            border-radius: 10px;
+            margin-right: 3px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.2rem;
+            text-align: center;
+        }
+
+        .calendar-weekday {
+            font-weight: 600;
+            color: var(--accent-steel);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            padding-bottom: 0.3rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .calendar-day.empty {
+            background: transparent;
+            opacity: 0.3;
+        }
+
+        .calendar-day.release-day {
+            background: linear-gradient(145deg, #8b3a4a20, #5f273320);
+            border-color: var(--accent-burgundy);
+            color: #e8a5b3;
+            font-weight: 700;
+            cursor: help;
+        }
+
+        .calendar-day.release-day:hover {
+            transform: scale(1.05);
+            background: var(--accent-burgundy);
+            color: white;
+        }
+
+        .calendar-day.release-day::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            color: #f0e6e6;
+            padding: 0.2rem 0.5rem;
+            border-radius: 16px;
+            font-size: 0.6rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .calendar-day.release-day:hover::after {
+            opacity: 1;
+        }
+
+        .calendar-note {
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-mid);
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
 
         /* фото */
-        .photos-grid { gap: 1rem; }
-        .photo-card { cursor: pointer; }
-        .photo-title { font-size: 0.8rem; text-align: center; }
+        .photos-grid {
+            gap: 1rem;
+        }
 
-        .bio-block { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
-        .bio-image { width: 160px; height: 160px; border-radius: 50%; background: var(--bg-elevated); border: 2px solid var(--accent-burgundy); object-fit: cover; }
-        .support-block { text-align: center; background: var(--bg-card); padding: 2rem; border-radius: var(--radius-xl); }
-        .footer { border-top: 1px solid var(--border-mid); padding: 2rem 0; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
-        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: var(--bg-card); max-width: 90%; max-height: 90%; border-radius: 24px; overflow: auto; position: relative; padding: 1rem; }
-        .modal-close { position: absolute; top: 10px; right: 15px; font-size: 2rem; cursor: pointer; color: white; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 40px; font-size: 0.75rem; opacity: 0; transition: 0.2s; pointer-events: none; z-index: 1100; }
+        .photo-card {
+            cursor: pointer;
+        }
+
+        .photo-title {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .bio-block {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .bio-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: var(--bg-elevated);
+            border: 2px solid var(--accent-burgundy);
+            object-fit: cover;
+        }
+
+        .support-block {
+            text-align: center;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+        }
+
+        .support-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border-mid);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 24px;
+            overflow: auto;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: 0.2s;
+            pointer-events: none;
+            z-index: 1100;
+        }
+        
+        @media (max-width: 640px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .track-title, .album-title, .game-title {
+                font-size: 0.75rem;
+            }
+            .track-cover, .album-cover, .game-cover {
+                margin-bottom: 0.4rem;
+            }
+            .btn-sm {
+                padding: 0.2rem 0.6rem;
+                font-size: 0.65rem;
+            }
+            .like-btn {
+                font-size: 0.9rem;
+            }
+            .likes-count {
+                font-size: 0.65rem;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="toast" id="toastMsg">🎵 Загрузка трека...</div>
-<header class="header" id="header"><div class="header-inner"><a href="#" class="logo"><img src="logo.png" alt="logo"><span>DarkSpirit</span></a><nav class="nav" id="nav"><a href="#hero">Главная</a><a href="#news">Новости</a><a href="#music">Музыка</a><a href="#schedule">Релизы</a><a href="#photos">Фото</a><a href="#bio">О проекте</a><a href="#support">Поддержка</a></nav><div class="lang-switch"><button class="lang-btn active" data-lang="ru">RU</button><button class="lang-btn" data-lang="en">EN</button></div><button class="mobile-menu-toggle"><span></span><span></span><span></span></button></div></header>
+<header class="header" id="header">
+    <div class="header-inner">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="logo">
+            <span>DarkSpirit</span>
+        </a>
+        <nav class="nav" id="nav">
+            <a href="#hero">Главная</a>
+            <a href="#news">Новости</a>
+            <a href="#music">Музыка</a>
+            <a href="#schedule">Релизы</a>
+            <a href="#photos">Фото</a>
+            <a href="#bio">О проекте</a>
+            <a href="#support">Поддержка</a>
+        </nav>
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
 
-<section class="hero" id="hero"><div class="hero-bg"></div><div class="container hero-content fade-in-up"><span class="hero-tag">Группа</span><h1>DarkSpirit</h1><p>Музыка, которая остаётся в памяти навсегда.</p><div class="hero-stats"><div class="stat-item"><div class="stat-number" id="statPlatforms" data-target="32">0</div><div class="stat-label">Площадок</div></div><div class="stat-item"><div class="stat-number" id="statStreams" data-target="921427">0</div><div class="stat-label">Прослушиваний</div></div><div class="stat-item"><div class="stat-number" id="statTracks" data-target="107">0</div><div class="stat-label">Релизов</div></div></div><a href="#music" class="btn btn-primary">🎧 Слушать свежий релиз</a></div></section>
+<section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content fade-in-up">
+        <div class="hero-tag">Группа</div>
+        <h1>DarkSpirit</h1>
+        <p>Музыка, которая остаётся в памяти навсегда.</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number" id="statPlatforms" data-target="32">0</div>
+                <div class="stat-label">Площадок</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statStreams" data-target="921427">0</div>
+                <div class="stat-label">Прослушиваний</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="statTracks" data-target="107">0</div>
+                <div class="stat-label">Релизов</div>
+            </div>
+        </div>
+        <a href="#music" class="btn btn-primary">🎧 Слушать свежий релиз</a>
+    </div>
+</section>
 
-<div class="player-wrapper"><div class="player-inner"><img class="player-cover" id="playerCover" src="data:image/svg+xml,%3Csvg%3E" alt="cover"><div class="player-info"><div class="player-track" id="playerTrack">DarkSpirit</div><div class="player-artist">DarkSpirit</div></div><div class="player-controls"><button class="player-btn" id="playerPrev">⏮</button><button class="player-btn play-btn" id="playerPlay">▶</button><button class="player-btn" id="playerNext">⏭</button></div><div class="progress-container"><div class="progress-bar-bg" id="progressBarBg"><div class="progress-bar-fill" id="progressBarFill"></div></div></div><span class="time-display" id="timeDisplay">0:00</span><div class="volume-container"><input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.7"></div></div><audio id="audioElement" preload="metadata"></audio></div>
+<div class="player-wrapper">
+    <div class="player-inner">
+        <img class="player-cover" id="playerCover" src="data:image/svg+xml,%3Csvg%3E" alt="cover">
+        <div class="player-info">
+            <div class="player-track" id="playerTrack">DarkSpirit</div>
+            <div class="player-artist">DarkSpirit</div>
+        </div>
+        <div class="player-controls">
+            <button class="player-btn" id="playerPrev">⏮</button>
+            <button class="player-btn play-btn" id="playerPlay">▶</button>
+            <button class="player-btn" id="playerNext">⏭</button>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar-bg" id="progressBarBg">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </div>
+        <span class="time-display" id="timeDisplay">0:00</span>
+        <div class="volume-container">
+            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.7">
+        </div>
+    </div>
+    <audio id="audioElement" preload="metadata"></audio>
+</div>
 
-<section id="news"><div class="container"><h2 class="fade-in-up">Новости</h2><span class="section-subtitle">Последние события</span><div class="news-scroll-wrapper fade-in-up"><div class="news-grid" id="newsGrid"></div></div></div></section>
+<section id="news">
+    <div class="container">
+        <h2 class="fade-in-up">Новости</h2>
+        <span class="section-subtitle">Последние события</span>
+        <div class="news-scroll-wrapper fade-in-up">
+            <div class="news-grid" id="newsGrid"></div>
+        </div>
+    </div>
+</section>
 
-<section id="music"><div class="container"><h2 class="fade-in-up">Каталог</h2><span class="section-subtitle">Релизы, треки, игры</span><div class="tabs fade-in-up"><button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button><button class="tab-btn" data-tab="thematic">Музыка для СВО</button><button class="tab-btn" data-tab="games">Онлайн игры</button></div><div id="catalogContainer" class="fade-in-up"></div></div></section>
+<section id="music">
+    <div class="container">
+        <h2 class="fade-in-up">Каталог</h2>
+        <span class="section-subtitle">Релизы, треки, игры</span>
+        <div class="tabs fade-in-up">
+            <button class="tab-btn active" data-tab="pop-rap">Поп / Рок / Рэп</button>
+            <button class="tab-btn" data-tab="thematic">Музыка для СВО</button>
+            <button class="tab-btn" data-tab="games">Онлайн игры</button>
+        </div>
+        <div id="catalogContainer" class="fade-in-up"></div>
+    </div>
+</section>
 
-<section id="schedule"><div class="container"><h2 class="fade-in-up">Календарь релизов</h2><span class="section-subtitle">Июнь 2026</span><div class="calendar-wrapper fade-in-up" id="calendarRoot"></div></div></section>
+<section id="schedule">
+    <div class="container">
+        <h2 class="fade-in-up">Календарь релизов</h2>
+        <span class="section-subtitle">Июнь 2026</span>
+        <div class="calendar-wrapper fade-in-up" id="calendarRoot"></div>
+    </div>
+</section>
 
-<section id="photos"><div class="container"><h2 class="fade-in-up">Фото</h2><span class="section-subtitle">Моменты с выступлений и закулисья</span><div class="photos-grid" id="photosGrid"></div></div></section>
+<section id="photos">
+    <div class="container">
+        <h2 class="fade-in-up">Фото</h2>
+        <span class="section-subtitle">Моменты с выступлений и закулисья</span>
+        <div class="photos-grid" id="photosGrid"></div>
+    </div>
+</section>
 
-<section id="bio"><div class="container"><h2>О проекте</h2><div class="bio-block"><img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS"><div class="bio-text"><p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии.</p><a href="#" class="btn btn-outline">📥 Press Kit</a></div></div></div></section>
-<section id="support"><div class="container"><div class="support-block"><h2>Поддержать</h2><p>Boosty / VK Donut</p><a href="#" class="btn btn-primary">💜 Boosty</a><a href="#" class="btn btn-outline">🎁 VK Donut</a></div></div></section>
-<footer class="footer"><div class="container"><div class="footer-links"><a href="#">VK</a><a href="#">YouTube</a></div><p>© 2026 DarkSpirit</p><div class="visit-counter">👁️ <span id="visitCounter">0</span> посещений</div></div></footer>
-<div class="modal" id="photoModal"><div class="modal-content"><span class="modal-close">&times;</span><img id="modalImage" style="width:100%; border-radius:12px;" src="" alt=""></div></div>
+<section id="bio">
+    <div class="container">
+        <h2>О проекте</h2>
+        <div class="bio-block">
+            <img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS">
+            <div class="bio-text">
+                <p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии.</p>
+                <a href="#" class="btn btn-outline">📥 Press Kit</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="support">
+    <div class="container">
+        <div class="support-block">
+            <h2>Поддержать проект</h2>
+            <p>Ваша поддержка помогает нам создавать новую музыку</p>
+            <div class="support-buttons">
+                <a href="https://boosty.to/wotdvstream" target="_blank" class="btn btn-primary">💜 Boosty</a>
+                <a href="https://vk.com/darkspiritmuzika?w=app5727453_-129469625" target="_blank" class="btn btn-outline">🎁 VK Donut</a>
+                <a href="https://tips.yandex.ru/guest/payment/3394466?wl=yandex_music" target="_blank" class="btn btn-outline">☕ Яндекс Чаевые</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="#">VK</a>
+            <a href="#">YouTube</a>
+            <a href="#">Apple Music</a>
+        </div>
+        <p>© 2026 DarkSpirit</p>
+        <div class="visit-counter">👁️ <span id="visitCounter">0</span> посещений</div>
+    </div>
+</footer>
+
+<div class="modal" id="photoModal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <img id="modalImage" style="width:100%; border-radius:12px;" src="" alt="">
+    </div>
+</div>
 
 <script>
-    (function(){
-        // ---------- ИГРОВЫЕ ТРЕКИ ----------
-        const caliberTracks = []; for (let i = 1; i <= 10; i++) { caliberTracks.push({ id: 100 + i, title: `Калибр - Трек ${i}`, titleEn: `Caliber - Track ${i}`, category: 'game', cover: `cover_caliber_${i}.jpg`, audioSrc: `caliber_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'caliber' }); }
-        const arcTracks = []; for (let i = 1; i <= 10; i++) { arcTracks.push({ id: 200 + i, title: `ARC Raiders - Трек ${i}`, titleEn: `ARC Raiders - Track ${i}`, category: 'game', cover: `cover_arc_${i}.jpg`, audioSrc: `arc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'arc' }); }
-        const miscTracks = []; for (let i = 1; i <= 10; i++) { miscTracks.push({ id: 300 + i, title: `Сборник - Трек ${i}`, titleEn: `Misc - Track ${i}`, category: 'game', cover: `cover_misc_${i}.jpg`, audioSrc: `misc_track_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, gameId: 'misc' }); }
+    (function() {
+        // ---------- ИГРОВЫЕ ТРЕКИ (по 10 на каждую игру) ----------
+        const caliberTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            caliberTracks.push({
+                id: 100 + i,
+                title: `Калибр - Трек ${i}`,
+                titleEn: `Caliber - Track ${i}`,
+                category: 'game',
+                cover: `cover_caliber_${i}.jpg`,
+                audioSrc: `caliber_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20),
+                userLiked: false,
+                gameId: 'caliber'
+            });
+        }
+        const arcTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            arcTracks.push({
+                id: 200 + i,
+                title: `ARC Raiders - Трек ${i}`,
+                titleEn: `ARC Raiders - Track ${i}`,
+                category: 'game',
+                cover: `cover_arc_${i}.jpg`,
+                audioSrc: `arc_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20),
+                userLiked: false,
+                gameId: 'arc'
+            });
+        }
+        const miscTracks = [];
+        for (let i = 1; i <= 10; i++) {
+            miscTracks.push({
+                id: 300 + i,
+                title: `Сборник - Трек ${i}`,
+                titleEn: `Misc - Track ${i}`,
+                category: 'game',
+                cover: `cover_misc_${i}.jpg`,
+                audioSrc: `misc_track_${i}.mp3`,
+                likes: Math.floor(Math.random() * 20),
+                userLiked: false,
+                gameId: 'misc'
+            });
+        }
 
         // ---------- ОСНОВНЫЕ ТРЕКИ (поп/рок/рэп) ----------
-        const mainTracks = [
-            { id:1, title:'Запятая у окна', titleEn:'Comma by the Window', category:'pop-rap', cover:'Запятая у окна.png', audioSrc:'zapyataya.mp3', likes:12, userLiked:false, gameId: null },
-            { id:2, title:'Soul and Stream', titleEn:'Soul and Stream', category:'pop-rap', cover:'Soul and Stream.jpg', audioSrc:'SoulandStream.mp3', likes:8, userLiked:false, gameId: null },
-            { id:3, title:'Пробки заебали', titleEn:'Traffic Jams', category:'pop-rap', cover:'Пробки заебали.png', audioSrc:'Probki.mp3', likes:15, userLiked:false, gameId: null }
+        const mainTracks = [{
+                id: 1,
+                title: 'Запятая у окна',
+                titleEn: 'Comma by the Window',
+                category: 'pop-rap',
+                cover: 'Запятая у окна.png',
+                audioSrc: 'zapyataya.mp3',
+                likes: 12,
+                userLiked: false,
+                gameId: null
+            },
+            {
+                id: 2,
+                title: 'Soul and Stream',
+                titleEn: 'Soul and Stream',
+                category: 'pop-rap',
+                cover: 'Soul and Stream.jpg',
+                audioSrc: 'SoulandStream.mp3',
+                likes: 8,
+                userLiked: false,
+                gameId: null
+            },
+            {
+                id: 3,
+                title: 'Пробки заебали',
+                titleEn: 'Traffic Jams',
+                category: 'pop-rap',
+                cover: 'Пробки заебали.png',
+                audioSrc: 'Probki.mp3',
+                likes: 15,
+                userLiked: false,
+                gameId: null
+            }
         ];
 
-        // ---------- АЛЬБОМЫ ДЛЯ "МУЗЫКА ДЛЯ СВО" ----------
-        const svoAlbums = [
-            { id: 'svo_album1', title: 'Альбом: Честь и отвага', titleEn: 'Album: Honor and Courage', cover: 'svo_album1.jpg', description: 'Сборник патриотических песен' },
-            { id: 'svo_album2', title: 'Альбом: За ленточкой', titleEn: 'Album: Behind the Ribbon', cover: 'svo_album2.jpg', description: 'Посвящение героям' },
-            { id: 'svo_album3', title: 'Альбом: Возвращение', titleEn: 'Album: Return', cover: 'svo_album3.jpg', description: 'Мирная жизнь после' }
+        // ---------- АЛЬБОМЫ ДЛЯ "МУЗЫКА ДЛЯ СВО" (3 альбома по 10 треков) ----------
+        const svoAlbums = [{
+                id: 'svo_album1',
+                title: 'Альбом: Честь и отвага',
+                titleEn: 'Album: Honor and Courage',
+                cover: 'svo_album1.jpg',
+                description: 'Сборник патриотических песен'
+            },
+            {
+                id: 'svo_album2',
+                title: 'Альбом: За ленточкой',
+                titleEn: 'Album: Behind the Ribbon',
+                cover: 'svo_album2.jpg',
+                description: 'Посвящение героям'
+            },
+            {
+                id: 'svo_album3',
+                title: 'Альбом: Возвращение',
+                titleEn: 'Album: Return',
+                cover: 'svo_album3.jpg',
+                description: 'Мирная жизнь после'
+            }
         ];
         const svoTracksByAlbum = {};
-        svoAlbums.forEach((album, idx) => { let tracks = []; for (let i = 1; i <= 10; i++) { tracks.push({ id: 400 + idx*100 + i, title: `${album.title} - Трек ${i}`, titleEn: `${album.titleEn} - Track ${i}`, category: 'thematic_album', cover: `svo_track_${idx+1}_${i}.jpg`, audioSrc: `svo_track_${idx+1}_${i}.mp3`, likes: Math.floor(Math.random() * 20), userLiked: false, albumId: album.id }); } svoTracksByAlbum[album.id] = tracks; });
+        svoAlbums.forEach((album, idx) => {
+            let tracks = [];
+            for (let i = 1; i <= 10; i++) {
+                tracks.push({
+                    id: 400 + idx * 100 + i,
+                    title: `${album.title} - Трек ${i}`,
+                    titleEn: `${album.titleEn} - Track ${i}`,
+                    category: 'thematic_album',
+                    cover: `svo_track_${idx + 1}_${i}.jpg`,
+                    audioSrc: `svo_track_${idx + 1}_${i}.mp3`,
+                    likes: Math.floor(Math.random() * 20),
+                    userLiked: false,
+                    albumId: album.id
+                });
+            }
+            svoTracksByAlbum[album.id] = tracks;
+        });
 
         const allTracks = [...mainTracks, ...caliberTracks, ...arcTracks, ...miscTracks];
-        for (let albumId in svoTracksByAlbum) { allTracks.push(...svoTracksByAlbum[albumId]); }
+        for (let albumId in svoTracksByAlbum) {
+            allTracks.push(...svoTracksByAlbum[albumId]);
+        }
 
-        const gamesData = [
-            { id: 'caliber', title: 'Калибр', titleEn: 'Caliber', cover: 'caliber_game.jpg', tracks: caliberTracks },
-            { id: 'arc', title: 'ARC Raiders', titleEn: 'ARC Raiders', cover: 'arc_game.jpg', tracks: arcTracks },
-            { id: 'misc', title: 'Разное (сборник)', titleEn: 'Miscellaneous', cover: 'misc_game.jpg', tracks: miscTracks }
+        const gamesData = [{
+                id: 'caliber',
+                title: 'Калибр',
+                titleEn: 'Caliber',
+                cover: 'caliber_game.jpg',
+                tracks: caliberTracks
+            },
+            {
+                id: 'arc',
+                title: 'ARC Raiders',
+                titleEn: 'ARC Raiders',
+                cover: 'arc_game.jpg',
+                tracks: arcTracks
+            },
+            {
+                id: 'misc',
+                title: 'Разное (сборник)',
+                titleEn: 'Miscellaneous',
+                cover: 'misc_game.jpg',
+                tracks: miscTracks
+            }
         ];
 
-        const newsData = [
-            { date:"27.05.2026", titleRu:"Новый трек «Пробки заебали» 12.06", titleEn:"New track 'Traffic Jams' 12.06", descRu:"Экспериментальный трек", descEn:"Experimental", tagRu:"Анонс", tagEn:"Announce" },
-            { date:"24.05.2026", titleRu:"Два новых трека 4 и 5 июня", titleEn:"Two new tracks June 4&5", descRu:"«Запятая у окна» и «Soul and Stream»", descEn:"'Comma' and 'Soul and Stream'", tagRu:"Анонс", tagEn:"Announce" },
-            { date:"22.05.2026", titleRu:"Преодолели 900 000 прослушиваний", titleEn:"Over 900k streams", descRu:"Спасибо каждому", descEn:"Thank you all", tagRu:"Новость", tagEn:"News" }
+        const newsData = [{
+                date: "27.05.2026",
+                titleRu: "Новый трек «Пробки заебали» 12.06",
+                titleEn: "New track 'Traffic Jams' 12.06",
+                descRu: "Экспериментальный трек",
+                descEn: "Experimental",
+                tagRu: "Анонс",
+                tagEn: "Announce"
+            },
+            {
+                date: "24.05.2026",
+                titleRu: "Два новых трека 4 и 5 июня",
+                titleEn: "Two new tracks June 4&5",
+                descRu: "«Запятая у окна» и «Soul and Stream»",
+                descEn: "'Comma' and 'Soul and Stream'",
+                tagRu: "Анонс",
+                tagEn: "Announce"
+            },
+            {
+                date: "22.05.2026",
+                titleRu: "Преодолели 900 000 прослушиваний",
+                titleEn: "Over 900k streams",
+                descRu: "Спасибо каждому",
+                descEn: "Thank you all",
+                tagRu: "Новость",
+                tagEn: "News"
+            }
         ];
 
         // Фото (заглушки)
-        const photosData = [
-            { src: "photo1.jpg", title: "Концерт в Москве" }, { src: "photo2.jpg", title: "За кулисами" }, { src: "photo3.jpg", title: "Студийная запись" }
+        const photosData = [{
+                src: "photo1.jpg",
+                title: "Концерт в Москве"
+            },
+            {
+                src: "photo2.jpg",
+                title: "За кулисами"
+            },
+            {
+                src: "photo3.jpg",
+                title: "Студийная запись"
+            }
         ];
 
         let currentLang = 'ru';
@@ -260,8 +1397,15 @@
         let isPlaying = false;
         let toastMsg = document.getElementById('toastMsg');
 
-        function showToast(msg) { toastMsg.innerText = msg; toastMsg.style.opacity = '1'; setTimeout(() => toastMsg.style.opacity = '0', 2000); }
-        function getTrackById(id) { return allTracks.find(t => t.id === id); }
+        function showToast(msg) {
+            toastMsg.innerText = msg;
+            toastMsg.style.opacity = '1';
+            setTimeout(() => toastMsg.style.opacity = '0', 2000);
+        }
+
+        function getTrackById(id) {
+            return allTracks.find(t => t.id === id);
+        }
 
         function loadTrackById(id, autoPlay = false) {
             let t = getTrackById(id);
@@ -273,7 +1417,10 @@
             progressFill.style.width = '0%';
             timeSpan.innerText = '0:00';
             if (autoPlay) {
-                audio.play().then(() => { isPlaying = true; playBtn.innerText = '⏸'; }).catch(err => showToast(`Ошибка: ${err.message}`));
+                audio.play().then(() => {
+                    isPlaying = true;
+                    playBtn.innerText = '⏸';
+                }).catch(err => showToast(`Ошибка: ${err.message}`));
             } else {
                 isPlaying = false;
                 playBtn.innerText = '▶';
@@ -283,8 +1430,16 @@
         }
 
         function togglePlay() {
-            if (isPlaying) { audio.pause(); isPlaying = false; playBtn.innerText = '▶'; }
-            else { audio.play().then(() => { isPlaying = true; playBtn.innerText = '⏸'; }).catch(err => showToast(`Ошибка: ${err.message}`)); }
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playBtn.innerText = '▶';
+            } else {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    playBtn.innerText = '⏸';
+                }).catch(err => showToast(`Ошибка: ${err.message}`));
+            }
         }
 
         function nextTrack() {
@@ -292,6 +1447,7 @@
             let nextIdx = (currentIdx + 1) % allTracks.length;
             loadTrackById(allTracks[nextIdx].id, true);
         }
+
         function prevTrack() {
             let currentIdx = allTracks.findIndex(t => t.id === currentTrackId);
             let prevIdx = (currentIdx - 1 + allTracks.length) % allTracks.length;
@@ -307,6 +1463,7 @@
                 timeSpan.innerText = mins + ':' + (secs < 10 ? '0' : '') + secs;
             }
         }
+
         function setProgress(e) {
             let rect = progressBg.getBoundingClientRect();
             let perc = (e.clientX - rect.left) / rect.width;
@@ -317,12 +1474,17 @@
         prevBtn.onclick = prevTrack;
         nextBtn.onclick = nextTrack;
         audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('ended', () => { nextTrack(); });
+        audio.addEventListener('ended', () => {
+            nextTrack();
+        });
         progressBg.addEventListener('click', setProgress);
         if (volumeSlider) volumeSlider.oninput = (e) => audio.volume = e.target.value;
 
         function renderTracks(tracks, container) {
-            if (!tracks.length) { container.innerHTML = '<div style="text-align:center;">Нет треков</div>'; return; }
+            if (!tracks.length) {
+                container.innerHTML = '<div style="text-align:center;">Нет треков</div>';
+                return;
+            }
             let html = `<div class="music-grid">` + tracks.map(t => `<div class="track-card">
                 <img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'">
                 <div class="track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div>
@@ -343,67 +1505,213 @@
                 e.stopPropagation();
                 let id = parseInt(btn.dataset.id);
                 let t = getTrackById(id);
-                if (t) { t.userLiked = !t.userLiked; t.likes += t.userLiked ? 1 : -1; if (t.likes < 0) t.likes = 0; renderCatalog(); }
+                if (t) {
+                    t.userLiked = !t.userLiked;
+                    t.likes += t.userLiked ? 1 : -1;
+                    if (t.likes < 0) t.likes = 0;
+                    renderCatalog();
+                }
             }));
         }
 
         function renderGamesList() {
             let html = `<div class="games-grid">` + gamesData.map(g => `<div class="game-card" data-id="${g.id}"><img class="game-cover" src="${g.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="game-title">${currentLang === 'ru' ? g.title : g.titleEn}</div><div class="game-meta">${currentLang === 'ru' ? 'Нажмите, чтобы открыть треки' : 'Click to open tracks'}</div></div>`).join('') + `</div>`;
             catalogContainer.innerHTML = html;
-            document.querySelectorAll('.game-card').forEach(card => { card.addEventListener('click', () => { let gameId = card.dataset.id; let game = gamesData.find(g => g.id === gameId); if (game) { catalogContainer.innerHTML = `<div class="back-button" id="backToGames">← ${currentLang === 'ru' ? 'Назад к играм' : 'Back to games'}</div><div id="tracksContainer"></div>`; renderTracks(game.tracks, document.getElementById('tracksContainer')); document.getElementById('backToGames').addEventListener('click', () => { renderCatalog(); }); } }); });
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    let gameId = card.dataset.id;
+                    let game = gamesData.find(g => g.id === gameId);
+                    if (game) {
+                        catalogContainer.innerHTML = `<div class="back-button" id="backToGames">← ${currentLang === 'ru' ? 'Назад к играм' : 'Back to games'}</div><div id="tracksContainer"></div>`;
+                        renderTracks(game.tracks, document.getElementById('tracksContainer'));
+                        document.getElementById('backToGames').addEventListener('click', () => {
+                            renderCatalog();
+                        });
+                    }
+                });
+            });
         }
 
         function renderSvoAlbums() {
             let html = `<div class="albums-grid">` + svoAlbums.map(album => `<div class="album-card" data-id="${album.id}"><img class="album-cover" src="${album.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="album-title">${currentLang === 'ru' ? album.title : album.titleEn}</div><div class="album-meta">${album.description}</div></div>`).join('') + `</div>`;
             catalogContainer.innerHTML = html;
-            document.querySelectorAll('.album-card').forEach(card => { card.addEventListener('click', () => { let albumId = card.dataset.id; let tracks = svoTracksByAlbum[albumId] || []; if (tracks.length) { catalogContainer.innerHTML = `<div class="back-button" id="backToAlbums">← ${currentLang === 'ru' ? 'Назад к альбомам' : 'Back to albums'}</div><div id="tracksContainer"></div>`; renderTracks(tracks, document.getElementById('tracksContainer')); document.getElementById('backToAlbums').addEventListener('click', () => { renderCatalog(); }); } else { showToast('Треков пока нет'); } }); });
+            document.querySelectorAll('.album-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    let albumId = card.dataset.id;
+                    let tracks = svoTracksByAlbum[albumId] || [];
+                    if (tracks.length) {
+                        catalogContainer.innerHTML = `<div class="back-button" id="backToAlbums">← ${currentLang === 'ru' ? 'Назад к альбомам' : 'Back to albums'}</div><div id="tracksContainer"></div>`;
+                        renderTracks(tracks, document.getElementById('tracksContainer'));
+                        document.getElementById('backToAlbums').addEventListener('click', () => {
+                            renderCatalog();
+                        });
+                    } else {
+                        showToast('Треков пока нет');
+                    }
+                });
+            });
         }
 
         function renderCatalog() {
-            if (currentCategory === 'games') { renderGamesList(); return; }
-            if (currentCategory === 'thematic') { renderSvoAlbums(); return; }
+            if (currentCategory === 'games') {
+                renderGamesList();
+                return;
+            }
+            if (currentCategory === 'thematic') {
+                renderSvoAlbums();
+                return;
+            }
             let filtered = allTracks.filter(t => t.category === 'pop-rap' && !t.gameId && !t.albumId);
             renderTracks(filtered, catalogContainer);
         }
 
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => { currentCategory = btn.dataset.tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCatalog(); }));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
+            currentCategory = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCatalog();
+        }));
 
         function buildCalendar() {
-            const year = 2026, month = 5;
+            const year = 2026,
+                month = 5;
             const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month+1, 0).getDate();
-            const releaseMap = { 4: { ru: "Запятая у окна", en: "Comma by the Window" }, 5: { ru: "Soul and Stream", en: "Soul and Stream" }, 12: { ru: "Пробки заебали", en: "Traffic Jams" } };
-            let weeks = [], week = [];
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const releaseMap = {
+                4: {
+                    ru: "Запятая у окна",
+                    en: "Comma by the Window"
+                },
+                5: {
+                    ru: "Soul and Stream",
+                    en: "Soul and Stream"
+                },
+                12: {
+                    ru: "Пробки заебали",
+                    en: "Traffic Jams"
+                }
+            };
+            let weeks = [],
+                week = [];
             let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
             for (let i = 0; i < startOffset; i++) week.push(null);
-            for (let d = 1; d <= daysInMonth; d++) { week.push(d); if (week.length === 7) { weeks.push(week); week = []; } }
-            if (week.length) { while(week.length < 7) week.push(null); weeks.push(week); }
+            for (let d = 1; d <= daysInMonth; d++) {
+                week.push(d);
+                if (week.length === 7) {
+                    weeks.push(week);
+                    week = [];
+                }
+            }
+            if (week.length) {
+                while (week.length < 7) week.push(null);
+                weeks.push(week);
+            }
             const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
             let calendarHtml = `<div class="calendar-header"><div class="calendar-month">Июнь 2026</div><div class="calendar-legend"><span><span class="legend-dot"></span> Релиз</span></div></div><div class="calendar-grid">${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}`;
-            weeks.forEach(week => { week.forEach(day => { if (day === null) calendarHtml += `<div class="calendar-day empty"></div>`; else { let isRelease = releaseMap[day]; let tooltip = isRelease ? (currentLang === 'ru' ? isRelease.ru : isRelease.en) : ''; calendarHtml += `<div class="calendar-day ${isRelease ? 'release-day' : ''}" data-tooltip="${tooltip}">${day}</div>`; } }); });
+            weeks.forEach(week => {
+                week.forEach(day => {
+                    if (day === null) calendarHtml += `<div class="calendar-day empty"></div>`;
+                    else {
+                        let isRelease = releaseMap[day];
+                        let tooltip = isRelease ? (currentLang === 'ru' ? isRelease.ru : isRelease.en) : '';
+                        calendarHtml += `<div class="calendar-day ${isRelease ? 'release-day' : ''}" data-tooltip="${tooltip}">${day}</div>`;
+                    }
+                });
+            });
             calendarHtml += `</div><div class="calendar-note"><span>⭐ 4,5,12 июня — премьеры</span><span>🎸 Июль — EP "Северный ветер"</span></div>`;
             document.getElementById('calendarRoot').innerHTML = calendarHtml;
         }
 
-        function renderNews() { let grid = document.getElementById('newsGrid'); if (grid) grid.innerHTML = newsData.map(n => `<div class="news-card"><div class="news-date">${n.date}</div><h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4><p>${currentLang === 'ru' ? n.descRu : n.descEn}</p><span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span></div>`).join(''); }
-        function renderPhotos() { let grid = document.getElementById('photosGrid'); if (grid) grid.innerHTML = photosData.map(p => `<div class="photo-card" data-src="${p.src}"><img class="photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="photo-title">${p.title}</div></div>`).join(''); document.querySelectorAll('.photo-card').forEach(card => card.addEventListener('click', () => { let src = card.dataset.src; document.getElementById('modalImage').src = src; document.getElementById('photoModal').style.display = 'flex'; })); }
-        function setLanguage(lang) { currentLang = lang; buildCalendar(); renderCatalog(); renderNews(); renderPhotos(); let current = getTrackById(currentTrackId); if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn; }
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => { setLanguage(btn.dataset.lang); document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }));
+        function renderNews() {
+            let grid = document.getElementById('newsGrid');
+            if (grid) grid.innerHTML = newsData.map(n => `<div class="news-card"><div class="news-date">${n.date}</div><h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4><p>${currentLang === 'ru' ? n.descRu : n.descEn}</p><span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span></div>`).join('');
+        }
+
+        function renderPhotos() {
+            let grid = document.getElementById('photosGrid');
+            if (grid) grid.innerHTML = photosData.map(p => `<div class="photo-card" data-src="${p.src}"><img class="photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'"><div class="photo-title">${p.title}</div></div>`).join('');
+            document.querySelectorAll('.photo-card').forEach(card => card.addEventListener('click', () => {
+                let src = card.dataset.src;
+                document.getElementById('modalImage').src = src;
+                document.getElementById('photoModal').style.display = 'flex';
+            }));
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            buildCalendar();
+            renderCatalog();
+            renderNews();
+            renderPhotos();
+            let current = getTrackById(currentTrackId);
+            if (current) trackNameSpan.innerText = lang === 'ru' ? current.title : current.titleEn;
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => {
+            setLanguage(btn.dataset.lang);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }));
 
         function startCounters() {
-            let counters = [{ el: document.getElementById('statPlatforms'), target: 32 },{ el: document.getElementById('statStreams'), target: 921427 },{ el: document.getElementById('statTracks'), target: 107 }];
-            counters.forEach(c => { if (c.el) { let cur = 0, step = Math.ceil(c.target / 30); let timer = setInterval(() => { cur += step; if (cur >= c.target) { c.el.innerText = c.target.toLocaleString(); clearInterval(timer); } else c.el.innerText = Math.floor(cur).toLocaleString(); }, 25); } });
+            let counters = [{
+                    el: document.getElementById('statPlatforms'),
+                    target: 32
+                },
+                {
+                    el: document.getElementById('statStreams'),
+                    target: 921427
+                },
+                {
+                    el: document.getElementById('statTracks'),
+                    target: 107
+                }
+            ];
+            counters.forEach(c => {
+                if (c.el) {
+                    let cur = 0,
+                        step = Math.ceil(c.target / 30);
+                    let timer = setInterval(() => {
+                        cur += step;
+                        if (cur >= c.target) {
+                            c.el.innerText = c.target.toLocaleString();
+                            clearInterval(timer);
+                        } else c.el.innerText = Math.floor(cur).toLocaleString();
+                    }, 25);
+                }
+            });
         }
-        new IntersectionObserver((entries, obs) => { entries.forEach(e => { if (e.isIntersecting) { startCounters(); obs.disconnect(); } }); }, { threshold: 0.3 }).observe(document.querySelector('.hero-stats'));
+        new IntersectionObserver((entries, obs) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    startCounters();
+                    obs.disconnect();
+                }
+            });
+        }, {
+            threshold: 0.3
+        }).observe(document.querySelector('.hero-stats'));
 
-        document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) { e.preventDefault(); let target = document.querySelector(this.getAttribute('href')); if (target) { window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' }); document.getElementById('nav').classList.remove('open'); } }));
+        document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', function(e) {
+            e.preventDefault();
+            let target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+                document.getElementById('nav').classList.remove('open');
+            }
+        }));
         document.querySelector('.mobile-menu-toggle')?.addEventListener('click', () => document.getElementById('nav').classList.toggle('open'));
         window.addEventListener('scroll', () => document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50));
         document.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
 
         const modal = document.getElementById('photoModal');
         modal.querySelector('.modal-close')?.addEventListener('click', () => modal.style.display = 'none');
-        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
 
         let visits = localStorage.getItem('siteVisits') ? parseInt(localStorage.getItem('siteVisits')) + 1 : 1;
         localStorage.setItem('siteVisits', visits);
