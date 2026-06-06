@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>DarkSpirit — Живое радио | Официальный сайт</title>
+    <title>DarkSpirit — Живое радио | Календарь июнь-июль</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
@@ -402,7 +402,7 @@
             background: rgba(139, 58, 74, 0.1);
         }
 
-        /* плеер — ползунок громкости под прогрессом, фиксированный размер */
+        /* плеер — ползунок громкости фиксированной ширины */
         .player-wrapper {
             position: sticky;
             top: var(--header-height);
@@ -637,7 +637,7 @@
             opacity: 1;
         }
 
-        /* остальные стили (новости, каталог, игры, фото и т.д.) — без изменений */
+        /* новости и каталог (общие) */
         .news-scroll-wrapper {
             overflow-x: auto;
             scroll-behavior: smooth;
@@ -798,13 +798,21 @@
         .back-button:hover {
             background: var(--accent-burgundy);
         }
+
+        /* календарь — два месяца в ряд */
+        .calendars-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
         .calendar-wrapper {
             background: var(--bg-card);
             border-radius: var(--radius-md);
             padding: 0.6rem;
             border: 1px solid var(--border-mid);
             max-width: 360px;
-            margin: 0 auto;
+            width: 100%;
         }
         .calendar-header {
             display: flex;
@@ -901,11 +909,10 @@
             border-top: 1px dashed var(--border-mid);
             font-size: 0.65rem;
             color: var(--text-secondary);
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
+            text-align: center;
         }
+
+        /* фото */
         .photos-grid {
             gap: 1rem;
         }
@@ -916,6 +923,8 @@
             font-size: 0.8rem;
             text-align: center;
         }
+
+        /* о проекте и поддержка */
         .bio-links {
             display: flex;
             flex-wrap: wrap;
@@ -994,13 +1003,21 @@
             pointer-events: none;
             z-index: 1100;
         }
+
+        /* Мобильная адаптация: единые размеры обложек и шрифтов для всех разделов */
         @media (max-width: 640px) {
-            .music-grid {
+            .music-grid, .albums-grid, .games-grid, .photos-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 0.8rem;
             }
-            .track-title, .album-title, .game-title {
+            .track-card, .album-card, .game-card, .photo-card {
+                padding: 0.6rem;
+            }
+            .track-title, .album-title, .game-title, .photo-title {
                 font-size: 0.75rem;
+            }
+            .track-cover, .album-cover, .game-cover, .photo-img {
+                margin-bottom: 0.4rem;
             }
             .btn-sm {
                 padding: 0.2rem 0.6rem;
@@ -1009,8 +1026,17 @@
             .like-btn {
                 font-size: 0.9rem;
             }
+            .likes-count {
+                font-size: 0.65rem;
+            }
             .volume-container {
                 width: 100%;
+            }
+            .calendars-container {
+                gap: 1rem;
+            }
+            .calendar-wrapper {
+                max-width: 100%;
             }
         }
     </style>
@@ -1125,8 +1151,8 @@
 <section id="schedule">
     <div class="container">
         <h2 class="fade-in-up">Календарь релизов</h2>
-        <span class="section-subtitle">Июнь 2026</span>
-        <div class="calendar-wrapper fade-in-up" id="calendarRoot"></div>
+        <span class="section-subtitle">Июнь / Июль 2026</span>
+        <div class="calendars-container fade-in-up" id="calendarsContainer"></div>
     </div>
 </section>
 
@@ -1195,7 +1221,7 @@
 
 <script>
     (function() {
-        // ---------- ИГРОВЫЕ ТРЕКИ (по 10 на каждую игру) ----------
+        // ---------- ИГРОВЫЕ ТРЕКИ ----------
         const caliberTracks = [];
         for (let i = 1; i <= 10; i++) {
             caliberTracks.push({
@@ -1245,7 +1271,7 @@
             });
         }
 
-        // ---------- ОСНОВНЫЕ ТРЕКИ (поп/рок/рэп) с описанием ----------
+        // ---------- ОСНОВНЫЕ ТРЕКИ (поп/рок/рэп) ----------
         const mainTracks = [{
                 id: 1,
                 title: 'Запятая у окна',
@@ -1287,7 +1313,7 @@
             }
         ];
 
-        // ---------- АЛЬБОМЫ ДЛЯ "МУЗЫКА ДЛЯ СВО" (3 альбома по 10 треков) с описанием ----------
+        // ---------- АЛЬБОМЫ ДЛЯ "МУЗЫКА ДЛЯ СВО" (3 альбома по 10 треков) ----------
         const svoAlbums = [{
                 id: 'svo_album1',
                 title: 'Альбом: Честь и отвага',
@@ -1331,7 +1357,7 @@
             svoTracksByAlbum[album.id] = tracks;
         });
 
-        // Объединяем все треки
+        // Общий массив треков
         const allTracks = [...mainTracks, ...caliberTracks, ...arcTracks, ...miscTracks];
         for (let albumId in svoTracksByAlbum) {
             allTracks.push(...svoTracksByAlbum[albumId]);
@@ -1607,25 +1633,31 @@
             renderCatalog();
         }));
 
-        function buildCalendar() {
-            const year = 2026, month = 5;
+        // Функция построения календаря для месяца (год, месяц 0-11, объект с релизами)
+        function buildCalendarMonth(year, month, releaseMap, monthNameRu, monthNameEn) {
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const releaseMap = {
-                4: { ru: "Запятая у окна", en: "Comma by the Window" },
-                5: { ru: "Soul and Stream", en: "Soul and Stream" },
-                12: { ru: "Пробки заебали", en: "Traffic Jams" }
-            };
             let weeks = [], week = [];
             let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
             for (let i = 0; i < startOffset; i++) week.push(null);
             for (let d = 1; d <= daysInMonth; d++) {
                 week.push(d);
-                if (week.length === 7) { weeks.push(week); week = []; }
+                if (week.length === 7) {
+                    weeks.push(week);
+                    week = [];
+                }
             }
-            if (week.length) { while (week.length < 7) week.push(null); weeks.push(week); }
+            if (week.length) {
+                while (week.length < 7) week.push(null);
+                weeks.push(week);
+            }
             const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-            let calendarHtml = `<div class="calendar-header"><div class="calendar-month">Июнь 2026</div><div class="calendar-legend"><span><span class="legend-dot"></span> Релиз</span></div></div><div class="calendar-grid">${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}`;
+            let calendarHtml = `<div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <div class="calendar-month">${currentLang === 'ru' ? monthNameRu : monthNameEn}</div>
+                    <div class="calendar-legend"><span><span class="legend-dot"></span> Релиз</span></div>
+                </div>
+                <div class="calendar-grid">${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}`;
             weeks.forEach(week => {
                 week.forEach(day => {
                     if (day === null) calendarHtml += `<div class="calendar-day empty"></div>`;
@@ -1636,8 +1668,25 @@
                     }
                 });
             });
-            calendarHtml += `</div><div class="calendar-note"><span>⭐ 4,5,12 июня — премьеры</span><span>🎸 Июль — EP "Северный ветер"</span></div>`;
-            document.getElementById('calendarRoot').innerHTML = calendarHtml;
+            calendarHtml += `</div><div class="calendar-note">${releaseMap.note ? (currentLang === 'ru' ? releaseMap.note.ru : releaseMap.note.en) : ''}</div></div>`;
+            return calendarHtml;
+        }
+
+        function renderCalendars() {
+            const juneReleases = {
+                4: { ru: "Запятая у окна", en: "Comma by the Window" },
+                5: { ru: "Soul and Stream", en: "Soul and Stream" },
+                12: { ru: "Пробки заебали", en: "Traffic Jams" },
+                note: { ru: "⭐ 4,5,12 июня — премьеры синглов", en: "⭐ June 4,5,12 — singles premieres" }
+            };
+            const julyReleases = {
+                10: { ru: "Северный ветер (сингл)", en: "Northern Wind (single)" },
+                25: { ru: "EP «Северный ветер»", en: "EP 'Northern Wind'" },
+                note: { ru: "🎸 10 и 25 июля — новые релизы", en: "🎸 July 10 & 25 — new releases" }
+            };
+            const juneHtml = buildCalendarMonth(2026, 5, juneReleases, "Июнь 2026", "June 2026");
+            const julyHtml = buildCalendarMonth(2026, 6, julyReleases, "Июль 2026", "July 2026");
+            document.getElementById('calendarsContainer').innerHTML = juneHtml + julyHtml;
         }
 
         function renderNews() {
@@ -1657,7 +1706,7 @@
 
         function setLanguage(lang) {
             currentLang = lang;
-            buildCalendar();
+            renderCalendars();
             renderCatalog();
             renderNews();
             renderPhotos();
@@ -1726,7 +1775,7 @@
         loadTrackById(1, false);
         renderNews();
         renderPhotos();
-        buildCalendar();
+        renderCalendars();
         renderCatalog();
         setLanguage('ru');
     })();
