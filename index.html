@@ -402,7 +402,7 @@
             background: rgba(139, 58, 74, 0.1);
         }
 
-        /* плеер — ползунок громкости фиксированной ширины */
+        /* плеер */
         .player-wrapper {
             position: sticky;
             top: var(--header-height);
@@ -543,7 +543,6 @@
             cursor: pointer;
         }
 
-        /* блок "сейчас в эфире" */
         .live-radio {
             display: flex;
             align-items: center;
@@ -637,7 +636,7 @@
             opacity: 1;
         }
 
-        /* новости и каталог (общие) */
+        /* новости и каталог */
         .news-scroll-wrapper {
             overflow-x: auto;
             scroll-behavior: smooth;
@@ -799,7 +798,7 @@
             background: var(--accent-burgundy);
         }
 
-        /* календарь — два месяца в ряд */
+        /* календарь */
         .calendars-container {
             display: flex;
             flex-wrap: wrap;
@@ -924,7 +923,29 @@
             text-align: center;
         }
 
-        /* о проекте и поддержка */
+        /* о проекте — новое описание */
+        .bio-text p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        .bio-list {
+            margin: 1rem 0 0.5rem 1.2rem;
+            list-style-type: none;
+        }
+        .bio-list li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        .bio-list li::before {
+            content: "·";
+            color: var(--accent-burgundy);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
         .bio-links {
             display: flex;
             flex-wrap: wrap;
@@ -935,6 +956,7 @@
             padding: 0.4rem 1rem;
             font-size: 0.75rem;
         }
+
         .support-block {
             text-align: center;
             background: var(--bg-card);
@@ -1004,7 +1026,6 @@
             z-index: 1100;
         }
 
-        /* Мобильная адаптация: единые размеры обложек и шрифтов для всех разделов */
         @media (max-width: 640px) {
             .music-grid, .albums-grid, .games-grid, .photos-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -1086,7 +1107,7 @@
                 <div class="stat-label">Прослушиваний</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" id="statTracks" data-target="107">0</div>
+                <div class="stat-number" id="statTracks" data-target="110">0</div>
                 <div class="stat-label">Релизов</div>
             </div>
         </div>
@@ -1168,9 +1189,17 @@
     <div class="container">
         <h2>О проекте</h2>
         <div class="bio-block">
-            <img class="bio-image" src="data:image/svg+xml,%3Csvg%3E" alt="DS">
+            <img class="bio-image" src="logo.png" alt="DarkSpirit logo">
             <div class="bio-text">
-                <p>DarkSpirit — проект на стыке кинематографичного саунда и уличной поэзии. Более 100 релизов, атмосфера и глубина.</p>
+                <p><strong>DarkSpirit</strong> — молодая российская поп-рок-группа, родившаяся в мае 2025 года. Наш звук строится на контрасте двух голосов: Дмитрия и Анастасии (Miss Grakonkoshka). Мы не делим музыку на «серьёзную» и «лёгкую» — у нас есть место и лирике, и драйву, и честному слову.</p>
+                <p>В нашем репертуаре:</p>
+                <ul class="bio-list">
+                    <li>поп- и рок-композиции для широкой аудитории;</li>
+                    <li>отдельные альбомы, посвящённые событиям СВО — глубокие, эмоциональные песни;</li>
+                    <li>специальное фан-направление для поклонников онлайн-игр — энергичные треки, которые звучат в стримах и нарезках.</li>
+                </ul>
+                <p>Мы выпускаем музыку на всех главных площадках: Яндекс.Музыка, Zvuk, Spotify, Apple Music и других. И, конечно, играем вживую — потому что настоящая связь со зрителем рождается только на сцене.</p>
+                <p><strong>DarkSpirit — это два голоса, одна энергия и никаких границ.</strong></p>
                 <div class="bio-links">
                     <a href="#" class="btn btn-outline" target="_blank" data-placeholder="Яндекс Музыка">🎵 Яндекс Музыка</a>
                     <a href="#" class="btn btn-outline" target="_blank" data-placeholder="VK Музыка">🎧 VK Музыка</a>
@@ -1221,7 +1250,7 @@
 
 <script>
     (function() {
-        // ---------- ИГРОВЫЕ ТРЕКИ ----------
+        // ---------- ИГРОВЫЕ ТРЕКИ (по 10 на каждую игру) ----------
         const caliberTracks = [];
         for (let i = 1; i <= 10; i++) {
             caliberTracks.push({
@@ -1357,7 +1386,6 @@
             svoTracksByAlbum[album.id] = tracks;
         });
 
-        // Общий массив треков
         const allTracks = [...mainTracks, ...caliberTracks, ...arcTracks, ...miscTracks];
         for (let albumId in svoTracksByAlbum) {
             allTracks.push(...svoTracksByAlbum[albumId]);
@@ -1633,7 +1661,6 @@
             renderCatalog();
         }));
 
-        // Функция построения календаря для месяца (год, месяц 0-11, объект с релизами)
         function buildCalendarMonth(year, month, releaseMap, monthNameRu, monthNameEn) {
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -1728,7 +1755,7 @@
             let counters = [
                 { el: document.getElementById('statPlatforms'), target: 32 },
                 { el: document.getElementById('statStreams'), target: 921427 },
-                { el: document.getElementById('statTracks'), target: 107 }
+                { el: document.getElementById('statTracks'), target: 110 }
             ];
             counters.forEach(c => {
                 if (c.el) {
