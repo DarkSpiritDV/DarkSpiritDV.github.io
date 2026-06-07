@@ -1720,22 +1720,23 @@
             return calendarHtml;
         }
 
-        function renderCalendars() {
-            const juneReleases = {
-                4: { ru: "Запятая у окна", en: "Comma by the Window" },
-                5: { ru: "Soul and Stream", en: "Soul and Stream" },
-                12: { ru: "Пробки заебали", en: "Traffic Jams" },
-                note: { ru: "⭐ 4,5,12 июня — премьеры синглов", en: "⭐ June 4,5,12 — singles premieres" }
-            };
-            const julyReleases = {
-                10: { ru: "Северный ветер (сингл)", en: "Northern Wind (single)" },
-                25: { ru: "EP «Северный ветер»", en: "EP 'Northern Wind'" },
-                note: { ru: "🎸 10 и 25 июля — новые релизы", en: "🎸 July 10 & 25 — new releases" }
-            };
-            const juneHtml = buildCalendarMonth(2026, 5, juneReleases, "Июнь 2026", "June 2026");
-            const julyHtml = buildCalendarMonth(2026, 6, julyReleases, "Июль 2026", "July 2026");
-            document.getElementById('calendarsContainer').innerHTML = juneHtml + julyHtml;
-        }
+       function renderCalendars() {
+    const juneReleases = {
+        4: { ru: "Запятая у окна", en: "Comma by the Window" },
+        5: { ru: "Soul and Stream", en: "Soul and Stream" },
+        12: { ru: "Пробки заебали", en: "Traffic Jams" },
+        26: { ru: "Моя кукла", en: "My Doll" },  // добавлено
+        note: { ru: "⭐ 4,5,12,26 июня — премьеры синглов", en: "⭐ June 4,5,12,26 — singles premieres" }
+    };
+    const julyReleases = {
+        10: { ru: "Северный ветер (сингл)", en: "Northern Wind (single)" },
+        25: { ru: "EP «Северный ветер»", en: "EP 'Northern Wind'" },
+        note: { ru: "🎸 10 и 25 июля — новые релизы", en: "🎸 July 10 & 25 — new releases" }
+    };
+    const juneHtml = buildCalendarMonth(2026, 5, juneReleases, "Июнь 2026", "June 2026");
+    const julyHtml = buildCalendarMonth(2026, 6, julyReleases, "Июль 2026", "July 2026");
+    document.getElementById('calendarsContainer').innerHTML = juneHtml + julyHtml;
+}
 
         function renderNews() {
             let grid = document.getElementById('newsGrid');
