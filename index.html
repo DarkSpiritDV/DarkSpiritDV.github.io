@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru" dir="auto">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DarkSpirit | Music That Stays in Your Memory</title>
 
-  <!-- Open Graph & Social -->
   <meta property="og:title" content="DarkSpirit — Music That Stays in Your Memory">
   <meta property="og:description" content="Поп-рок группа из 2025. Глубокие песни и энергичные треки для стримов.">
   <meta property="og:image" content="https://via.placeholder.com/1200x630?text=DarkSpirit+Cover">
   <meta property="og:url" content="https://yourdomain.com/">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -97,7 +95,7 @@
 
     /* Bio */
     .bio-block { display: grid; gap: 2rem; align-items: center; }
-    @media (max-width: 768px) { .bio-block { grid-template-columns: 1fr; text-align: center; } .bio-text { margin-top: auto; max-width: 100%; } img.bio-image { border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.4); } }
+    @media (max-width: 768px) { .bio-block { grid-template-columns: 1fr; text-align: center; } img.bio-image { border-radius: 50%; box-shadow: 0 20px 40px rgba(0,0,0,0.4); } }
     img.bio-image { width: clamp(200px, 35vw, 360px); height: auto; border-radius: 16px; margin: 0 auto auto 1rem; display: block; }
     .bio-text p { margin-bottom: 1rem; font-size: var(--text-base); color: var(--text-muted); }
     .bio-list { list-style: none; padding: 0; max-width: 650px; margin: 1.5rem auto; }
@@ -113,23 +111,4 @@
     .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; }
 
     /* Animations */
-    .fade-in-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .fade-in-up.is-visible { opacity: 1; transform: none; }
-
-    /* Utility */
-    .container-hero { position: relative; z-index: 1; padding-bottom: 2rem; display: flex; justify-content: center; align-items: flex-end; }
-  </style>
-</head>
-<body>
-  <header id="site-header">
-    <div class="container nav">
-      <a href="#" class="logo" aria-label="DarkSpirit Home">DarkSpirit</a>
-      
-      <nav aria-label="Main navigation">
-        <ul>
-          <li><a href="#hero" aria-current="page">Главная</a></li>
-          <li><a href="#news">Новости</a></li>
-          <li><a href="#music">Музыка</a></li>
-          <li><a href="#schedule">Релизы</a></li>
-          <li><a href="#photos">Фото</a></li>
-          <li><a href="#bio">О проекте</a></li>
+    .fade-in-up { opacity: 0
