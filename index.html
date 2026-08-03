@@ -1,544 +1,905 @@
-(function() {
-    'use strict';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>DarkSpirit — Живое радио | Календарь июнь-июль</title>
     
-    // ===== ДАННЫЕ =====
-    const TRACKS = [
-        {
-            id: 1,
-            title: 'Запятая у окна (фрагмент)',
-            titleEn: 'Comma by the Window',
-            category: 'pop-rap',
-            cover: 'Запятая у окна.png',
-            audioSrc: 'zapyataya.mp3',
-            likes: 12,
-            userLiked: false,
-            descriptionRu: 'Лирическая исповедь о социальных сетях и надежде',
-            descriptionEn: 'Lyrical confession about social networks and hope'
-        },
-        {
-            id: 2,
-            title: 'Soul and Stream (фрагмент)',
-            titleEn: 'Soul and Stream',
-            category: 'pop-rap',
-            cover: 'Soul and Stream.jpg',
-            audioSrc: 'SoulandStream.mp3',
-            likes: 8,
-            userLiked: false,
-            descriptionRu: 'Экспериментальный англоязычный трек',
-            descriptionEn: 'Experimental English-language track'
-        },
-        {
-            id: 3,
-            title: 'Пробки заебали (фрагмент)',
-            titleEn: 'Traffic Jams',
-            category: 'pop-rap',
-            cover: 'Пробки заебали.png',
-            audioSrc: 'Probki.mp3',
-            likes: 15,
-            userLiked: false,
-            descriptionRu: 'Острые ритмы и уличная атмосфера',
-            descriptionEn: 'Sharp rhythms and street atmosphere'
-        },
-        {
-            id: 4,
-            title: 'Моя кукла (фрагмент)',
-            titleEn: 'My Doll',
-            category: 'pop-rap',
-            cover: 'кукла.jpg',
-            audioSrc: 'Moua kukla.mp3',
-            likes: 7,
-            userLiked: false,
-            descriptionRu: 'Мрачные ритмы с налётом доминации и эротики',
-            descriptionEn: 'Dark rhythms with a touch of domination and eroticism'
-        }
-    ];
-
-    const NEWS = [
-        {
-            date: "27.05.2026",
-            titleRu: "Новый трек «Пробки заебали» 12.06",
-            titleEn: "New track 'Traffic Jams' 12.06",
-            descRu: "Экспериментальный трек",
-            descEn: "Experimental",
-            tagRu: "Анонс",
-            tagEn: "Announce"
-        },
-        {
-            date: "24.05.2026",
-            titleRu: "Два новых трека 4 и 5 июня",
-            titleEn: "Two new tracks June 4&5",
-            descRu: "«Запятая у окна» и «Soul and Stream»",
-            descEn: "'Comma' and 'Soul and Stream'",
-            tagRu: "Анонс",
-            tagEn: "Announce"
-        },
-        {
-            date: "22.05.2026",
-            titleRu: "Преодолели 900 000 прослушиваний",
-            titleEn: "Over 900k streams",
-            descRu: "Спасибо каждому",
-            descEn: "Thank you all",
-            tagRu: "Новость",
-            tagEn: "News"
-        }
-    ];
-
-    const PHOTOS = [
-        { src: "фото.png", title: "Концерт в Хабаровске" },
-        { src: "клип.png", title: "Съемка клипа" },
-        { src: "photo3.jpg", title: "Студийная запись" }
-    ];
-
-    // ===== СОСТОЯНИЕ =====
-    let currentLang = 'ru';
-    let currentCategory = 'pop-rap';
-    let currentTrackId = 1;
-    let isPlaying = false;
-
-    // ===== DOM ЭЛЕМЕНТЫ =====
-    const audio = document.getElementById('audioElement');
-    const playBtn = document.getElementById('playerPlay');
-    const prevBtn = document.getElementById('playerPrev');
-    const nextBtn = document.getElementById('playerNext');
-    const progressFill = document.getElementById('progressBarFill');
-    const progressBg = document.getElementById('progressBarBg');
-    const timeDisplay = document.getElementById('timeDisplay');
-    const trackName = document.getElementById('playerTrack');
-    const coverImg = document.getElementById('playerCover');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const catalogContainer = document.getElementById('catalogContainer');
-    const liveRadio = document.getElementById('liveRadio');
-    const toastMsg = document.getElementById('toastMsg');
-
-    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-    function getTrackById(id) {
-        return TRACKS.find(t => t.id === id);
-    }
-
-    function showToast(msg) {
-        toastMsg.textContent = msg;
-        toastMsg.style.opacity = '1';
-        clearTimeout(window.toastTimeout);
-        window.toastTimeout = setTimeout(() => {
-            toastMsg.style.opacity = '0';
-        }, 2000);
-    }
-
-    // ===== ПЛЕЕР =====
-    function loadTrack(id, autoPlay = false) {
-        const track = getTrackById(id);
-        if (!track) {
-            showToast('❌ Трек не найден');
-            return;
-        }
-
-        audio.src = track.audioSrc;
-        audio.load();
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================================
+           DARKSPIRIT STYLES — изолированы от глобальных стилей
+           ============================================================ */
         
-        trackName.textContent = currentLang === 'ru' ? track.title : track.titleEn;
-        coverImg.src = track.cover || 'data:image/svg+xml,%3Csvg%3E';
-        progressFill.style.width = '0%';
-        timeDisplay.textContent = '0:00';
-
-        if (autoPlay) {
-            audio.play()
-                .then(() => {
-                    isPlaying = true;
-                    playBtn.textContent = '⏸';
-                })
-                .catch(() => showToast('❌ Ошибка воспроизведения'));
-        } else {
-            isPlaying = false;
-            playBtn.textContent = '▶';
+        /* Сброс только для контейнера DarkSpirit */
+        .ds-root,
+        .ds-root *,
+        .ds-root *::before,
+        .ds-root *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        currentTrackId = id;
-    }
-
-    function togglePlay() {
-        if (isPlaying) {
-            audio.pause();
-            isPlaying = false;
-            playBtn.textContent = '▶';
-        } else {
-            audio.play()
-                .then(() => {
-                    isPlaying = true;
-                    playBtn.textContent = '⏸';
-                })
-                .catch(() => showToast('❌ Ошибка воспроизведения'));
-        }
-    }
-
-    function nextTrack() {
-        const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
-        const nextIdx = (currentIdx + 1) % TRACKS.length;
-        loadTrack(TRACKS[nextIdx].id, true);
-    }
-
-    function prevTrack() {
-        const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
-        const prevIdx = (currentIdx - 1 + TRACKS.length) % TRACKS.length;
-        loadTrack(TRACKS[prevIdx].id, true);
-    }
-
-    function playRandom() {
-        const random = TRACKS[Math.floor(Math.random() * TRACKS.length)];
-        loadTrack(random.id, true);
-        showToast(`🎲 Случайный трек: ${currentLang === 'ru' ? random.title : random.titleEn}`);
-    }
-
-    function updateProgress() {
-        if (audio.duration && !isNaN(audio.duration)) {
-            const percent = (audio.currentTime / audio.duration) * 100;
-            progressFill.style.width = `${percent}%`;
+        .ds-root {
+            /* Переопределяем любые глобальные переменные */
+            --ds-bg-primary: #08080c !important;
+            --ds-bg-secondary: #0e0e14 !important;
+            --ds-bg-card: #13131b !important;
+            --ds-bg-elevated: #1a1a25 !important;
+            --ds-border-subtle: rgba(255, 255, 255, 0.04) !important;
+            --ds-border-mid: rgba(255, 255, 255, 0.08) !important;
+            --ds-text-primary: #e8e6e3 !important;
+            --ds-text-secondary: #9d9ba3 !important;
+            --ds-text-muted: #6b6972 !important;
+            --ds-accent-burgundy: #8b3a4a !important;
+            --ds-accent-steel: #9ca3af !important;
+            --ds-font-display: 'Playfair Display', 'Georgia', serif !important;
+            --ds-font-body: 'Inter', system-ui, sans-serif !important;
+            --ds-header-height: 70px !important;
+            --ds-radius-sm: 6px !important;
+            --ds-radius-md: 12px !important;
+            --ds-radius-lg: 20px !important;
+            --ds-radius-xl: 28px !important;
+            --ds-shadow-card: 0 12px 32px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.02) inset !important;
+            --ds-shadow-glow: 0 8px 20px rgba(139, 58, 74, 0.4) !important;
+            --ds-transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1) !important;
             
-            const mins = Math.floor(audio.currentTime / 60);
-            const secs = Math.floor(audio.currentTime % 60);
-            timeDisplay.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        }
-    }
-
-    function setProgress(e) {
-        const rect = progressBg.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        if (audio.duration) {
-            audio.currentTime = percent * audio.duration;
-        }
-    }
-
-    // ===== КАТАЛОГ =====
-    function renderTracks(tracks) {
-        if (!tracks.length) {
-            catalogContainer.innerHTML = '<div style="text-align:center; color:var(--text-muted);">Нет треков</div>';
-            return;
+            background-color: var(--ds-bg-primary) !important;
+            color: var(--ds-text-primary) !important;
+            font-family: var(--ds-font-body) !important;
+            line-height: 1.6 !important;
+            overflow-x: hidden !important;
+            background-image: 
+                radial-gradient(ellipse at 20% 15%, rgba(139, 58, 74, 0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 60%, rgba(45, 74, 107, 0.05) 0%, transparent 55%) !important;
+            min-height: 100vh !important;
+            position: relative !important;
+            z-index: 1 !important;
         }
 
-        let html = `<div class="music-grid">`;
-        tracks.forEach(t => {
-            const tooltip = currentLang === 'ru' ? (t.descriptionRu || 'Без описания') : (t.descriptionEn || 'No description');
-            html += `
-                <div class="track-card">
-                    <div class="tooltip-text">${tooltip}</div>
-                    <img class="track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'" alt="${t.title}">
-                    <div class="track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div>
-                    <div class="track-meta">DarkSpirit</div>
-                    <div class="track-actions">
-                        <button class="btn-sm btn-primary play-track-btn" data-id="${t.id}">▶ ${currentLang === 'ru' ? 'Слушать' : 'Play'}</button>
-                        <button class="like-btn ${t.userLiked ? 'liked' : ''}" data-id="${t.id}">${t.userLiked ? '❤️' : '♡'}</button>
-                        <span class="likes-count">${t.likes}</span>
-                    </div>
-                </div>
-            `;
-        });
-        html += `</div>`;
-        catalogContainer.innerHTML = html;
-
-        // Обработчики
-        catalogContainer.querySelectorAll('.play-track-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = parseInt(btn.dataset.id);
-                loadTrack(id, true);
-            });
-        });
-
-        catalogContainer.querySelectorAll('.like-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = parseInt(btn.dataset.id);
-                const track = getTrackById(id);
-                if (track) {
-                    track.userLiked = !track.userLiked;
-                    track.likes += track.userLiked ? 1 : -1;
-                    if (track.likes < 0) track.likes = 0;
-                    renderCatalog();
-                }
-            });
-        });
-    }
-
-    function renderGames() {
-        catalogContainer.innerHTML = `
-            <div style="text-align:center; color:var(--text-muted); padding: 2rem;">
-                🎮 Раздел игр в разработке
-            </div>
-        `;
-    }
-
-    function renderThematic() {
-        catalogContainer.innerHTML = `
-            <div style="text-align:center; color:var(--text-muted); padding: 2rem;">
-                🎖️ Патриотические альбомы скоро
-            </div>
-        `;
-    }
-
-    function renderCatalog() {
-        if (currentCategory === 'games') {
-            renderGames();
-            return;
+        /* Typography */
+        .ds-root h1,
+        .ds-root h2,
+        .ds-root h3,
+        .ds-root .ds-font-display {
+            font-family: var(--ds-font-display) !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.01em !important;
         }
-        if (currentCategory === 'thematic') {
-            renderThematic();
-            return;
-        }
-        
-        const filtered = TRACKS.filter(t => t.category === 'pop-rap');
-        renderTracks(filtered);
-    }
 
-    // ===== КАЛЕНДАРЬ =====
-    function buildMonth(year, month, releases, monthNameRu, monthNameEn) {
-        const firstDay = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        let startOffset = firstDay === 0 ? 6 : firstDay - 1;
-        
-        const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-        let html = `
-            <div class="calendar-wrapper">
-                <div class="calendar-header">
-                    <div class="calendar-month">${currentLang === 'ru' ? monthNameRu : monthNameEn}</div>
-                    <div class="calendar-legend">
-                        <span><span class="legend-dot"></span> Релиз</span>
-                    </div>
-                </div>
-                <div class="calendar-grid">
-                    ${weekdays.map(wd => `<div class="calendar-weekday">${wd}</div>`).join('')}
-        `;
-        
-        let day = 1;
-        let started = false;
-        
-        for (let week = 0; week < 6; week++) {
-            for (let wd = 0; wd < 7; wd++) {
-                if (!started && week === 0 && wd < startOffset) {
-                    html += `<div class="calendar-day empty"></div>`;
-                } else if (day <= daysInMonth) {
-                    const isRelease = releases[day];
-                    const tooltip = isRelease ? (currentLang === 'ru' ? isRelease.ru : isRelease.en) : '';
-                    html += `
-                        <div class="calendar-day ${isRelease ? 'release-day' : ''}" data-tooltip="${tooltip}">
-                            ${day}
-                        </div>
-                    `;
-                    day++;
-                    started = true;
-                } else {
-                    html += `<div class="calendar-day empty"></div>`;
-                }
+        .ds-root h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem) !important;
+            margin-bottom: 0.35em !important;
+            position: relative !important;
+            display: inline-block !important;
+        }
+
+        .ds-root h2::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -8px !important;
+            left: 0 !important;
+            width: 60% !important;
+            height: 2px !important;
+            background: linear-gradient(90deg, var(--ds-accent-burgundy), transparent) !important;
+            border-radius: 4px !important;
+        }
+
+        .ds-root .ds-section-subtitle {
+            color: var(--ds-text-secondary) !important;
+            font-size: 0.85rem !important;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase !important;
+            margin-bottom: 2rem !important;
+            display: block !important;
+        }
+
+        .ds-root .ds-container {
+            max-width: 1280px !important;
+            margin: 0 auto !important;
+            padding: 0 1.8rem !important;
+        }
+
+        .ds-root section {
+            padding: 4rem 0 !important;
+            position: relative !important;
+        }
+
+        @media (max-width: 768px) {
+            .ds-root section {
+                padding: 2.5rem 0 !important;
+            }
+            .ds-root .ds-container {
+                padding: 0 1.2rem !important;
             }
         }
-        
-        html += `
-                </div>
-                <div class="calendar-note">${releases.note ? (currentLang === 'ru' ? releases.note.ru : releases.note.en) : ''}</div>
-            </div>
-        `;
-        
-        return html;
-    }
 
-    function renderCalendar() {
-        const juneReleases = {
-            4: { ru: "Запятая у окна", en: "Comma by the Window" },
-            5: { ru: "Soul and Stream", en: "Soul and Stream" },
-            12: { ru: "Пробки заебали", en: "Traffic Jams" },
-            26: { ru: "Моя кукла", en: "My Doll" },
-            note: { ru: "⭐ 4,5,12,26 июня — премьеры синглов", en: "⭐ June 4,5,12,26 — singles premieres" }
-        };
-        const julyReleases = {
-            10: { ru: "Северный ветер (сингл)", en: "Northern Wind (single)" },
-            25: { ru: "EP «Северный ветер»", en: "EP 'Northern Wind'" },
-            note: { ru: "🎸 10 и 25 июля — новые релизы", en: "🎸 July 10 & 25 — new releases" }
-        };
-        
-        const container = document.getElementById('calendarsContainer');
-        container.innerHTML = buildMonth(2026, 5, juneReleases, "Июнь 2026", "June 2026") + 
-                            buildMonth(2026, 6, julyReleases, "Июль 2026", "July 2026");
-    }
-
-    // ===== НОВОСТИ И ФОТО =====
-    function renderNews() {
-        const grid = document.getElementById('newsGrid');
-        grid.innerHTML = NEWS.map(n => `
-            <div class="news-card">
-                <div class="news-date">${n.date}</div>
-                <h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4>
-                <p>${currentLang === 'ru' ? n.descRu : n.descEn}</p>
-                <span class="news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span>
-            </div>
-        `).join('');
-    }
-
-    function renderPhotos() {
-        const grid = document.getElementById('photosGrid');
-        grid.innerHTML = PHOTOS.map(p => `
-            <div class="photo-card" data-src="${p.src}">
-                <img class="photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'" alt="${p.title}">
-                <div class="photo-title">${p.title}</div>
-            </div>
-        `).join('');
-
-        // Модалка для фото
-        document.querySelectorAll('.photo-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const src = card.dataset.src;
-                document.getElementById('modalImage').src = src;
-                document.getElementById('photoModal').style.display = 'flex';
-            });
-        });
-    }
-
-    // ===== ЯЗЫК =====
-    function setLanguage(lang) {
-        currentLang = lang;
-        renderCatalog();
-        renderCalendar();
-        renderNews();
-        renderPhotos();
-        
-        const track = getTrackById(currentTrackId);
-        if (track) {
-            trackName.textContent = lang === 'ru' ? track.title : track.titleEn;
+        .ds-root .ds-fade-in-up {
+            opacity: 0 !important;
+            transform: translateY(30px) !important;
+            transition: opacity 0.7s var(--ds-transition-smooth), transform 0.7s var(--ds-transition-smooth) !important;
         }
-        
-        document.documentElement.lang = lang;
-    }
 
-    // ===== СЧЕТЧИКИ =====
-    function startCounters() {
-        const counters = [
-            { el: document.getElementById('statPlatforms'), target: 32 },
-            { el: document.getElementById('statStreams'), target: 921427 },
-            { el: document.getElementById('statTracks'), target: 110 }
-        ];
-        
-        counters.forEach(c => {
-            let current = 0;
-            const step = Math.ceil(c.target / 30);
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= c.target) {
-                    c.el.textContent = c.target.toLocaleString();
-                    clearInterval(timer);
-                } else {
-                    c.el.textContent = Math.floor(current).toLocaleString();
-                }
-            }, 25);
-        });
-    }
+        .ds-root .ds-fade-in-up.ds-visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
 
-    // ===== VISIT COUNTER =====
-    function updateVisitCounter() {
-        const counter = document.getElementById('visitCounter');
-        let visits = localStorage.getItem('siteVisits');
-        visits = visits ? parseInt(visits) + 1 : 1;
-        localStorage.setItem('siteVisits', visits.toString());
-        counter.textContent = visits;
-    }
+        @keyframes ds-pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            70% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.8); }
+        }
 
-    // ===== INIT =====
-    function init() {
-        // Плеер
-        loadTrack(1, false);
-        playBtn.addEventListener('click', togglePlay);
-        prevBtn.addEventListener('click', prevTrack);
-        nextBtn.addEventListener('click', nextTrack);
-        liveRadio.addEventListener('click', playRandom);
-        audio.addEventListener('timeupdate', updateProgress);
-        audio.addEventListener('ended', nextTrack);
-        progressBg.addEventListener('click', setProgress);
-        volumeSlider.addEventListener('input', (e) => {
-            audio.volume = parseFloat(e.target.value);
-        });
+        /* ===== HEADER ===== */
+        .ds-root .ds-header {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 1000 !important;
+            height: var(--ds-header-height) !important;
+            background: rgba(8, 8, 12, 0.75) !important;
+            backdrop-filter: blur(18px) !important;
+            -webkit-backdrop-filter: blur(18px) !important;
+            border-bottom: 1px solid var(--ds-border-mid) !important;
+            transition: all 0.3s ease !important;
+        }
 
-        // Язык
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                setLanguage(btn.dataset.lang);
-            });
-        });
+        .ds-root .ds-header.ds-scrolled {
+            background: rgba(8, 8, 12, 0.92) !important;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5) !important;
+        }
 
-        // Вкладки
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentCategory = btn.dataset.tab;
-                renderCatalog();
-            });
-        });
+        .ds-root .ds-header-inner {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            max-width: 1280px !important;
+            margin: 0 auto !important;
+            padding: 0 1.8rem !important;
+            height: 100% !important;
+        }
 
-        // Мобильное меню
-        const toggle = document.querySelector('.mobile-menu-toggle');
-        const nav = document.getElementById('nav');
-        toggle?.addEventListener('click', () => {
-            nav.classList.toggle('open');
-        });
-        nav?.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('open');
-            });
-        });
+        .ds-root .ds-logo {
+            font-family: var(--ds-font-display) !important;
+            font-weight: 900 !important;
+            font-size: 1.6rem !important;
+            color: var(--ds-text-primary) !important;
+            text-decoration: none !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
+            flex-shrink: 0 !important;
+        }
 
-        // Плавный скролл
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        .ds-root .ds-logo img {
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 8px !important;
+            background: var(--ds-accent-burgundy) !important;
+            object-fit: cover !important;
+        }
 
-        // Scroll эффект для хедера
-        window.addEventListener('scroll', () => {
-            document.getElementById('header')?.classList.toggle('scrolled', window.scrollY > 50);
-        }, { passive: true });
+        .ds-root .ds-nav {
+            display: flex !important;
+            align-items: center !important;
+            gap: 2rem !important;
+            list-style: none !important;
+        }
 
-        // Fade-in анимация
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            el.classList.add('visible');
-        });
+        .ds-root .ds-nav a {
+            color: var(--ds-text-secondary) !important;
+            text-decoration: none !important;
+            font-size: 0.9rem !important;
+            font-weight: 500 !important;
+            transition: color 0.2s !important;
+            position: relative !important;
+            padding: 0.4rem 0 !important;
+        }
 
-        // Модалка
-        const modal = document.getElementById('photoModal');
-        modal.querySelector('.modal-close')?.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) modal.style.display = 'none';
-        });
+        .ds-root .ds-nav a::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 0 !important;
+            height: 2px !important;
+            background: var(--ds-accent-burgundy) !important;
+            transition: width 0.3s !important;
+            border-radius: 2px !important;
+        }
 
-        // Счетчики
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    startCounters();
-                    observer.disconnect();
-                }
-            });
-        }, { threshold: 0.3 });
-        observer.observe(document.querySelector('.hero-stats'));
+        .ds-root .ds-nav a:hover,
+        .ds-root .ds-nav a.ds-active {
+            color: var(--ds-text-primary) !important;
+        }
 
-        // Рендер
-        renderNews();
-        renderPhotos();
-        renderCalendar();
-        renderCatalog();
-        updateVisitCounter();
+        .ds-root .ds-nav a:hover::after,
+        .ds-root .ds-nav a.ds-active::after {
+            width: 100% !important;
+        }
 
-        // Загрузка первого трека
-        loadTrack(1, false);
-    }
+        .ds-root .ds-lang-switch {
+            display: flex !important;
+            gap: 0.3rem !important;
+            background: var(--ds-bg-elevated) !important;
+            border-radius: 40px !important;
+            padding: 3px !important;
+            border: 1px solid var(--ds-border-mid) !important;
+        }
 
-    // Запуск
-    document.addEventListener('DOMContentLoaded', init);
-})();
+        .ds-root .ds-lang-btn {
+            background: transparent !important;
+            border: none !important;
+            color: var(--ds-text-muted) !important;
+            padding: 0.4rem 0.9rem !important;
+            border-radius: 40px !important;
+            cursor: pointer !important;
+            font-weight: 600 !important;
+            font-size: 0.75rem !important;
+            transition: all 0.2s !important;
+        }
+
+        .ds-root .ds-lang-btn.ds-active {
+            background: var(--ds-accent-burgundy) !important;
+            color: white !important;
+            box-shadow: 0 2px 8px rgba(139, 58, 74, 0.4) !important;
+        }
+
+        .ds-root .ds-mobile-menu-toggle {
+            display: none !important;
+            background: none !important;
+            border: none !important;
+            flex-direction: column !important;
+            gap: 6px !important;
+            cursor: pointer !important;
+            padding: 4px !important;
+        }
+
+        .ds-root .ds-mobile-menu-toggle span {
+            width: 26px !important;
+            height: 2px !important;
+            background: var(--ds-text-primary) !important;
+            border-radius: 2px !important;
+            transition: all 0.2s !important;
+        }
+
+        @media (max-width: 900px) {
+            .ds-root .ds-nav {
+                position: fixed !important;
+                top: 0 !important;
+                right: -100% !important;
+                width: 280px !important;
+                height: 100vh !important;
+                background: rgba(10, 10, 15, 0.96) !important;
+                backdrop-filter: blur(28px) !important;
+                -webkit-backdrop-filter: blur(28px) !important;
+                flex-direction: column !important;
+                padding: 6rem 2rem !important;
+                gap: 1.8rem !important;
+                transition: right 0.4s var(--ds-transition-smooth) !important;
+                border-left: 1px solid var(--ds-border-mid) !important;
+                z-index: 999 !important;
+            }
+
+            .ds-root .ds-nav.ds-open {
+                right: 0 !important;
+            }
+
+            .ds-root .ds-mobile-menu-toggle {
+                display: flex !important;
+            }
+
+            .ds-root .ds-lang-switch {
+                margin-left: auto !important;
+                margin-right: 1rem !important;
+            }
+        }
+
+        /* ===== HERO ===== */
+        .ds-root .ds-hero {
+            min-height: 100vh !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            padding-top: var(--ds-header-height) !important;
+            position: relative !important;
+        }
+
+        .ds-root .ds-hero-bg {
+            position: absolute !important;
+            inset: 0 !important;
+            background-image: url('club.png') !important;
+            background-size: cover !important;
+            background-position: center 30% !important;
+            background-repeat: no-repeat !important;
+            opacity: 0.5 !important;
+            pointer-events: none !important;
+            z-index: 0 !important;
+        }
+
+        .ds-root .ds-hero-bg::before {
+            content: '' !important;
+            position: absolute !important;
+            inset: 0 !important;
+            background: radial-gradient(ellipse at 30% 40%, rgba(139, 58, 74, 0.2) 0%, transparent 70%) !important;
+            pointer-events: none !important;
+        }
+
+        .ds-root .ds-hero-content {
+            position: relative !important;
+            z-index: 2 !important;
+            max-width: 900px !important;
+            margin: 0 auto !important;
+        }
+
+        .ds-root .ds-hero-tag {
+            display: inline-block !important;
+            padding: 0.2rem 1rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 40px !important;
+            font-size: 0.75rem !important;
+            letter-spacing: 0.1em !important;
+            text-transform: uppercase !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(4px) !important;
+            -webkit-backdrop-filter: blur(4px) !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .ds-root .ds-hero h1 {
+            font-size: clamp(3rem, 8vw, 5.8rem) !important;
+            font-weight: 900 !important;
+            background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            color: transparent !important;
+            margin-bottom: 0.2em !important;
+        }
+
+        .ds-root .ds-hero p {
+            font-size: 1.2rem !important;
+            color: var(--ds-text-secondary) !important;
+            max-width: 600px !important;
+            margin: 0 auto 2rem auto !important;
+        }
+
+        .ds-root .ds-hero-stats {
+            display: flex !important;
+            gap: 2rem !important;
+            margin-bottom: 2rem !important;
+            justify-content: center !important;
+            flex-wrap: wrap !important;
+        }
+
+        .ds-root .ds-stat-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .ds-root .ds-stat-number {
+            font-family: var(--ds-font-display) !important;
+            font-size: 2.2rem !important;
+            font-weight: 800 !important;
+            line-height: 1 !important;
+        }
+
+        .ds-root .ds-stat-label {
+            font-size: 0.7rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+            color: var(--ds-text-muted) !important;
+        }
+
+        /* ===== BUTTONS ===== */
+        .ds-root .ds-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
+            padding: 0.8rem 1.8rem !important;
+            border-radius: 40px !important;
+            font-weight: 600 !important;
+            font-size: 0.9rem !important;
+            cursor: pointer !important;
+            transition: all 0.25s ease !important;
+            text-decoration: none !important;
+            border: none !important;
+        }
+
+        .ds-root .ds-btn-primary {
+            background: var(--ds-accent-burgundy) !important;
+            color: white !important;
+            box-shadow: var(--ds-shadow-glow) !important;
+        }
+
+        .ds-root .ds-btn-primary:hover {
+            background: #b34e62 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 12px 28px rgba(139, 58, 74, 0.5) !important;
+        }
+
+        .ds-root .ds-btn-outline {
+            background: transparent !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+            color: var(--ds-text-primary) !important;
+        }
+
+        .ds-root .ds-btn-outline:hover {
+            border-color: var(--ds-accent-burgundy) !important;
+            background: rgba(139, 58, 74, 0.1) !important;
+        }
+
+        .ds-root .ds-btn-sm {
+            padding: 0.25rem 0.8rem !important;
+            font-size: 0.7rem !important;
+            border-radius: 30px !important;
+        }
+
+        /* ===== PLAYER ===== */
+        .ds-root .ds-player-wrapper {
+            position: sticky !important;
+            top: var(--ds-header-height) !important;
+            z-index: 900 !important;
+            background: rgba(14, 14, 20, 0.92) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid var(--ds-border-mid) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .ds-root .ds-player-inner {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            gap: 0.8rem !important;
+            padding: 0.7rem 1.8rem !important;
+            max-width: 1280px !important;
+            margin: 0 auto !important;
+        }
+
+        .ds-root .ds-player-cover {
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 8px !important;
+            object-fit: cover !important;
+            background: var(--ds-bg-elevated) !important;
+            border: 1px solid var(--ds-border-mid) !important;
+            flex-shrink: 0 !important;
+        }
+
+        .ds-root .ds-player-info {
+            flex: 2 !important;
+            min-width: 120px !important;
+        }
+
+        .ds-root .ds-player-track {
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .ds-root .ds-player-artist {
+            font-size: 0.65rem !important;
+            color: var(--ds-text-muted) !important;
+        }
+
+        .ds-root .ds-player-controls {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.2rem !important;
+            flex-shrink: 0 !important;
+        }
+
+        .ds-root .ds-player-btn {
+            background: none !important;
+            border: none !important;
+            color: var(--ds-text-primary) !important;
+            font-size: 1.2rem !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+        }
+
+        .ds-root .ds-player-btn:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            color: var(--ds-accent-burgundy) !important;
+        }
+
+        .ds-root .ds-play-btn {
+            background: var(--ds-accent-burgundy) !important;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(139, 58, 74, 0.5) !important;
+        }
+
+        .ds-root .ds-player-timeline {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.8rem !important;
+            flex: 2 !important;
+            min-width: 150px !important;
+        }
+
+        .ds-root .ds-progress-container {
+            flex: 1 !important;
+            height: 4px !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-radius: 4px !important;
+            cursor: pointer !important;
+            position: relative !important;
+        }
+
+        .ds-root .ds-progress-bar-fill {
+            width: 0% !important;
+            height: 100% !important;
+            background: var(--ds-accent-burgundy) !important;
+            border-radius: 4px !important;
+            transition: width 0.1s linear !important;
+        }
+
+        .ds-root .ds-time-display {
+            font-size: 0.7rem !important;
+            color: var(--ds-text-muted) !important;
+            min-width: 40px !important;
+            text-align: center !important;
+        }
+
+        .ds-root .ds-volume-container {
+            width: 100px !important;
+            flex-shrink: 0 !important;
+        }
+
+        .ds-root .ds-volume-slider {
+            width: 100% !important;
+            cursor: pointer !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            height: 3px !important;
+            border-radius: 3px !important;
+            -webkit-appearance: none !important;
+            appearance: none !important;
+        }
+
+        .ds-root .ds-volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none !important;
+            appearance: none !important;
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+            background: var(--ds-accent-burgundy) !important;
+            cursor: pointer !important;
+        }
+
+        .ds-root .ds-volume-slider::-moz-range-thumb {
+            width: 12px !important;
+            height: 12px !important;
+            border-radius: 50% !important;
+            background: var(--ds-accent-burgundy) !important;
+            cursor: pointer !important;
+            border: none !important;
+        }
+
+        .ds-root .ds-live-radio {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            background: rgba(139, 58, 74, 0.15) !important;
+            padding: 0.3rem 0.8rem !important;
+            border-radius: 40px !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+            flex-shrink: 0 !important;
+            border: none !important;
+            color: var(--ds-text-primary) !important;
+            font-family: var(--ds-font-body) !important;
+        }
+
+        .ds-root .ds-live-radio:hover {
+            background: rgba(139, 58, 74, 0.3) !important;
+            transform: scale(1.02) !important;
+        }
+
+        .ds-root .ds-live-dot {
+            width: 10px !important;
+            height: 10px !important;
+            background-color: #ff3b3b !important;
+            border-radius: 50% !important;
+            animation: ds-pulse 1.5s infinite !important;
+            box-shadow: 0 0 6px #ff3b3b !important;
+        }
+
+        .ds-root .ds-live-text {
+            font-size: 0.7rem !important;
+            font-weight: 600 !important;
+            letter-spacing: 0.03em !important;
+            white-space: nowrap !important;
+        }
+
+        @media (max-width: 800px) {
+            .ds-root .ds-player-inner {
+                padding: 0.7rem 1.2rem !important;
+                gap: 0.5rem !important;
+            }
+            .ds-root .ds-player-timeline {
+                order: 4 !important;
+                width: 100% !important;
+                margin-top: 0.3rem !important;
+            }
+            .ds-root .ds-volume-container {
+                order: 5 !important;
+                width: 100% !important;
+                margin-top: 0.3rem !important;
+            }
+            .ds-root .ds-live-radio {
+                order: 3 !important;
+                margin-left: auto !important;
+            }
+        }
+
+        /* ===== NEWS ===== */
+        .ds-root .ds-news-scroll-wrapper {
+            overflow-x: auto !important;
+            scroll-behavior: smooth !important;
+            cursor: grab !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: var(--ds-accent-burgundy) var(--ds-bg-elevated) !important;
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar {
+            height: 4px !important;
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar-track {
+            background: var(--ds-bg-elevated) !important;
+            border-radius: 4px !important;
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--ds-accent-burgundy) !important;
+            border-radius: 4px !important;
+        }
+
+        .ds-root .ds-news-grid {
+            display: flex !important;
+            gap: 1.5rem !important;
+            width: max-content !important;
+            padding: 0.5rem 0 1rem !important;
+        }
+
+        .ds-root .ds-news-card {
+            background: var(--ds-bg-card) !important;
+            border: 1px solid var(--ds-border-subtle) !important;
+            border-radius: var(--ds-radius-lg) !important;
+            padding: 1.2rem !important;
+            width: 280px !important;
+            flex-shrink: 0 !important;
+            transition: all 0.3s !important;
+        }
+
+        .ds-root .ds-news-card:hover {
+            border-color: var(--ds-border-mid) !important;
+            transform: translateY(-4px) !important;
+            box-shadow: var(--ds-shadow-card) !important;
+        }
+
+        .ds-root .ds-news-date {
+            font-size: 0.7rem !important;
+            color: var(--ds-accent-steel) !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .ds-root .ds-news-card h4 {
+            font-size: 1rem !important;
+            margin-bottom: 0.3rem !important;
+        }
+
+        .ds-root .ds-news-card p {
+            font-size: 0.8rem !important;
+            color: var(--ds-text-secondary) !important;
+        }
+
+        .ds-root .ds-news-tag {
+            display: inline-block !important;
+            margin-top: 0.6rem !important;
+            font-size: 0.65rem !important;
+            background: rgba(139, 58, 74, 0.2) !important;
+            padding: 0.2rem 0.6rem !important;
+            border-radius: 40px !important;
+            color: #c98b99 !important;
+        }
+
+        /* ===== CATALOG ===== */
+        .ds-root .ds-tabs {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 0.6rem !important;
+            margin-bottom: 2rem !important;
+            border-bottom: 1px solid var(--ds-border-mid) !important;
+            padding-bottom: 0.5rem !important;
+        }
+
+        .ds-root .ds-tab-btn {
+            background: none !important;
+            border: none !important;
+            color: var(--ds-text-muted) !important;
+            padding: 0.5rem 1.2rem !important;
+            border-radius: 40px !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+            font-size: 0.85rem !important;
+            font-family: var(--ds-font-body) !important;
+        }
+
+        .ds-root .ds-tab-btn.ds-active {
+            background: var(--ds-bg-elevated) !important;
+            color: var(--ds-text-primary) !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .ds-root .ds-music-grid {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+            gap: 1.2rem !important;
+        }
+
+        .ds-root .ds-track-card {
+            background: var(--ds-bg-card) !important;
+            border: 1px solid var(--ds-border-subtle) !important;
+            border-radius: var(--ds-radius-md) !important;
+            padding: 0.9rem !important;
+            transition: all 0.3s !important;
+            cursor: pointer !important;
+            position: relative !important;
+        }
+
+        .ds-root .ds-track-card:hover {
+            transform: translateY(-4px) !important;
+            border-color: var(--ds-border-mid) !important;
+            box-shadow: var(--ds-shadow-card) !important;
+        }
+
+        .ds-root .ds-track-cover {
+            width: 100% !important;
+            aspect-ratio: 1 !important;
+            border-radius: var(--ds-radius-sm) !important;
+            object-fit: cover !important;
+            margin-bottom: 0.7rem !important;
+            background: var(--ds-bg-elevated) !important;
+        }
+
+        .ds-root .ds-track-title {
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+            margin-bottom: 0.2rem !important;
+        }
+
+        .ds-root .ds-track-meta {
+            font-size: 0.7rem !important;
+            color: var(--ds-text-muted) !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        .ds-root .ds-track-actions {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+        }
+
+        .ds-root .ds-like-btn {
+            background: none !important;
+            border: none !important;
+            font-size: 1rem !important;
+            cursor: pointer !important;
+            color: #aaa !important;
+            transition: color 0.2s !important;
+            padding: 4px !important;
+        }
+
+        .ds-root .ds-like-btn.ds-liked {
+            color: #e85d75 !important;
+        }
+
+        .ds-root .ds-likes-count {
+            font-size: 0.7rem !important;
+            color: var(--ds-text-muted) !important;
+            margin-left: 0.2rem !important;
+            min-width: 24px !important;
+            display: inline-block !important;
+        }
+
+        .ds-root .ds-tooltip-text {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            bottom: 110% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            background: #1a1a25 !important;
+            color: #e8e6e3 !important;
+            text-align: center !important;
+            padding: 0.4rem 0.8rem !important;
+            border-radius: 12px !important;
+            font-size: 0.7rem !important;
+            z-index: 10 !important;
+            transition: opacity 0.2s !important;
+            pointer-events: none !important;
+            border: 1px solid var(--ds-accent-burgundy) !important;
+            backdrop-filter: blur(4px) !important;
+            max-width: 200px !important;
+            line-height: 1.3 !important;
+        }
+
+        .ds-root .ds-track-card:hover .ds-tooltip-text {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        /* ===== CALENDAR ===== */
+        .ds-root .ds-calendars-container {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 2rem !important;
+        }
+
+        .ds-root .ds-calendar-wrapper {
+            background: var(--ds-bg-card) !important;
+            border-radius: var(--ds-radius-md) !important;
+            padding: 0.6rem !important;
+            border: 1px solid var(--ds-border-mid) !important;
+            max-width: 360px !important;
+            width: 100% !important;
+        }
+
+        .ds-root .ds-calendar-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            margin-bottom: 0.6rem !important;
+            flex-wrap: wrap !important;
+            gap: 0.5rem !important;
+        }
+
+        .ds-root .ds-calendar-month {
+            font-family: var(--ds-font-display) !important;
+            font-size: 0.9rem !important;
+            font-weight: 700 !important;
+        }
+
+        .ds-root .ds-calendar-legend {
+            display: flex !important;
+            gap: 0.5rem !important;
+            font-size: 0.6rem !important;
+        }
+
+        .ds-root .ds-legend-dot {
+            display: inline-block !important;
+            width: 8px !important;
+            height: 8px !important;
+            background: var(--ds-accent-burgundy) !important;
+            border-radius: 10px !important;
+            margin-right: 3px !important;
+        }
+
+        .ds-root .ds-calendar-grid {
+            display: grid !important;
+            grid-template-columns: repeat(7, 1fr) !important;
+            gap: 0.2rem !important;
+            text-align: center !important;
+        }
+
+        .ds-root .ds-cal
