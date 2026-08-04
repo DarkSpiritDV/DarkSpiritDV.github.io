@@ -1,806 +1,1498 @@
-<script>
-    (function() {
-        'use strict';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>DarkSpirit — Живое радио | Календарь июнь-июль</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================================
+           БАЗОВЫЙ СБРОС — ТОЛЬКО ДЛЯ DarkSpirit
+           ============================================================ */
         
-        // ===== ДАННЫЕ =====
-        const TRACKS = [
-            {
-                id: 1,
-                title: 'Запятая у окна (фрагмент)',
-                titleEn: 'Comma by the Window',
-                category: 'pop-rap',
-                cover: 'Запятая у окна.png',
-                audioSrc: 'zapyataya.mp3',
-                likes: 12,
-                userLiked: false,
-                descriptionRu: 'Лирическая исповедь о социальных сетях и надежде',
-                descriptionEn: 'Lyrical confession about social networks and hope'
-            },
-            {
-                id: 2,
-                title: 'Soul and Stream (фрагмент)',
-                titleEn: 'Soul and Stream',
-                category: 'pop-rap',
-                cover: 'Soul and Stream.jpg',
-                audioSrc: 'SoulandStream.mp3',
-                likes: 8,
-                userLiked: false,
-                descriptionRu: 'Экспериментальный англоязычный трек',
-                descriptionEn: 'Experimental English-language track'
-            },
-            {
-                id: 3,
-                title: 'Пробки заебали (фрагмент)',
-                titleEn: 'Traffic Jams',
-                category: 'pop-rap',
-                cover: 'Пробки заебали.png',
-                audioSrc: 'Probki.mp3',
-                likes: 15,
-                userLiked: false,
-                descriptionRu: 'Острые ритмы и уличная атмосфера',
-                descriptionEn: 'Sharp rhythms and street atmosphere'
-            },
-            {
-                id: 4,
-                title: 'Моя кукла (фрагмент)',
-                titleEn: 'My Doll',
-                category: 'pop-rap',
-                cover: 'кукла.jpg',
-                audioSrc: 'Moua kukla.mp3',
-                likes: 7,
-                userLiked: false,
-                descriptionRu: 'Мрачные ритмы с налётом доминации и эротики',
-                descriptionEn: 'Dark rhythms with a touch of domination and eroticism'
-            }
-        ];
-
-        const NEWS = [
-            {
-                date: "27.05.2026",
-                titleRu: "Новый трек «Пробки заебали» 12.06",
-                titleEn: "New track 'Traffic Jams' 12.06",
-                descRu: "Экспериментальный трек",
-                descEn: "Experimental",
-                tagRu: "Анонс",
-                tagEn: "Announce"
-            },
-            {
-                date: "24.05.2026",
-                titleRu: "Два новых трека 4 и 5 июня",
-                titleEn: "Two new tracks June 4&5",
-                descRu: "«Запятая у окна» и «Soul and Stream»",
-                descEn: "'Comma' and 'Soul and Stream'",
-                tagRu: "Анонс",
-                tagEn: "Announce"
-            },
-            {
-                date: "22.05.2026",
-                titleRu: "Преодолели 900 000 прослушиваний",
-                titleEn: "Over 900k streams",
-                descRu: "Спасибо каждому",
-                descEn: "Thank you all",
-                tagRu: "Новость",
-                tagEn: "News"
-            }
-        ];
-
-        const PHOTOS = [
-            { src: "фото.png", titleRu: "Концерт в Хабаровске", titleEn: "Concert in Khabarovsk" },
-            { src: "клип.png", titleRu: "Съемка клипа", titleEn: "Music video shooting" },
-            { src: "photo3.jpg", titleRu: "Студийная запись", titleEn: "Studio recording" }
-        ];
-
-        // ===== ПЕРЕВОДЫ =====
-        const UI_TRANSLATIONS = {
-            ru: {
-                heroTag: "Группа",
-                heroTitle: "DarkSpirit",
-                heroDesc: "Музыка, которая остаётся в памяти навсегда.",
-                heroBtn: "🎧 Слушать свежий релиз",
-                statPlatforms: "Площадки",
-                statStreams: "Прослушиваний",
-                statTracks: "Релизов",
-                newsTitle: "Новости",
-                newsSubtitle: "Последние события",
-                musicTitle: "Каталог",
-                musicSubtitle: "Релизы, треки, игры",
-                tabPopRap: "Поп / Рок / Рэп",
-                tabThematic: "Музыка для СВО",
-                tabGames: "Онлайн игры",
-                scheduleTitle: "Календарь релизов",
-                scheduleSubtitle: "Июнь / Июль 2026",
-                photosTitle: "Фото",
-                photosSubtitle: "Моменты с выступлений и закулисья",
-                bioTitle: "О проекте",
-                bioText1: "молодая российская поп-рок-группа, родившаяся в мае 2025 года.",
-                bioText2: "В нашем репертуаре:",
-                bioListItem1: "поп- и рок-композиции для широкой аудитории;",
-                bioListItem2: "отдельные альбомы, посвящённые событиям СВО;",
-                bioListItem3: "специальное фан-направление для поклонников онлайн-игр.",
-                bioText3: "DarkSpirit — это два голоса, одна энергия и никаких границ.",
-                supportTitle: "Поддержать проект",
-                supportDesc: "Ваша поддержка помогает нам создавать новую музыку",
-                footerCopyright: "© 2026 DarkSpirit",
-                footerVisits: "посещений",
-                noTracks: "Нет треков",
-                gamesPlaceholder: "🎮 Раздел игр в разработке",
-                thematicPlaceholder: "🎖️ Патриотические альбомы скоро",
-                trackMeta: "DarkSpirit",
-                playBtn: "Слушать",
-                liveText: "DarkSpirit сейчас в эфире",
-                juneMonth: "Июнь 2026",
-                julyMonth: "Июль 2026",
-                calendarNoteJune: "⭐ 4,5,12,26 июня — премьеры синглов",
-                calendarNoteJuly: "🎸 10 и 25 июля — новые релизы",
-                releaseComma: "Запятая у окна",
-                releaseSoul: "Soul and Stream",
-                releaseTraffic: "Пробки заебали",
-                releaseDoll: "Моя кукла",
-                releaseWind: "Северный ветер (сингл)",
-                releaseEP: "EP «Северный ветер»"
-            },
-            en: {
-                heroTag: "Band",
-                heroTitle: "DarkSpirit",
-                heroDesc: "Music that stays in your memory forever.",
-                heroBtn: "🎧 Listen to the latest release",
-                statPlatforms: "Platforms",
-                statStreams: "Streams",
-                statTracks: "Releases",
-                newsTitle: "News",
-                newsSubtitle: "Latest events",
-                musicTitle: "Catalog",
-                musicSubtitle: "Releases, tracks, games",
-                tabPopRap: "Pop / Rock / Rap",
-                tabThematic: "Music for SVO",
-                tabGames: "Online games",
-                scheduleTitle: "Release calendar",
-                scheduleSubtitle: "June / July 2026",
-                photosTitle: "Photos",
-                photosSubtitle: "Moments from performances and backstage",
-                bioTitle: "About project",
-                bioText1: "is a young Russian pop-rock band born in May 2025.",
-                bioText2: "Our repertoire includes:",
-                bioListItem1: "pop and rock compositions for a wide audience;",
-                bioListItem2: "separate albums dedicated to the events of the SVO;",
-                bioListItem3: "special fan direction for online game fans.",
-                bioText3: "DarkSpirit — two voices, one energy, no boundaries.",
-                supportTitle: "Support the project",
-                supportDesc: "Your support helps us create new music",
-                footerCopyright: "© 2026 DarkSpirit",
-                footerVisits: "visits",
-                noTracks: "No tracks",
-                gamesPlaceholder: "🎮 Games section under development",
-                thematicPlaceholder: "🎖️ Patriotic albums coming soon",
-                trackMeta: "DarkSpirit",
-                playBtn: "Play",
-                liveText: "DarkSpirit is live now",
-                juneMonth: "June 2026",
-                julyMonth: "July 2026",
-                calendarNoteJune: "⭐ June 4,5,12,26 — singles premieres",
-                calendarNoteJuly: "🎸 July 10 & 25 — new releases",
-                releaseComma: "Comma by the Window",
-                releaseSoul: "Soul and Stream",
-                releaseTraffic: "Traffic Jams",
-                releaseDoll: "My Doll",
-                releaseWind: "Northern Wind (single)",
-                releaseEP: "EP 'Northern Wind'"
-            }
-        };
-
-        // ===== СОСТОЯНИЕ =====
-        let currentLang = 'ru';
-        let currentCategory = 'pop-rap';
-        let currentTrackId = 1;
-        let isPlaying = false;
-
-        // ===== DOM ЭЛЕМЕНТЫ (ОРИГИНАЛЬНЫЕ ID ИЗ HTML) =====
-        const audio = document.getElementById('audioElement');
-        const playBtn = document.getElementById('playerPlay');
-        const prevBtn = document.getElementById('playerPrev');
-        const nextBtn = document.getElementById('playerNext');
-        const progressFill = document.getElementById('progressBarFill');
-        const progressBg = document.getElementById('progressBarBg');
-        const timeDisplay = document.getElementById('timeDisplay');
-        const trackName = document.getElementById('playerTrack');
-        const coverImg = document.getElementById('playerCover');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const catalogContainer = document.getElementById('catalogContainer');
-        const liveRadio = document.getElementById('liveRadio');
-        const toastMsg = document.getElementById('toastMsg');
-
-        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-        function getTrackById(id) {
-            return TRACKS.find(t => t.id === id);
+        /* Обнуляем только внутри .ds-root */
+        .ds-root,
+        .ds-root *,
+        .ds-root *::before,
+        .ds-root *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        function showToast(msg) {
-            if (!toastMsg) return;
-            toastMsg.textContent = msg;
-            toastMsg.style.opacity = '1';
-            clearTimeout(window.dsToastTimeout);
-            window.dsToastTimeout = setTimeout(() => {
-                toastMsg.style.opacity = '0';
-            }, 2000);
-        }
-
-        function t(key) {
-            const translations = UI_TRANSLATIONS[currentLang] || UI_TRANSLATIONS.ru;
-            return translations[key] || key;
-        }
-
-        // ===== ПЛЕЕР =====
-        function loadTrack(id, autoPlay = false) {
-            const track = getTrackById(id);
-            if (!track) {
-                showToast('❌ ' + (currentLang === 'ru' ? 'Трек не найден' : 'Track not found'));
-                return;
-            }
-
-            if (audio) {
-                audio.src = track.audioSrc;
-                audio.load();
-            }
+        /* Основной контейнер — все стили изолированы */
+        .ds-root {
+            --ds-bg-primary: #08080c;
+            --ds-bg-secondary: #0e0e14;
+            --ds-bg-card: #13131b;
+            --ds-bg-elevated: #1a1a25;
+            --ds-border-subtle: rgba(255, 255, 255, 0.04);
+            --ds-border-mid: rgba(255, 255, 255, 0.08);
+            --ds-text-primary: #e8e6e3;
+            --ds-text-secondary: #9d9ba3;
+            --ds-text-muted: #6b6972;
+            --ds-accent-burgundy: #8b3a4a;
+            --ds-accent-steel: #9ca3af;
+            --ds-font-display: 'Playfair Display', 'Georgia', serif;
+            --ds-font-body: 'Inter', system-ui, sans-serif;
+            --ds-header-height: 70px;
+            --ds-radius-sm: 6px;
+            --ds-radius-md: 12px;
+            --ds-radius-lg: 20px;
+            --ds-radius-xl: 28px;
+            --ds-shadow-card: 0 12px 32px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.02) inset;
+            --ds-shadow-glow: 0 8px 20px rgba(139, 58, 74, 0.4);
+            --ds-transition-smooth: cubic-bezier(0.2, 0.9, 0.4, 1.1);
             
-            if (trackName) {
-                trackName.textContent = currentLang === 'ru' ? track.title : track.titleEn;
-            }
-            
-            if (coverImg) {
-                coverImg.src = track.cover || 'data:image/svg+xml,%3Csvg%3E';
-            }
-            
-            if (progressFill) {
-                progressFill.style.width = '0%';
-            }
-            
-            if (timeDisplay) {
-                timeDisplay.textContent = '0:00';
-            }
-
-            if (autoPlay && audio) {
-                audio.play()
-                    .then(() => {
-                        isPlaying = true;
-                        if (playBtn) playBtn.textContent = '⏸';
-                    })
-                    .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
-            } else {
-                isPlaying = false;
-                if (playBtn) playBtn.textContent = '▶';
-            }
-
-            currentTrackId = id;
+            background-color: var(--ds-bg-primary);
+            color: var(--ds-text-primary);
+            font-family: var(--ds-font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(ellipse at 20% 15%, rgba(139, 58, 74, 0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 60%, rgba(45, 74, 107, 0.05) 0%, transparent 55%);
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
         }
 
-        function togglePlay() {
-            if (!audio) return;
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                if (playBtn) playBtn.textContent = '▶';
-            } else {
-                audio.play()
-                    .then(() => {
-                        isPlaying = true;
-                        if (playBtn) playBtn.textContent = '⏸';
-                    })
-                    .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
+        /* Typography */
+        .ds-root h1,
+        .ds-root h2,
+        .ds-root h3,
+        .ds-root .ds-font-display {
+            font-family: var(--ds-font-display);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .ds-root h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 0.35em;
+            position: relative;
+            display: inline-block;
+        }
+
+        .ds-root h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ds-accent-burgundy), transparent);
+            border-radius: 4px;
+        }
+
+        .ds-root .ds-section-subtitle {
+            color: var(--ds-text-secondary);
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        .ds-root .ds-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+        }
+
+        .ds-root section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .ds-root section {
+                padding: 2.5rem 0;
             }
-        }
-
-        function nextTrack() {
-            if (!TRACKS.length) return;
-            const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
-            const nextIdx = (currentIdx + 1) % TRACKS.length;
-            loadTrack(TRACKS[nextIdx].id, true);
-        }
-
-        function prevTrack() {
-            if (!TRACKS.length) return;
-            const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
-            const prevIdx = (currentIdx - 1 + TRACKS.length) % TRACKS.length;
-            loadTrack(TRACKS[prevIdx].id, true);
-        }
-
-        function playRandom() {
-            if (!TRACKS.length) return;
-            const random = TRACKS[Math.floor(Math.random() * TRACKS.length)];
-            loadTrack(random.id, true);
-            showToast(`🎲 ${currentLang === 'ru' ? 'Случайный трек' : 'Random track'}: ${currentLang === 'ru' ? random.title : random.titleEn}`);
-        }
-
-        function updateProgress() {
-            if (!audio || !progressFill || !timeDisplay) return;
-            if (audio.duration && !isNaN(audio.duration)) {
-                const percent = (audio.currentTime / audio.duration) * 100;
-                progressFill.style.width = `${percent}%`;
-                
-                const mins = Math.floor(audio.currentTime / 60);
-                const secs = Math.floor(audio.currentTime % 60);
-                timeDisplay.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            .ds-root .ds-container {
+                padding: 0 1.2rem;
             }
         }
 
-        function setProgress(e) {
-            if (!audio || !progressBg) return;
-            const rect = progressBg.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            if (audio.duration) {
-                audio.currentTime = percent * audio.duration;
+        .ds-root .ds-fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s var(--ds-transition-smooth), transform 0.7s var(--ds-transition-smooth);
+        }
+
+        .ds-root .ds-fade-in-up.ds-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes ds-pulse {
+            0% { opacity: 0.4; transform: scale(0.8); }
+            70% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* ===== HEADER ===== */
+        .ds-root .ds-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: var(--ds-header-height);
+            background: rgba(8, 8, 12, 0.75);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--ds-border-mid);
+            transition: all 0.3s ease;
+        }
+
+        .ds-root .ds-header.ds-scrolled {
+            background: rgba(8, 8, 12, 0.92);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .ds-root .ds-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.8rem;
+            height: 100%;
+        }
+
+        .ds-root .ds-logo {
+            font-family: var(--ds-font-display);
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--ds-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .ds-root .ds-logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--ds-accent-burgundy);
+            object-fit: cover;
+        }
+
+        .ds-root .ds-nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .ds-root .ds-nav a {
+            color: var(--ds-text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            position: relative;
+            padding: 0.4rem 0;
+        }
+
+        .ds-root .ds-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ds-accent-burgundy);
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+
+        .ds-root .ds-nav a:hover,
+        .ds-root .ds-nav a.ds-active {
+            color: var(--ds-text-primary);
+        }
+
+        .ds-root .ds-nav a:hover::after,
+        .ds-root .ds-nav a.ds-active::after {
+            width: 100%;
+        }
+
+        .ds-root .ds-lang-switch {
+            display: flex;
+            gap: 0.3rem;
+            background: var(--ds-bg-elevated);
+            border-radius: 40px;
+            padding: 3px;
+            border: 1px solid var(--ds-border-mid);
+        }
+
+        .ds-root .ds-lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--ds-text-muted);
+            padding: 0.4rem 0.9rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .ds-root .ds-lang-btn.ds-active {
+            background: var(--ds-accent-burgundy);
+            color: white;
+            box-shadow: 0 2px 8px rgba(139, 58, 74, 0.4);
+        }
+
+        .ds-root .ds-mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .ds-root .ds-mobile-menu-toggle span {
+            width: 26px;
+            height: 2px;
+            background: var(--ds-text-primary);
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+
+        @media (max-width: 900px) {
+            .ds-root .ds-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 15, 0.96);
+                backdrop-filter: blur(28px);
+                -webkit-backdrop-filter: blur(28px);
+                flex-direction: column;
+                padding: 6rem 2rem;
+                gap: 1.8rem;
+                transition: right 0.4s var(--ds-transition-smooth);
+                border-left: 1px solid var(--ds-border-mid);
+                z-index: 999;
+            }
+
+            .ds-root .ds-nav.ds-open {
+                right: 0;
+            }
+
+            .ds-root .ds-mobile-menu-toggle {
+                display: flex;
+            }
+
+            .ds-root .ds-lang-switch {
+                margin-left: auto;
+                margin-right: 1rem;
             }
         }
 
-        // ===== КАТАЛОГ =====
-        function renderTracks(tracks) {
-            if (!catalogContainer) return;
-            if (!tracks.length) {
-                catalogContainer.innerHTML = `<div style="text-align:center; color:var(--ds-text-muted);">${t('noTracks')}</div>`;
-                return;
-            }
+        /* ===== HERO ===== */
+        .ds-root .ds-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: var(--ds-header-height);
+            position: relative;
+        }
 
-            let html = `<div class="ds-music-grid">`;
-            tracks.forEach(t => {
-                const tooltip = currentLang === 'ru' ? (t.descriptionRu || 'Без описания') : (t.descriptionEn || 'No description');
-                html += `
-                    <div class="ds-track-card">
-                        <div class="ds-tooltip-text">${tooltip}</div>
-                        <img class="ds-track-cover" src="${t.cover}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'" alt="${t.title}">
-                        <div class="ds-track-title">${currentLang === 'ru' ? t.title : t.titleEn}</div>
-                        <div class="ds-track-meta">${t('trackMeta')}</div>
-                        <div class="ds-track-actions">
-                            <button class="ds-btn ds-btn-sm ds-btn-primary ds-play-track-btn" data-id="${t.id}">▶ ${t('playBtn')}</button>
-                            <button class="ds-like-btn ${t.userLiked ? 'ds-liked' : ''}" data-id="${t.id}">${t.userLiked ? '❤️' : '♡'}</button>
-                            <span class="ds-likes-count">${t.likes}</span>
+        .ds-root .ds-hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('club.png');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ds-root .ds-hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 40%, rgba(139, 58, 74, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .ds-root .ds-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .ds-root .ds-hero-tag {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            margin-bottom: 1rem;
+        }
+
+        .ds-root .ds-hero h1 {
+            font-size: clamp(3rem, 8vw, 5.8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #f0ede8, #b3aeb8, #d4bbc1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.2em;
+        }
+
+        .ds-root .ds-hero p {
+            font-size: 1.2rem;
+            color: var(--ds-text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .ds-root .ds-hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ds-root .ds-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ds-root .ds-stat-number {
+            font-family: var(--ds-font-display);
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .ds-root .ds-stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ds-text-muted);
+        }
+
+        /* ===== BUTTONS ===== */
+        .ds-root .ds-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .ds-root .ds-btn-primary {
+            background: var(--ds-accent-burgundy);
+            color: white;
+            box-shadow: var(--ds-shadow-glow);
+        }
+
+        .ds-root .ds-btn-primary:hover {
+            background: #b34e62;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(139, 58, 74, 0.5);
+        }
+
+        .ds-root .ds-btn-outline {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            color: var(--ds-text-primary);
+        }
+
+        .ds-root .ds-btn-outline:hover {
+            border-color: var(--ds-accent-burgundy);
+            background: rgba(139, 58, 74, 0.1);
+        }
+
+        .ds-root .ds-btn-sm {
+            padding: 0.25rem 0.8rem;
+            font-size: 0.7rem;
+            border-radius: 30px;
+        }
+
+        /* ===== PLAYER ===== */
+        .ds-root .ds-player-wrapper {
+            position: sticky;
+            top: var(--ds-header-height);
+            z-index: 900;
+            background: rgba(14, 14, 20, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--ds-border-mid);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .ds-root .ds-player-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1.8rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .ds-root .ds-player-cover {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--ds-bg-elevated);
+            border: 1px solid var(--ds-border-mid);
+            flex-shrink: 0;
+        }
+
+        .ds-root .ds-player-info {
+            flex: 2;
+            min-width: 120px;
+        }
+
+        .ds-root .ds-player-track {
+            font-weight: 600;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ds-root .ds-player-artist {
+            font-size: 0.65rem;
+            color: var(--ds-text-muted);
+        }
+
+        .ds-root .ds-player-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .ds-root .ds-player-btn {
+            background: none;
+            border: none;
+            color: var(--ds-text-primary);
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .ds-root .ds-player-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--ds-accent-burgundy);
+        }
+
+        .ds-root .ds-play-btn {
+            background: var(--ds-accent-burgundy);
+            color: white;
+            box-shadow: 0 4px 12px rgba(139, 58, 74, 0.5);
+        }
+
+        .ds-root .ds-player-timeline {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex: 2;
+            min-width: 150px;
+        }
+
+        .ds-root .ds-progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .ds-root .ds-progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--ds-accent-burgundy);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
+        .ds-root .ds-time-display {
+            font-size: 0.7rem;
+            color: var(--ds-text-muted);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .ds-root .ds-volume-container {
+            width: 100px;
+            flex-shrink: 0;
+        }
+
+        .ds-root .ds-volume-slider {
+            width: 100%;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.15);
+            height: 3px;
+            border-radius: 3px;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .ds-root .ds-volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--ds-accent-burgundy);
+            cursor: pointer;
+        }
+
+        .ds-root .ds-volume-slider::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--ds-accent-burgundy);
+            cursor: pointer;
+            border: none;
+        }
+
+        .ds-root .ds-live-radio {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(139, 58, 74, 0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            border: none;
+            color: var(--ds-text-primary);
+            font-family: var(--ds-font-body);
+        }
+
+        .ds-root .ds-live-radio:hover {
+            background: rgba(139, 58, 74, 0.3);
+            transform: scale(1.02);
+        }
+
+        .ds-root .ds-live-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #ff3b3b;
+            border-radius: 50%;
+            animation: ds-pulse 1.5s infinite;
+            box-shadow: 0 0 6px #ff3b3b;
+        }
+
+        .ds-root .ds-live-text {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 800px) {
+            .ds-root .ds-player-inner {
+                padding: 0.7rem 1.2rem;
+                gap: 0.5rem;
+            }
+            .ds-root .ds-player-timeline {
+                order: 4;
+                width: 100%;
+                margin-top: 0.3rem;
+            }
+            .ds-root .ds-volume-container {
+                order: 5;
+                width: 100%;
+                margin-top: 0.3rem;
+            }
+            .ds-root .ds-live-radio {
+                order: 3;
+                margin-left: auto;
+            }
+        }
+
+        /* ===== NEWS ===== */
+        .ds-root .ds-news-scroll-wrapper {
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            cursor: grab;
+            scrollbar-width: thin;
+            scrollbar-color: var(--ds-accent-burgundy) var(--ds-bg-elevated);
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar-track {
+            background: var(--ds-bg-elevated);
+            border-radius: 4px;
+        }
+
+        .ds-root .ds-news-scroll-wrapper::-webkit-scrollbar-thumb {
+            background: var(--ds-accent-burgundy);
+            border-radius: 4px;
+        }
+
+        .ds-root .ds-news-grid {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            padding: 0.5rem 0 1rem;
+        }
+
+        .ds-root .ds-news-card {
+            background: var(--ds-bg-card);
+            border: 1px solid var(--ds-border-subtle);
+            border-radius: var(--ds-radius-lg);
+            padding: 1.2rem;
+            width: 280px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .ds-root .ds-news-card:hover {
+            border-color: var(--ds-border-mid);
+            transform: translateY(-4px);
+            box-shadow: var(--ds-shadow-card);
+        }
+
+        .ds-root .ds-news-date {
+            font-size: 0.7rem;
+            color: var(--ds-accent-steel);
+            margin-bottom: 0.5rem;
+        }
+
+        .ds-root .ds-news-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .ds-root .ds-news-card p {
+            font-size: 0.8rem;
+            color: var(--ds-text-secondary);
+        }
+
+        .ds-root .ds-news-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.65rem;
+            background: rgba(139, 58, 74, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            color: #c98b99;
+        }
+
+        /* ===== CATALOG ===== */
+        .ds-root .ds-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--ds-border-mid);
+            padding-bottom: 0.5rem;
+        }
+
+        .ds-root .ds-tab-btn {
+            background: none;
+            border: none;
+            color: var(--ds-text-muted);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            font-family: var(--ds-font-body);
+        }
+
+        .ds-root .ds-tab-btn.ds-active {
+            background: var(--ds-bg-elevated);
+            color: var(--ds-text-primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .ds-root .ds-music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .ds-root .ds-track-card {
+            background: var(--ds-bg-card);
+            border: 1px solid var(--ds-border-subtle);
+            border-radius: var(--ds-radius-md);
+            padding: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .ds-root .ds-track-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ds-border-mid);
+            box-shadow: var(--ds-shadow-card);
+        }
+
+        .ds-root .ds-track-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--ds-radius-sm);
+            object-fit: cover;
+            margin-bottom: 0.7rem;
+            background: var(--ds-bg-elevated);
+        }
+
+        .ds-root .ds-track-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .ds-root .ds-track-meta {
+            font-size: 0.7rem;
+            color: var(--ds-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .ds-root .ds-track-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ds-root .ds-like-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.2s;
+            padding: 4px;
+        }
+
+        .ds-root .ds-like-btn.ds-liked {
+            color: #e85d75;
+        }
+
+        .ds-root .ds-likes-count {
+            font-size: 0.7rem;
+            color: var(--ds-text-muted);
+            margin-left: 0.2rem;
+            min-width: 24px;
+            display: inline-block;
+        }
+
+        .ds-root .ds-tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a25;
+            color: #e8e6e3;
+            text-align: center;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            z-index: 10;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            border: 1px solid var(--ds-accent-burgundy);
+            backdrop-filter: blur(4px);
+            max-width: 200px;
+            line-height: 1.3;
+        }
+
+        .ds-root .ds-track-card:hover .ds-tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ===== CALENDAR ===== */
+        .ds-root .ds-calendars-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .ds-root .ds-calendar-wrapper {
+            background: var(--ds-bg-card);
+            border-radius: var(--ds-radius-md);
+            padding: 0.6rem;
+            border: 1px solid var(--ds-border-mid);
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .ds-root .ds-calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ds-root .ds-calendar-month {
+            font-family: var(--ds-font-display);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .ds-root .ds-calendar-legend {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.6rem;
+        }
+
+        .ds-root .ds-legend-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--ds-accent-burgundy);
+            border-radius: 10px;
+            margin-right: 3px;
+        }
+
+        .ds-root .ds-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.2rem;
+            text-align: center;
+        }
+
+        .ds-root .ds-calendar-weekday {
+            font-weight: 600;
+            color: var(--ds-accent-steel);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            padding-bottom: 0.3rem;
+        }
+
+        .ds-root .ds-calendar-day {
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--ds-radius-sm);
+            transition: all 0.2s;
+            position: relative;
+            border: 1px solid transparent;
+        }
+
+        .ds-root .ds-calendar-day.ds-empty {
+            background: transparent;
+            opacity: 0.3;
+        }
+
+        .ds-root .ds-calendar-day.ds-release-day {
+            background: linear-gradient(145deg, #8b3a4a20, #5f273320);
+            border-color: var(--ds-accent-burgundy);
+            color: #e8a5b3;
+            font-weight: 700;
+            cursor: help;
+        }
+
+        .ds-root .ds-calendar-day.ds-release-day:hover {
+            transform: scale(1.05);
+            background: var(--ds-accent-burgundy);
+            color: white;
+        }
+
+        .ds-root .ds-calendar-day.ds-release-day::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #f0e6e6;
+            padding: 0.2rem 0.5rem;
+            border-radius: 16px;
+            font-size: 0.6rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .ds-root .ds-calendar-day.ds-release-day:hover::after {
+            opacity: 1;
+        }
+
+        .ds-root .ds-calendar-note {
+            margin-top: 0.6rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--ds-border-mid);
+            font-size: 0.65rem;
+            color: var(--ds-text-secondary);
+            text-align: center;
+        }
+
+        /* ===== PHOTOS ===== */
+        .ds-root .ds-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ds-root .ds-photo-card {
+            background: var(--ds-bg-card);
+            border: 1px solid var(--ds-border-subtle);
+            border-radius: var(--ds-radius-md);
+            padding: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .ds-root .ds-photo-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ds-border-mid);
+            box-shadow: var(--ds-shadow-card);
+        }
+
+        .ds-root .ds-photo-img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--ds-radius-sm);
+            object-fit: cover;
+            margin-bottom: 0.7rem;
+            background: var(--ds-bg-elevated);
+        }
+
+        .ds-root .ds-photo-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+            text-align: center;
+        }
+
+        /* ===== BIO ===== */
+        .ds-root .ds-bio-text p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .ds-root .ds-bio-list {
+            margin: 1rem 0 0.5rem 1.2rem;
+            list-style-type: none;
+        }
+
+        .ds-root .ds-bio-list li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--ds-text-secondary);
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .ds-root .ds-bio-list li::before {
+            content: "·";
+            color: var(--ds-accent-burgundy);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .ds-root .ds-bio-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--ds-bg-elevated);
+            border: 2px solid var(--ds-accent-burgundy);
+            object-fit: cover;
+        }
+
+        .ds-root .ds-bio-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .ds-root .ds-bio-links .ds-btn-outline {
+            padding: 0.4rem 1rem;
+            font-size: 0.75rem;
+        }
+
+        .ds-root .ds-bio-block {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .ds-root .ds-bio-block {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* ===== SUPPORT ===== */
+        .ds-root .ds-support-block {
+            text-align: center;
+            background: var(--ds-bg-card);
+            padding: 2rem;
+            border-radius: var(--ds-radius-xl);
+        }
+
+        .ds-root .ds-support-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .ds-root .ds-footer {
+            border-top: 1px solid var(--ds-border-mid);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--ds-text-muted);
+        }
+
+        .ds-root .ds-footer-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .ds-root .ds-footer-links a {
+            color: var(--ds-text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .ds-root .ds-footer-links a:hover {
+            color: var(--ds-accent-burgundy);
+        }
+
+        .ds-root .ds-visit-counter {
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+        }
+
+        /* ===== MODAL ===== */
+        .ds-root .ds-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .ds-root .ds-modal-content {
+            background: var(--ds-bg-card);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 24px;
+            overflow: auto;
+            position: relative;
+            padding: 1rem;
+        }
+
+        .ds-root .ds-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+            background: none;
+            border: none;
+            z-index: 1;
+        }
+
+        /* ===== TOAST ===== */
+        .ds-root .ds-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 1100;
+            white-space: nowrap;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .ds-root .ds-music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .ds-root .ds-track-card {
+                padding: 0.6rem;
+            }
+            .ds-root .ds-track-title {
+                font-size: 0.75rem;
+            }
+            .ds-root .ds-track-cover {
+                margin-bottom: 0.4rem;
+            }
+            .ds-root .ds-btn-sm {
+                padding: 0.2rem 0.6rem;
+                font-size: 0.65rem;
+            }
+            .ds-root .ds-like-btn {
+                font-size: 0.9rem;
+            }
+            .ds-root .ds-likes-count {
+                font-size: 0.65rem;
+            }
+            .ds-root .ds-volume-container {
+                width: 100%;
+            }
+            .ds-root .ds-calendars-container {
+                gap: 1rem;
+            }
+            .ds-root .ds-calendar-wrapper {
+                max-width: 100%;
+            }
+            .ds-root .ds-photos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .ds-root .ds-support-block {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Games & Albums placeholder */
+        .ds-root .ds-albums-grid,
+        .ds-root .ds-games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ds-root .ds-album-card,
+        .ds-root .ds-game-card {
+            background: var(--ds-bg-card);
+            border: 1px solid var(--ds-border-subtle);
+            border-radius: var(--ds-radius-md);
+            padding: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .ds-root .ds-album-card:hover,
+        .ds-root .ds-game-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ds-border-mid);
+            box-shadow: var(--ds-shadow-card);
+        }
+
+        .ds-root .ds-album-cover,
+        .ds-root .ds-game-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--ds-radius-sm);
+            object-fit: cover;
+            margin-bottom: 0.7rem;
+            background: var(--ds-bg-elevated);
+        }
+
+        .ds-root .ds-album-title,
+        .ds-root .ds-game-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .ds-root .ds-album-meta,
+        .ds-root .ds-game-meta {
+            font-size: 0.7rem;
+            color: var(--ds-text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .ds-root .ds-back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--ds-bg-elevated);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            border: none;
+            color: var(--ds-text-primary);
+            font-family: var(--ds-font-body);
+        }
+
+        .ds-root .ds-back-button:hover {
+            background: var(--ds-accent-burgundy);
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== ВСЕ ЭЛЕМЕНТЫ ОБЕРНУТЫ В .ds-root ДЛЯ ИЗОЛЯЦИИ ===== -->
+    <div class="ds-root">
+        
+        <!-- Toast -->
+        <div class="ds-toast" id="toastMsg">🎵 Загрузка трека...</div>
+
+        <!-- Header -->
+        <header class="ds-header" id="header">
+            <div class="ds-header-inner">
+                <a href="#" class="ds-logo">
+                    <img src="logo.png" alt="logo">
+                    <span>DarkSpirit</span>
+                </a>
+                <nav class="ds-nav" id="nav">
+                    <a href="#dsHero">Главная</a>
+                    <a href="#dsNews">Новости</a>
+                    <a href="#dsMusic">Музыка</a>
+                    <a href="#dsSchedule">Релизы</a>
+                    <a href="#dsPhotos">Фото</a>
+                    <a href="#dsBio">О проекте</a>
+                    <a href="#dsSupport">Поддержка</a>
+                </nav>
+                <div class="ds-lang-switch">
+                    <button class="ds-lang-btn ds-active" data-lang="ru">RU</button>
+                    <button class="ds-lang-btn" data-lang="en">EN</button>
+                </div>
+                <button class="ds-mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="ds-hero" id="dsHero">
+            <div class="ds-hero-bg"></div>
+            <div class="ds-container ds-hero-content ds-fade-in-up">
+                <div class="ds-hero-tag">Группа</div>
+                <h1>DarkSpirit</h1>
+                <p>Музыка, которая остаётся в памяти навсегда.</p>
+                <div class="ds-hero-stats">
+                    <div class="ds-stat-item">
+                        <div class="ds-stat-number" id="statPlatforms" data-target="32">0</div>
+                        <div class="ds-stat-label">Площадки</div>
+                    </div>
+                    <div class="ds-stat-item">
+                        <div class="ds-stat-number" id="statStreams" data-target="921427">0</div>
+                        <div class="ds-stat-label">Прослушиваний</div>
+                    </div>
+                    <div class="ds-stat-item">
+                        <div class="ds-stat-number" id="statTracks" data-target="110">0</div>
+                        <div class="ds-stat-label">Релизов</div>
+                    </div>
+                </div>
+                <a href="#dsMusic" class="ds-btn ds-btn-primary">🎧 Слушать свежий релиз</a>
+            </div>
+        </section>
+
+        <!-- Player -->
+        <div class="ds-player-wrapper">
+            <div class="ds-player-inner">
+                <img class="ds-player-cover" id="playerCover" src="data:image/svg+xml,%3Csvg%3E" alt="cover">
+                <div class="ds-player-info">
+                    <div class="ds-player-track" id="playerTrack">DarkSpirit</div>
+                    <div class="ds-player-artist">DarkSpirit</div>
+                </div>
+                <div class="ds-player-controls">
+                    <button class="ds-player-btn" id="playerPrev">⏮</button>
+                    <button class="ds-player-btn ds-play-btn" id="playerPlay">▶</button>
+                    <button class="ds-player-btn" id="playerNext">⏭</button>
+                </div>
+                <div class="ds-player-timeline">
+                    <div class="ds-progress-container" id="progressBarBg">
+                        <div class="ds-progress-bar-fill" id="progressBarFill"></div>
+                    </div>
+                    <span class="ds-time-display" id="timeDisplay">0:00</span>
+                </div>
+                <div class="ds-volume-container">
+                    <input type="range" id="volumeSlider" class="ds-volume-slider" min="0" max="1" step="0.05" value="0.7">
+                </div>
+                <button class="ds-live-radio" id="liveRadio">
+                    <span class="ds-live-dot"></span>
+                    <span class="ds-live-text">DarkSpirit сейчас в эфире</span>
+                </button>
+            </div>
+            <audio id="audioElement" preload="metadata"></audio>
+        </div>
+
+        <!-- News -->
+        <section id="dsNews">
+            <div class="ds-container">
+                <h2 class="ds-fade-in-up">Новости</h2>
+                <span class="ds-section-subtitle">Последние события</span>
+                <div class="ds-news-scroll-wrapper ds-fade-in-up">
+                    <div class="ds-news-grid" id="newsGrid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music -->
+        <section id="dsMusic">
+            <div class="ds-container">
+                <h2 class="ds-fade-in-up">Каталог</h2>
+                <span class="ds-section-subtitle">Релизы, треки, игры</span>
+                <div class="ds-tabs ds-fade-in-up">
+                    <button class="ds-tab-btn ds-active" data-tab="pop-rap">Поп / Рок / Рэп</button>
+                    <button class="ds-tab-btn" data-tab="thematic">Музыка для СВО</button>
+                    <button class="ds-tab-btn" data-tab="games">Онлайн игры</button>
+                </div>
+                <div id="catalogContainer" class="ds-fade-in-up"></div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section id="dsSchedule">
+            <div class="ds-container">
+                <h2 class="ds-fade-in-up">Календарь релизов</h2>
+                <span class="ds-section-subtitle">Июнь / Июль 2026</span>
+                <div class="ds-calendars-container ds-fade-in-up" id="calendarsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Photos -->
+        <section id="dsPhotos">
+            <div class="ds-container">
+                <h2 class="ds-fade-in-up">Фото</h2>
+                <span class="ds-section-subtitle">Моменты с выступлений и закулисья</span>
+                <div class="ds-photos-grid" id="photosGrid"></div>
+            </div>
+        </section>
+
+        <!-- Bio -->
+        <section id="dsBio">
+            <div class="ds-container">
+                <h2>О проекте</h2>
+                <div class="ds-bio-block">
+                    <img class="ds-bio-image" src="logo.png" alt="DarkSpirit logo">
+                    <div class="ds-bio-text">
+                        <p><strong>DarkSpirit</strong> — молодая российская поп-рок-группа, родившаяся в мае 2025 года.</p>
+                        <p>В нашем репертуаре:</p>
+                        <ul class="ds-bio-list">
+                            <li>поп- и рок-композиции для широкой аудитории;</li>
+                            <li>отдельные альбомы, посвящённые событиям СВО;</li>
+                            <li>специальное фан-направление для поклонников онлайн-игр.</li>
+                        </ul>
+                        <p><strong>DarkSpirit — это два голоса, одна энергия и никаких границ.</strong></p>
+                        <div class="ds-bio-links">
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="Яндекс Музыка">🎵 Яндекс Музыка</a>
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="VK Музыка">🎧 VK Музыка</a>
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="Zvuk">🔊 Zvuk</a>
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="Spotify">🎶 Spotify</a>
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="Apple Music">🍎 Apple Music</a>
+                            <a href="#" class="ds-btn ds-btn-outline" target="_blank" data-placeholder="Группа ВК">📱 Группа VK</a>
                         </div>
+                        <a href="#" class="ds-btn ds-btn-outline" style="margin-top: 0.8rem;">📥 Press Kit</a>
                     </div>
-                `;
-            });
-            html += `</div>`;
-            catalogContainer.innerHTML = html;
-
-            catalogContainer.querySelectorAll('.ds-play-track-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
-                    loadTrack(id, true);
-                });
-            });
-
-            catalogContainer.querySelectorAll('.ds-like-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
-                    const track = getTrackById(id);
-                    if (track) {
-                        track.userLiked = !track.userLiked;
-                        track.likes += track.userLiked ? 1 : -1;
-                        if (track.likes < 0) track.likes = 0;
-                        renderCatalog();
-                    }
-                });
-            });
-        }
-
-        function renderGames() {
-            if (!catalogContainer) return;
-            catalogContainer.innerHTML = `
-                <div style="text-align:center; color:var(--ds-text-muted); padding: 2rem;">
-                    ${t('gamesPlaceholder')}
                 </div>
-            `;
-        }
+            </div>
+        </section>
 
-        function renderThematic() {
-            if (!catalogContainer) return;
-            catalogContainer.innerHTML = `
-                <div style="text-align:center; color:var(--ds-text-muted); padding: 2rem;">
-                    ${t('thematicPlaceholder')}
-                </div>
-            `;
-        }
-
-        function renderCatalog() {
-            if (currentCategory === 'games') {
-                renderGames();
-                return;
-            }
-            if (currentCategory === 'thematic') {
-                renderThematic();
-                return;
-            }
-            
-            const filtered = TRACKS.filter(t => t.category === 'pop-rap');
-            renderTracks(filtered);
-        }
-
-        // ===== КАЛЕНДАРЬ =====
-        function buildMonth(year, month, releases, monthNameKey, noteKey) {
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            let startOffset = firstDay === 0 ? 6 : firstDay - 1;
-            
-            const weekdays = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-            let html = `
-                <div class="ds-calendar-wrapper">
-                    <div class="ds-calendar-header">
-                        <div class="ds-calendar-month">${t(monthNameKey)}</div>
-                        <div class="ds-calendar-legend">
-                            <span><span class="ds-legend-dot"></span> Релиз</span>
-                        </div>
+        <!-- Support -->
+        <section id="dsSupport">
+            <div class="ds-container">
+                <div class="ds-support-block">
+                    <h2>Поддержать проект</h2>
+                    <p>Ваша поддержка помогает нам создавать новую музыку</p>
+                    <div class="ds-support-buttons">
+                        <a href="https://boosty.to/wotdvstream" target="_blank" class="ds-btn ds-btn-primary">💜 Boosty</a>
+                        <a href="https://vk.com/darkspiritmuzika?w=app5727453_-129469625" target="_blank" class="ds-btn ds-btn-outline">🎁 VK Donut</a>
+                        <a href="https://tips.yandex.ru/guest/payment/3394466?wl=yandex_music" target="_blank" class="ds-btn ds-btn-outline">☕ Яндекс Чаевые</a>
+                        <a href="https://yoomoney.ru/fundraise/1I71GQNSUQL.260605" target="_blank" class="ds-btn ds-btn-outline">💰 ЮMoney</a>
                     </div>
-                    <div class="ds-calendar-grid">
-                        ${weekdays.map(wd => `<div class="ds-calendar-weekday">${wd}</div>`).join('')}
-            `;
-            
-            let day = 1;
-            let started = false;
-            
-            for (let week = 0; week < 6; week++) {
-                for (let wd = 0; wd < 7; wd++) {
-                    if (!started && week === 0 && wd < startOffset) {
-                        html += `<div class="ds-calendar-day ds-empty"></div>`;
-                    } else if (day <= daysInMonth) {
-                        const isRelease = releases[day];
-                        const tooltip = isRelease ? (currentLang === 'ru' ? isRelease.ru : isRelease.en) : '';
-                        html += `
-                            <div class="ds-calendar-day ${isRelease ? 'ds-release-day' : ''}" data-tooltip="${tooltip}">
-                                ${day}
-                            </div>
-                        `;
-                        day++;
-                        started = true;
-                    } else {
-                        html += `<div class="ds-calendar-day ds-empty"></div>`;
-                    }
-                }
-            }
-            
-            html += `
-                    </div>
-                    <div class="ds-calendar-note">${t(noteKey)}</div>
                 </div>
-            `;
-            
-            return html;
-        }
+            </div>
+        </section>
 
-        function renderCalendar() {
-            const container = document.getElementById('calendarsContainer');
-            if (!container) return;
-            
-            const juneReleases = {
-                4: { ru: t('releaseComma'), en: t('releaseComma') },
-                5: { ru: t('releaseSoul'), en: t('releaseSoul') },
-                12: { ru: t('releaseTraffic'), en: t('releaseTraffic') },
-                26: { ru: t('releaseDoll'), en: t('releaseDoll') }
-            };
-            const julyReleases = {
-                10: { ru: t('releaseWind'), en: t('releaseWind') },
-                25: { ru: t('releaseEP'), en: t('releaseEP') }
-            };
-            
-            container.innerHTML = buildMonth(2026, 5, juneReleases, 'juneMonth', 'calendarNoteJune') + 
-                                buildMonth(2026, 6, julyReleases, 'julyMonth', 'calendarNoteJuly');
-        }
-
-        // ===== НОВОСТИ =====
-        function renderNews() {
-            const grid = document.getElementById('newsGrid');
-            if (!grid) return;
-            grid.innerHTML = NEWS.map(n => `
-                <div class="ds-news-card">
-                    <div class="ds-news-date">${n.date}</div>
-                    <h4>${currentLang === 'ru' ? n.titleRu : n.titleEn}</h4>
-                    <p>${currentLang === 'ru' ? n.descRu : n.descEn}</p>
-                    <span class="ds-news-tag">${currentLang === 'ru' ? n.tagRu : n.tagEn}</span>
+        <!-- Footer -->
+        <footer class="ds-footer">
+            <div class="ds-container">
+                <div class="ds-footer-links">
+                    <a href="#">VK</a>
+                    <a href="#">YouTube</a>
+                    <a href="#">Apple Music</a>
                 </div>
-            `).join('');
-        }
+                <p>© 2026 DarkSpirit</p>
+                <div class="ds-visit-counter">👁️ <span id="visitCounter">0</span> посещений</div>
+            </div>
+        </footer>
 
-        // ===== ФОТО =====
-        function renderPhotos() {
-            const grid = document.getElementById('photosGrid');
-            if (!grid) return;
-            grid.innerHTML = PHOTOS.map(p => `
-                <div class="ds-photo-card" data-src="${p.src}">
-                    <img class="ds-photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'" alt="${currentLang === 'ru' ? p.titleRu : p.titleEn}">
-                    <div class="ds-photo-title">${currentLang === 'ru' ? p.titleRu : p.titleEn}</div>
-                </div>
-            `).join('');
+        <!-- Photo Modal -->
+        <div class="ds-modal" id="photoModal">
+            <div class="ds-modal-content">
+                <button class="ds-modal-close">&times;</button>
+                <img id="modalImage" style="width:100%; border-radius:12px;" src="" alt="">
+            </div>
+        </div>
 
-            document.querySelectorAll('.ds-photo-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const src = card.dataset.src;
-                    const modalImg = document.getElementById('modalImage');
-                    const modal = document.getElementById('photoModal');
-                    if (modalImg && modal) {
-                        modalImg.src = src;
-                        modal.style.display = 'flex';
-                    }
-                });
-            });
-        }
+    </div><!-- /.ds-root -->
 
-        // ===== ОБНОВЛЕНИЕ UI =====
-        function updateStaticUI() {
-            // Hero
-            const heroTag = document.querySelector('.ds-hero-tag');
-            const heroTitle = document.querySelector('.ds-hero h1');
-            const heroDesc = document.querySelector('.ds-hero p');
-            const heroBtn = document.querySelector('.ds-hero .ds-btn-primary');
-            if (heroTag) heroTag.textContent = t('heroTag');
-            if (heroTitle) heroTitle.textContent = t('heroTitle');
-            if (heroDesc) heroDesc.textContent = t('heroDesc');
-            if (heroBtn) heroBtn.innerHTML = t('heroBtn');
-            
-            // Hero stats
-            const statLabels = document.querySelectorAll('.ds-stat-label');
-            if (statLabels.length >= 3) {
-                statLabels[0].textContent = t('statPlatforms');
-                statLabels[1].textContent = t('statStreams');
-                statLabels[2].textContent = t('statTracks');
-            }
-            
-            // News
-            const newsTitle = document.querySelector('#dsNews h2');
-            const newsSubtitle = document.querySelector('#dsNews .ds-section-subtitle');
-            if (newsTitle) newsTitle.textContent = t('newsTitle');
-            if (newsSubtitle) newsSubtitle.textContent = t('newsSubtitle');
-            
-            // Music
-            const musicTitle = document.querySelector('#dsMusic h2');
-            const musicSubtitle = document.querySelector('#dsMusic .ds-section-subtitle');
-            if (musicTitle) musicTitle.textContent = t('musicTitle');
-            if (musicSubtitle) musicSubtitle.textContent = t('musicSubtitle');
-            
-            // Tabs
-            const tabs = document.querySelectorAll('.ds-tab-btn');
-            if (tabs.length >= 3) {
-                tabs[0].textContent = t('tabPopRap');
-                tabs[1].textContent = t('tabThematic');
-                tabs[2].textContent = t('tabGames');
-            }
-            
-            // Schedule
-            const scheduleTitle = document.querySelector('#dsSchedule h2');
-            const scheduleSubtitle = document.querySelector('#dsSchedule .ds-section-subtitle');
-            if (scheduleTitle) scheduleTitle.textContent = t('scheduleTitle');
-            if (scheduleSubtitle) scheduleSubtitle.textContent = t('scheduleSubtitle');
-            
-            // Photos
-            const photosTitle = document.querySelector('#dsPhotos h2');
-            const photosSubtitle = document.querySelector('#dsPhotos .ds-section-subtitle');
-            if (photosTitle) photosTitle.textContent = t('photosTitle');
-            if (photosSubtitle) photosSubtitle.textContent = t('photosSubtitle');
-            
-            // Bio
-            const bioTitle = document.querySelector('#dsBio h2');
-            if (bioTitle) bioTitle.textContent = t('bioTitle');
-            
-            const bioTexts = document.querySelectorAll('.ds-bio-text p');
-            if (bioTexts.length >= 1) {
-                bioTexts[0].innerHTML = `<strong>DarkSpirit</strong> ${t('bioText1')}`;
-            }
-            if (bioTexts.length >= 2) {
-                bioTexts[1].innerHTML = t('bioText2');
-            }
-            
-            const bioList = document.querySelectorAll('.ds-bio-list li');
-            if (bioList.length >= 3) {
-                bioList[0].textContent = t('bioListItem1');
-                bioList[1].textContent = t('bioListItem2');
-                bioList[2].textContent = t('bioListItem3');
-            }
-            if (bioTexts.length >= 3) {
-                bioTexts[2].innerHTML = `<strong>${t('bioText3')}</strong>`;
-            }
-            
-            // Support
-            const supportTitle = document.querySelector('#dsSupport h2');
-            const supportDesc = document.querySelector('#dsSupport .support-block p');
-            if (supportTitle) supportTitle.textContent = t('supportTitle');
-            if (supportDesc) supportDesc.textContent = t('supportDesc');
-            
-            // Footer
-            const footerCopyright = document.querySelector('.ds-footer p');
-            if (footerCopyright) footerCopyright.textContent = t('footerCopyright');
-            
-            const visitCounter = document.querySelector('.ds-visit-counter');
-            if (visitCounter) {
-                const countSpan = visitCounter.querySelector('span');
-                const count = countSpan ? countSpan.textContent : '0';
-                visitCounter.innerHTML = `👁️ <span id="dsVisitCounter">${count}</span> ${t('footerVisits')}`;
-            }
-            
-            // Live radio
-            const liveText = document.querySelector('.ds-live-text');
-            if (liveText) liveText.textContent = t('liveText');
-        }
-
-        // ===== ЯЗЫК =====
-        function setLanguage(lang) {
-            currentLang = lang;
-            
-            updateStaticUI();
-            renderCatalog();
-            renderCalendar();
-            renderNews();
-            renderPhotos();
-            
-            const track = getTrackById(currentTrackId);
-            if (track && trackName) {
-                trackName.textContent = lang === 'ru' ? track.title : track.titleEn;
-            }
-            
-            document.documentElement.lang = lang;
-        }
-
-        // ===== СЧЕТЧИКИ =====
-        function startCounters() {
-            const counters = [
-                { el: document.getElementById('statPlatforms'), target: 32 },
-                { el: document.getElementById('statStreams'), target: 921427 },
-                { el: document.getElementById('statTracks'), target: 110 }
-            ];
-            
-            counters.forEach(c => {
-                if (!c.el) return;
-                let current = 0;
-                const step = Math.ceil(c.target / 30);
-                const timer = setInterval(() => {
-                    current += step;
-                    if (current >= c.target) {
-                        c.el.textContent = c.target.toLocaleString();
-                        clearInterval(timer);
-                    } else {
-                        c.el.textContent = Math.floor(current).toLocaleString();
-                    }
-                }, 25);
-            });
-        }
-
-        // ===== VISIT COUNTER =====
-        function updateVisitCounter() {
-            const counter = document.getElementById('visitCounter');
-            if (!counter) return;
-            let visits = localStorage.getItem('dsSiteVisits');
-            visits = visits ? parseInt(visits) + 1 : 1;
-            localStorage.setItem('dsSiteVisits', visits.toString());
-            counter.textContent = visits;
-        }
-
-        // ===== INIT =====
-        function init() {
-            // Проверяем наличие audio элемента
-            if (!audio) {
-                console.error('Audio element not found!');
-                return;
-            }
-
-            // Плеер
-            loadTrack(1, false);
-            
-            if (playBtn) playBtn.addEventListener('click', togglePlay);
-            if (prevBtn) prevBtn.addEventListener('click', prevTrack);
-            if (nextBtn) nextBtn.addEventListener('click', nextTrack);
-            if (liveRadio) liveRadio.addEventListener('click', playRandom);
-            
-            audio.addEventListener('timeupdate', updateProgress);
-            audio.addEventListener('ended', nextTrack);
-            
-            if (progressBg) progressBg.addEventListener('click', setProgress);
-            if (volumeSlider) {
-                volumeSlider.addEventListener('input', (e) => {
-                    audio.volume = parseFloat(e.target.value);
-                });
-            }
-
-            // Язык
-            document.querySelectorAll('.ds-lang-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.ds-lang-btn').forEach(b => b.classList.remove('ds-active'));
-                    btn.classList.add('ds-active');
-                    setLanguage(btn.dataset.lang);
-                });
-            });
-
-            // Вкладки
-            document.querySelectorAll('.ds-tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.ds-tab-btn').forEach(b => b.classList.remove('ds-active'));
-                    btn.classList.add('ds-active');
-                    currentCategory = btn.dataset.tab;
-                    renderCatalog();
-                });
-            });
-
-            // Мобильное меню
-            const toggle = document.getElementById('mobileMenuToggle') || document.querySelector('.ds-mobile-menu-toggle');
-            const nav = document.getElementById('nav');
-            if (toggle && nav) {
-                toggle.addEventListener('click', () => {
-                    nav.classList.toggle('ds-open');
-                });
-                nav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        nav.classList.remove('ds-open');
-                    });
-                });
-            }
-
-            // Плавный скролл
-            document.querySelectorAll('a[href^="#ds"]').forEach(anchor => {
-                anchor.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(anchor.getAttribute('href'));
-                    if (target) {
-                        window.scrollTo({
-                            top: target.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Scroll эффект для хедера
-            window.addEventListener('scroll', () => {
-                const header = document.getElementById('header');
-                if (header) {
-                    header.classList.toggle('ds-scrolled', window.scrollY > 50);
-                }
-            }, { passive: true });
-
-            // Fade-in анимация
-            document.querySelectorAll('.ds-fade-in-up').forEach(el => {
-                el.classList.add('ds-visible');
-            });
-
-            // Модалка
-            const modal = document.getElementById('photoModal');
-            if (modal) {
-                const closeBtn = modal.querySelector('.ds-modal-close') || modal.querySelector('.modal-close');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', () => {
-                        modal.style.display = 'none';
-                    });
-                }
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) modal.style.display = 'none';
-                });
-            }
-
-            // Счетчики
-            const stats = document.querySelector('.ds-hero-stats');
-            if (stats) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            startCounters();
-                            observer.disconnect();
-                        }
-                    });
-                }, { threshold: 0.3 });
-                observer.observe(stats);
-            }
-
-            // Первоначальный рендер
-            updateStaticUI();
-            renderNews();
-            renderPhotos();
-            renderCalendar();
-            renderCatalog();
-            updateVisitCounter();
-
-            // Загрузка первого трека
-            loadTrack(1, false);
-        }
-
-        // Запуск после загрузки DOM
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    })();
-</script>
+    <script>
+        // Сюда вставьте JavaScript из предыдущего сообщения (исправленная версия)
+        // Полный код JavaScript я дал в предыдущем ответе
+    </script>
+</body>
+</html>
