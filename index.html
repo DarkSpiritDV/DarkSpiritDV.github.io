@@ -1729,9 +1729,17 @@
                 return;
             }
 
+            console.log('Загрузка трека:', track.audioSrc);
+
             if (audio) {
                 audio.src = track.audioSrc;
                 audio.load();
+                
+                // Обработчик ошибки загрузки
+                audio.onerror = function() {
+                    showToast('❌ ' + (currentLang === 'ru' ? 'Не удалось загрузить трек' : 'Failed to load track'));
+                    console.error('Ошибка загрузки:', track.audioSrc);
+                };
             }
             
             if (trackName) {
@@ -1756,7 +1764,10 @@
                         isPlaying = true;
                         if (playBtn) playBtn.textContent = '⏸';
                     })
-                    .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
+                    .catch((err) => {
+                        console.error('Ошибка воспроизведения:', err);
+                        showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error'));
+                    });
             } else {
                 isPlaying = false;
                 if (playBtn) playBtn.textContent = '▶';
@@ -1777,7 +1788,10 @@
                         isPlaying = true;
                         if (playBtn) playBtn.textContent = '⏸';
                     })
-                    .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
+                    .catch((err) => {
+                        console.error('Ошибка воспроизведения:', err);
+                        showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error'));
+                    });
             }
         }
 
@@ -1804,7 +1818,7 @@
 
         function updateProgress() {
             if (!audio || !progressFill || !timeDisplay) return;
-            if (audio.duration && !isNaN(audio.duration)) {
+            if (audio.duration && !isNaN(audio.duration) && audio.currentTime >= 0) {
                 const percent = (audio.currentTime / audio.duration) * 100;
                 progressFill.style.width = percent + '%';
                 
@@ -1818,7 +1832,7 @@
             if (!audio || !progressBg) return;
             const rect = progressBg.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-            if (audio.duration) {
+            if (audio.duration && percent >= 0 && percent <= 1) {
                 audio.currentTime = percent * audio.duration;
             }
         }
@@ -2020,7 +2034,6 @@
 
         // ===== ОБНОВЛЕНИЕ UI =====
         function updateStaticUI() {
-            // Hero
             var heroTag = document.querySelector('.ds-hero-tag');
             var heroTitle = document.querySelector('.ds-hero h1');
             var heroDesc = document.querySelector('.ds-hero p');
@@ -2030,7 +2043,6 @@
             if (heroDesc) heroDesc.textContent = t('heroDesc');
             if (heroBtn) heroBtn.innerHTML = t('heroBtn');
             
-            // Hero stats
             var statLabels = document.querySelectorAll('.ds-stat-label');
             if (statLabels.length >= 3) {
                 statLabels[0].textContent = t('statPlatforms');
@@ -2038,19 +2050,16 @@
                 statLabels[2].textContent = t('statTracks');
             }
             
-            // News
             var newsTitle = document.querySelector('#dsNews h2');
             var newsSubtitle = document.querySelector('#dsNews .ds-section-subtitle');
             if (newsTitle) newsTitle.textContent = t('newsTitle');
             if (newsSubtitle) newsSubtitle.textContent = t('newsSubtitle');
             
-            // Music
             var musicTitle = document.querySelector('#dsMusic h2');
             var musicSubtitle = document.querySelector('#dsMusic .ds-section-subtitle');
             if (musicTitle) musicTitle.textContent = t('musicTitle');
             if (musicSubtitle) musicSubtitle.textContent = t('musicSubtitle');
             
-            // Tabs
             var tabs = document.querySelectorAll('.ds-tab-btn');
             if (tabs.length >= 3) {
                 tabs[0].textContent = t('tabPopRap');
@@ -2058,19 +2067,16 @@
                 tabs[2].textContent = t('tabGames');
             }
             
-            // Schedule
             var scheduleTitle = document.querySelector('#dsSchedule h2');
             var scheduleSubtitle = document.querySelector('#dsSchedule .ds-section-subtitle');
             if (scheduleTitle) scheduleTitle.textContent = t('scheduleTitle');
             if (scheduleSubtitle) scheduleSubtitle.textContent = t('scheduleSubtitle');
             
-            // Photos
             var photosTitle = document.querySelector('#dsPhotos h2');
             var photosSubtitle = document.querySelector('#dsPhotos .ds-section-subtitle');
             if (photosTitle) photosTitle.textContent = t('photosTitle');
             if (photosSubtitle) photosSubtitle.textContent = t('photosSubtitle');
             
-            // Bio
             var bioTitle = document.querySelector('#dsBio h2');
             if (bioTitle) bioTitle.textContent = t('bioTitle');
             
@@ -2092,13 +2098,11 @@
                 bioTexts[2].innerHTML = '<strong>' + t('bioText3') + '</strong>';
             }
             
-            // Support
             var supportTitle = document.querySelector('#dsSupport h2');
             var supportDesc = document.querySelector('#dsSupport .support-block p');
             if (supportTitle) supportTitle.textContent = t('supportTitle');
             if (supportDesc) supportDesc.textContent = t('supportDesc');
             
-            // Footer
             var footerCopyright = document.querySelector('.ds-footer p');
             if (footerCopyright) footerCopyright.textContent = t('footerCopyright');
             
@@ -2109,7 +2113,6 @@
                 visitCounter.innerHTML = '👁️ <span id="visitCounter">' + count + '</span> ' + t('footerVisits');
             }
             
-            // Live radio
             var liveText = document.querySelector('.ds-live-text');
             if (liveText) liveText.textContent = t('liveText');
         }
@@ -2168,13 +2171,11 @@
 
         // ===== INIT =====
         function init() {
-            // Проверяем наличие audio элемента
             if (!audio) {
                 console.error('Audio element not found!');
                 return;
             }
 
-            // Плеер
             loadTrack(1, false);
             
             if (playBtn) playBtn.addEventListener('click', togglePlay);
@@ -2192,7 +2193,6 @@
                 });
             }
 
-            // Язык
             document.querySelectorAll('.ds-lang-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.ds-lang-btn').forEach(function(b) {
@@ -2203,7 +2203,6 @@
                 });
             });
 
-            // Вкладки
             document.querySelectorAll('.ds-tab-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.ds-tab-btn').forEach(function(b) {
@@ -2215,7 +2214,6 @@
                 });
             });
 
-            // Мобильное меню
             var toggle = document.getElementById('mobileMenuToggle');
             var nav = document.getElementById('nav');
             if (toggle && nav) {
@@ -2229,7 +2227,6 @@
                 });
             }
 
-            // Плавный скролл
             document.querySelectorAll('a[href^="#ds"]').forEach(function(anchor) {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -2243,7 +2240,6 @@
                 });
             });
 
-            // Scroll эффект для хедера
             window.addEventListener('scroll', function() {
                 var header = document.getElementById('header');
                 if (header) {
@@ -2251,12 +2247,10 @@
                 }
             }, { passive: true });
 
-            // Fade-in анимация
             document.querySelectorAll('.ds-fade-in-up').forEach(function(el) {
                 el.classList.add('ds-visible');
             });
 
-            // Модалка
             var modal = document.getElementById('photoModal');
             if (modal) {
                 var closeBtn = modal.querySelector('.ds-modal-close');
@@ -2270,7 +2264,6 @@
                 });
             }
 
-            // Счетчики
             var stats = document.querySelector('.ds-hero-stats');
             if (stats) {
                 var observer = new IntersectionObserver(function(entries) {
@@ -2284,19 +2277,15 @@
                 observer.observe(stats);
             }
 
-            // Первоначальный рендер
             updateStaticUI();
             renderNews();
             renderPhotos();
             renderCalendar();
             renderCatalog();
             updateVisitCounter();
-
-            // Загрузка первого трека
             loadTrack(1, false);
         }
 
-        // Запуск после загрузки DOM
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {
