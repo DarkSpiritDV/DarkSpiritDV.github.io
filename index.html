@@ -54,7 +54,6 @@
             }
         ];
 
-        // ===== НОВОСТИ (уже были переведены) =====
         const NEWS = [
             {
                 date: "27.05.2026",
@@ -85,14 +84,13 @@
             }
         ];
 
-        // ===== ФОТО =====
         const PHOTOS = [
             { src: "фото.png", titleRu: "Концерт в Хабаровске", titleEn: "Concert in Khabarovsk" },
             { src: "клип.png", titleRu: "Съемка клипа", titleEn: "Music video shooting" },
             { src: "photo3.jpg", titleRu: "Студийная запись", titleEn: "Studio recording" }
         ];
 
-        // ===== ПЕРЕВОДЫ ДЛЯ UI =====
+        // ===== ПЕРЕВОДЫ =====
         const UI_TRANSLATIONS = {
             ru: {
                 heroTag: "Группа",
@@ -114,7 +112,7 @@
                 photosTitle: "Фото",
                 photosSubtitle: "Моменты с выступлений и закулисья",
                 bioTitle: "О проекте",
-                bioText1: "DarkSpirit — молодая российская поп-рок-группа, родившаяся в мае 2025 года.",
+                bioText1: "молодая российская поп-рок-группа, родившаяся в мае 2025 года.",
                 bioText2: "В нашем репертуаре:",
                 bioListItem1: "поп- и рок-композиции для широкой аудитории;",
                 bioListItem2: "отдельные альбомы, посвящённые событиям СВО;",
@@ -134,7 +132,6 @@
                 julyMonth: "Июль 2026",
                 calendarNoteJune: "⭐ 4,5,12,26 июня — премьеры синглов",
                 calendarNoteJuly: "🎸 10 и 25 июля — новые релизы",
-                // Календарь: названия релизов
                 releaseComma: "Запятая у окна",
                 releaseSoul: "Soul and Stream",
                 releaseTraffic: "Пробки заебали",
@@ -162,7 +159,7 @@
                 photosTitle: "Photos",
                 photosSubtitle: "Moments from performances and backstage",
                 bioTitle: "About project",
-                bioText1: "DarkSpirit is a young Russian pop-rock band born in May 2025.",
+                bioText1: "is a young Russian pop-rock band born in May 2025.",
                 bioText2: "Our repertoire includes:",
                 bioListItem1: "pop and rock compositions for a wide audience;",
                 bioListItem2: "separate albums dedicated to the events of the SVO;",
@@ -179,7 +176,7 @@
                 playBtn: "Play",
                 liveText: "DarkSpirit is live now",
                 juneMonth: "June 2026",
-                julyMonth: "July 2024",
+                julyMonth: "July 2026",
                 calendarNoteJune: "⭐ June 4,5,12,26 — singles premieres",
                 calendarNoteJuly: "🎸 July 10 & 25 — new releases",
                 releaseComma: "Comma by the Window",
@@ -197,20 +194,20 @@
         let currentTrackId = 1;
         let isPlaying = false;
 
-        // ===== DOM ЭЛЕМЕНТЫ =====
-        const audio = document.getElementById('dsAudioElement');
-        const playBtn = document.getElementById('dsPlayerPlay');
-        const prevBtn = document.getElementById('dsPlayerPrev');
-        const nextBtn = document.getElementById('dsPlayerNext');
-        const progressFill = document.getElementById('dsProgressFill');
-        const progressBg = document.getElementById('dsProgressBg');
-        const timeDisplay = document.getElementById('dsTimeDisplay');
-        const trackName = document.getElementById('dsPlayerTrack');
-        const coverImg = document.getElementById('dsPlayerCover');
-        const volumeSlider = document.getElementById('dsVolumeSlider');
-        const catalogContainer = document.getElementById('dsCatalogContainer');
-        const liveRadio = document.getElementById('dsLiveRadio');
-        const toastMsg = document.getElementById('dsToastMsg');
+        // ===== DOM ЭЛЕМЕНТЫ (ОРИГИНАЛЬНЫЕ ID ИЗ HTML) =====
+        const audio = document.getElementById('audioElement');
+        const playBtn = document.getElementById('playerPlay');
+        const prevBtn = document.getElementById('playerPrev');
+        const nextBtn = document.getElementById('playerNext');
+        const progressFill = document.getElementById('progressBarFill');
+        const progressBg = document.getElementById('progressBarBg');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const trackName = document.getElementById('playerTrack');
+        const coverImg = document.getElementById('playerCover');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const catalogContainer = document.getElementById('catalogContainer');
+        const liveRadio = document.getElementById('liveRadio');
+        const toastMsg = document.getElementById('toastMsg');
 
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         function getTrackById(id) {
@@ -218,6 +215,7 @@
         }
 
         function showToast(msg) {
+            if (!toastMsg) return;
             toastMsg.textContent = msg;
             toastMsg.style.opacity = '1';
             clearTimeout(window.dsToastTimeout);
@@ -227,7 +225,6 @@
         }
 
         function t(key) {
-            // Возвращает перевод по ключу для текущего языка
             const translations = UI_TRANSLATIONS[currentLang] || UI_TRANSLATIONS.ru;
             return translations[key] || key;
         }
@@ -240,63 +237,81 @@
                 return;
             }
 
-            audio.src = track.audioSrc;
-            audio.load();
+            if (audio) {
+                audio.src = track.audioSrc;
+                audio.load();
+            }
             
-            trackName.textContent = currentLang === 'ru' ? track.title : track.titleEn;
-            coverImg.src = track.cover || 'data:image/svg+xml,%3Csvg%3E';
-            progressFill.style.width = '0%';
-            timeDisplay.textContent = '0:00';
+            if (trackName) {
+                trackName.textContent = currentLang === 'ru' ? track.title : track.titleEn;
+            }
+            
+            if (coverImg) {
+                coverImg.src = track.cover || 'data:image/svg+xml,%3Csvg%3E';
+            }
+            
+            if (progressFill) {
+                progressFill.style.width = '0%';
+            }
+            
+            if (timeDisplay) {
+                timeDisplay.textContent = '0:00';
+            }
 
-            if (autoPlay) {
+            if (autoPlay && audio) {
                 audio.play()
                     .then(() => {
                         isPlaying = true;
-                        playBtn.textContent = '⏸';
+                        if (playBtn) playBtn.textContent = '⏸';
                     })
                     .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
             } else {
                 isPlaying = false;
-                playBtn.textContent = '▶';
+                if (playBtn) playBtn.textContent = '▶';
             }
 
             currentTrackId = id;
         }
 
         function togglePlay() {
+            if (!audio) return;
             if (isPlaying) {
                 audio.pause();
                 isPlaying = false;
-                playBtn.textContent = '▶';
+                if (playBtn) playBtn.textContent = '▶';
             } else {
                 audio.play()
                     .then(() => {
                         isPlaying = true;
-                        playBtn.textContent = '⏸';
+                        if (playBtn) playBtn.textContent = '⏸';
                     })
                     .catch(() => showToast('❌ ' + (currentLang === 'ru' ? 'Ошибка воспроизведения' : 'Playback error')));
             }
         }
 
         function nextTrack() {
+            if (!TRACKS.length) return;
             const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
             const nextIdx = (currentIdx + 1) % TRACKS.length;
             loadTrack(TRACKS[nextIdx].id, true);
         }
 
         function prevTrack() {
+            if (!TRACKS.length) return;
             const currentIdx = TRACKS.findIndex(t => t.id === currentTrackId);
             const prevIdx = (currentIdx - 1 + TRACKS.length) % TRACKS.length;
             loadTrack(TRACKS[prevIdx].id, true);
         }
 
         function playRandom() {
+            if (!TRACKS.length) return;
             const random = TRACKS[Math.floor(Math.random() * TRACKS.length)];
             loadTrack(random.id, true);
             showToast(`🎲 ${currentLang === 'ru' ? 'Случайный трек' : 'Random track'}: ${currentLang === 'ru' ? random.title : random.titleEn}`);
         }
 
         function updateProgress() {
+            if (!audio || !progressFill || !timeDisplay) return;
             if (audio.duration && !isNaN(audio.duration)) {
                 const percent = (audio.currentTime / audio.duration) * 100;
                 progressFill.style.width = `${percent}%`;
@@ -308,6 +323,7 @@
         }
 
         function setProgress(e) {
+            if (!audio || !progressBg) return;
             const rect = progressBg.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
             if (audio.duration) {
@@ -317,6 +333,7 @@
 
         // ===== КАТАЛОГ =====
         function renderTracks(tracks) {
+            if (!catalogContainer) return;
             if (!tracks.length) {
                 catalogContainer.innerHTML = `<div style="text-align:center; color:var(--ds-text-muted);">${t('noTracks')}</div>`;
                 return;
@@ -366,6 +383,7 @@
         }
 
         function renderGames() {
+            if (!catalogContainer) return;
             catalogContainer.innerHTML = `
                 <div style="text-align:center; color:var(--ds-text-muted); padding: 2rem;">
                     ${t('gamesPlaceholder')}
@@ -374,6 +392,7 @@
         }
 
         function renderThematic() {
+            if (!catalogContainer) return;
             catalogContainer.innerHTML = `
                 <div style="text-align:center; color:var(--ds-text-muted); padding: 2rem;">
                     ${t('thematicPlaceholder')}
@@ -447,6 +466,9 @@
         }
 
         function renderCalendar() {
+            const container = document.getElementById('calendarsContainer');
+            if (!container) return;
+            
             const juneReleases = {
                 4: { ru: t('releaseComma'), en: t('releaseComma') },
                 5: { ru: t('releaseSoul'), en: t('releaseSoul') },
@@ -458,14 +480,14 @@
                 25: { ru: t('releaseEP'), en: t('releaseEP') }
             };
             
-            const container = document.getElementById('dsCalendarsContainer');
             container.innerHTML = buildMonth(2026, 5, juneReleases, 'juneMonth', 'calendarNoteJune') + 
                                 buildMonth(2026, 6, julyReleases, 'julyMonth', 'calendarNoteJuly');
         }
 
         // ===== НОВОСТИ =====
         function renderNews() {
-            const grid = document.getElementById('dsNewsGrid');
+            const grid = document.getElementById('newsGrid');
+            if (!grid) return;
             grid.innerHTML = NEWS.map(n => `
                 <div class="ds-news-card">
                     <div class="ds-news-date">${n.date}</div>
@@ -478,7 +500,8 @@
 
         // ===== ФОТО =====
         function renderPhotos() {
-            const grid = document.getElementById('dsPhotosGrid');
+            const grid = document.getElementById('photosGrid');
+            if (!grid) return;
             grid.innerHTML = PHOTOS.map(p => `
                 <div class="ds-photo-card" data-src="${p.src}">
                     <img class="ds-photo-img" src="${p.src}" onerror="this.src='data:image/svg+xml,%3Csvg%3E'" alt="${currentLang === 'ru' ? p.titleRu : p.titleEn}">
@@ -489,32 +512,47 @@
             document.querySelectorAll('.ds-photo-card').forEach(card => {
                 card.addEventListener('click', () => {
                     const src = card.dataset.src;
-                    document.getElementById('dsModalImage').src = src;
-                    document.getElementById('dsPhotoModal').style.display = 'flex';
+                    const modalImg = document.getElementById('modalImage');
+                    const modal = document.getElementById('photoModal');
+                    if (modalImg && modal) {
+                        modalImg.src = src;
+                        modal.style.display = 'flex';
+                    }
                 });
             });
         }
 
-        // ===== ОБНОВЛЕНИЕ UI (статичные элементы) =====
+        // ===== ОБНОВЛЕНИЕ UI =====
         function updateStaticUI() {
             // Hero
-            document.querySelector('.ds-hero-tag').textContent = t('heroTag');
-            document.querySelector('.ds-hero h1').textContent = t('heroTitle');
-            document.querySelector('.ds-hero p').textContent = t('heroDesc');
-            document.querySelector('.ds-hero .ds-btn-primary').innerHTML = t('heroBtn');
+            const heroTag = document.querySelector('.ds-hero-tag');
+            const heroTitle = document.querySelector('.ds-hero h1');
+            const heroDesc = document.querySelector('.ds-hero p');
+            const heroBtn = document.querySelector('.ds-hero .ds-btn-primary');
+            if (heroTag) heroTag.textContent = t('heroTag');
+            if (heroTitle) heroTitle.textContent = t('heroTitle');
+            if (heroDesc) heroDesc.textContent = t('heroDesc');
+            if (heroBtn) heroBtn.innerHTML = t('heroBtn');
             
             // Hero stats
-            document.querySelectorAll('.ds-stat-label')[0].textContent = t('statPlatforms');
-            document.querySelectorAll('.ds-stat-label')[1].textContent = t('statStreams');
-            document.querySelectorAll('.ds-stat-label')[2].textContent = t('statTracks');
+            const statLabels = document.querySelectorAll('.ds-stat-label');
+            if (statLabels.length >= 3) {
+                statLabels[0].textContent = t('statPlatforms');
+                statLabels[1].textContent = t('statStreams');
+                statLabels[2].textContent = t('statTracks');
+            }
             
             // News
-            document.querySelector('#dsNews h2').textContent = t('newsTitle');
-            document.querySelector('#dsNews .ds-section-subtitle').textContent = t('newsSubtitle');
+            const newsTitle = document.querySelector('#dsNews h2');
+            const newsSubtitle = document.querySelector('#dsNews .ds-section-subtitle');
+            if (newsTitle) newsTitle.textContent = t('newsTitle');
+            if (newsSubtitle) newsSubtitle.textContent = t('newsSubtitle');
             
             // Music
-            document.querySelector('#dsMusic h2').textContent = t('musicTitle');
-            document.querySelector('#dsMusic .ds-section-subtitle').textContent = t('musicSubtitle');
+            const musicTitle = document.querySelector('#dsMusic h2');
+            const musicSubtitle = document.querySelector('#dsMusic .ds-section-subtitle');
+            if (musicTitle) musicTitle.textContent = t('musicTitle');
+            if (musicSubtitle) musicSubtitle.textContent = t('musicSubtitle');
             
             // Tabs
             const tabs = document.querySelectorAll('.ds-tab-btn');
@@ -525,18 +563,28 @@
             }
             
             // Schedule
-            document.querySelector('#dsSchedule h2').textContent = t('scheduleTitle');
-            document.querySelector('#dsSchedule .ds-section-subtitle').textContent = t('scheduleSubtitle');
+            const scheduleTitle = document.querySelector('#dsSchedule h2');
+            const scheduleSubtitle = document.querySelector('#dsSchedule .ds-section-subtitle');
+            if (scheduleTitle) scheduleTitle.textContent = t('scheduleTitle');
+            if (scheduleSubtitle) scheduleSubtitle.textContent = t('scheduleSubtitle');
             
             // Photos
-            document.querySelector('#dsPhotos h2').textContent = t('photosTitle');
-            document.querySelector('#dsPhotos .ds-section-subtitle').textContent = t('photosSubtitle');
+            const photosTitle = document.querySelector('#dsPhotos h2');
+            const photosSubtitle = document.querySelector('#dsPhotos .ds-section-subtitle');
+            if (photosTitle) photosTitle.textContent = t('photosTitle');
+            if (photosSubtitle) photosSubtitle.textContent = t('photosSubtitle');
             
             // Bio
-            document.querySelector('#dsBio h2').textContent = t('bioTitle');
+            const bioTitle = document.querySelector('#dsBio h2');
+            if (bioTitle) bioTitle.textContent = t('bioTitle');
+            
             const bioTexts = document.querySelectorAll('.ds-bio-text p');
-            if (bioTexts.length >= 1) bioTexts[0].innerHTML = `<strong>DarkSpirit</strong> — ${t('bioText1')}`;
-            if (bioTexts.length >= 2) bioTexts[1].innerHTML = t('bioText2');
+            if (bioTexts.length >= 1) {
+                bioTexts[0].innerHTML = `<strong>DarkSpirit</strong> ${t('bioText1')}`;
+            }
+            if (bioTexts.length >= 2) {
+                bioTexts[1].innerHTML = t('bioText2');
+            }
             
             const bioList = document.querySelectorAll('.ds-bio-list li');
             if (bioList.length >= 3) {
@@ -544,35 +592,44 @@
                 bioList[1].textContent = t('bioListItem2');
                 bioList[2].textContent = t('bioListItem3');
             }
-            if (bioTexts.length >= 3) bioTexts[2].innerHTML = `<strong>${t('bioText3')}</strong>`;
+            if (bioTexts.length >= 3) {
+                bioTexts[2].innerHTML = `<strong>${t('bioText3')}</strong>`;
+            }
             
             // Support
-            document.querySelector('#dsSupport h2').textContent = t('supportTitle');
-            document.querySelector('#dsSupport .support-block p').textContent = t('supportDesc');
+            const supportTitle = document.querySelector('#dsSupport h2');
+            const supportDesc = document.querySelector('#dsSupport .support-block p');
+            if (supportTitle) supportTitle.textContent = t('supportTitle');
+            if (supportDesc) supportDesc.textContent = t('supportDesc');
             
             // Footer
-            document.querySelector('.ds-footer p').textContent = t('footerCopyright');
-            document.querySelector('.ds-visit-counter span').textContent = document.querySelector('.ds-visit-counter span').textContent;
-            document.querySelector('.ds-visit-counter').innerHTML = `👁️ <span id="dsVisitCounter">${document.getElementById('dsVisitCounter').textContent}</span> ${t('footerVisits')}`;
+            const footerCopyright = document.querySelector('.ds-footer p');
+            if (footerCopyright) footerCopyright.textContent = t('footerCopyright');
+            
+            const visitCounter = document.querySelector('.ds-visit-counter');
+            if (visitCounter) {
+                const countSpan = visitCounter.querySelector('span');
+                const count = countSpan ? countSpan.textContent : '0';
+                visitCounter.innerHTML = `👁️ <span id="dsVisitCounter">${count}</span> ${t('footerVisits')}`;
+            }
             
             // Live radio
-            document.querySelector('.ds-live-text').textContent = t('liveText');
+            const liveText = document.querySelector('.ds-live-text');
+            if (liveText) liveText.textContent = t('liveText');
         }
 
         // ===== ЯЗЫК =====
         function setLanguage(lang) {
             currentLang = lang;
             
-            // Обновляем все UI элементы
             updateStaticUI();
             renderCatalog();
             renderCalendar();
             renderNews();
             renderPhotos();
             
-            // Обновляем название текущего трека в плеере
             const track = getTrackById(currentTrackId);
-            if (track) {
+            if (track && trackName) {
                 trackName.textContent = lang === 'ru' ? track.title : track.titleEn;
             }
             
@@ -582,12 +639,13 @@
         // ===== СЧЕТЧИКИ =====
         function startCounters() {
             const counters = [
-                { el: document.getElementById('dsStatPlatforms'), target: 32 },
-                { el: document.getElementById('dsStatStreams'), target: 921427 },
-                { el: document.getElementById('dsStatTracks'), target: 110 }
+                { el: document.getElementById('statPlatforms'), target: 32 },
+                { el: document.getElementById('statStreams'), target: 921427 },
+                { el: document.getElementById('statTracks'), target: 110 }
             ];
             
             counters.forEach(c => {
+                if (!c.el) return;
                 let current = 0;
                 const step = Math.ceil(c.target / 30);
                 const timer = setInterval(() => {
@@ -604,7 +662,8 @@
 
         // ===== VISIT COUNTER =====
         function updateVisitCounter() {
-            const counter = document.getElementById('dsVisitCounter');
+            const counter = document.getElementById('visitCounter');
+            if (!counter) return;
             let visits = localStorage.getItem('dsSiteVisits');
             visits = visits ? parseInt(visits) + 1 : 1;
             localStorage.setItem('dsSiteVisits', visits.toString());
@@ -613,18 +672,29 @@
 
         // ===== INIT =====
         function init() {
+            // Проверяем наличие audio элемента
+            if (!audio) {
+                console.error('Audio element not found!');
+                return;
+            }
+
             // Плеер
             loadTrack(1, false);
-            playBtn.addEventListener('click', togglePlay);
-            prevBtn.addEventListener('click', prevTrack);
-            nextBtn.addEventListener('click', nextTrack);
-            liveRadio.addEventListener('click', playRandom);
+            
+            if (playBtn) playBtn.addEventListener('click', togglePlay);
+            if (prevBtn) prevBtn.addEventListener('click', prevTrack);
+            if (nextBtn) nextBtn.addEventListener('click', nextTrack);
+            if (liveRadio) liveRadio.addEventListener('click', playRandom);
+            
             audio.addEventListener('timeupdate', updateProgress);
             audio.addEventListener('ended', nextTrack);
-            progressBg.addEventListener('click', setProgress);
-            volumeSlider.addEventListener('input', (e) => {
-                audio.volume = parseFloat(e.target.value);
-            });
+            
+            if (progressBg) progressBg.addEventListener('click', setProgress);
+            if (volumeSlider) {
+                volumeSlider.addEventListener('input', (e) => {
+                    audio.volume = parseFloat(e.target.value);
+                });
+            }
 
             // Язык
             document.querySelectorAll('.ds-lang-btn').forEach(btn => {
@@ -646,16 +716,18 @@
             });
 
             // Мобильное меню
-            const toggle = document.getElementById('dsMobileToggle');
-            const nav = document.getElementById('dsNav');
-            toggle?.addEventListener('click', () => {
-                nav.classList.toggle('ds-open');
-            });
-            nav?.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    nav.classList.remove('ds-open');
+            const toggle = document.getElementById('mobileMenuToggle') || document.querySelector('.ds-mobile-menu-toggle');
+            const nav = document.getElementById('nav');
+            if (toggle && nav) {
+                toggle.addEventListener('click', () => {
+                    nav.classList.toggle('ds-open');
                 });
-            });
+                nav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        nav.classList.remove('ds-open');
+                    });
+                });
+            }
 
             // Плавный скролл
             document.querySelectorAll('a[href^="#ds"]').forEach(anchor => {
@@ -673,7 +745,10 @@
 
             // Scroll эффект для хедера
             window.addEventListener('scroll', () => {
-                document.getElementById('dsHeader')?.classList.toggle('ds-scrolled', window.scrollY > 50);
+                const header = document.getElementById('header');
+                if (header) {
+                    header.classList.toggle('ds-scrolled', window.scrollY > 50);
+                }
             }, { passive: true });
 
             // Fade-in анимация
@@ -682,24 +757,32 @@
             });
 
             // Модалка
-            const modal = document.getElementById('dsPhotoModal');
-            modal.querySelector('.ds-modal-close')?.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.style.display = 'none';
-            });
+            const modal = document.getElementById('photoModal');
+            if (modal) {
+                const closeBtn = modal.querySelector('.ds-modal-close') || modal.querySelector('.modal-close');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        modal.style.display = 'none';
+                    });
+                }
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.style.display = 'none';
+                });
+            }
 
             // Счетчики
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        startCounters();
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.3 });
-            observer.observe(document.querySelector('.ds-hero-stats'));
+            const stats = document.querySelector('.ds-hero-stats');
+            if (stats) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            startCounters();
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.3 });
+                observer.observe(stats);
+            }
 
             // Первоначальный рендер
             updateStaticUI();
@@ -713,7 +796,11 @@
             loadTrack(1, false);
         }
 
-        // Запуск
-        document.addEventListener('DOMContentLoaded', init);
+        // Запуск после загрузки DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     })();
 </script>
